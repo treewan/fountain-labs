@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>/* cyrillic-ext */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/_assets/b7a545bbb08256bd.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/_assets/6129fc8571c3e0cb.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/_assets/f689f638f29fff46.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/_assets/58a6b173d5ca1dec.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/_assets/9b6f5ff45b278c74.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/_assets/b7a545bbb08256bd.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/_assets/6129fc8571c3e0cb.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/_assets/f689f638f29fff46.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/_assets/58a6b173d5ca1dec.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/_assets/9b6f5ff45b278c74.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/_assets/aac11f1b5aa0f50c.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/_assets/402a0f9709239ccd.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* symbols2 */
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/_assets/545e79aa6acc61e9.woff2") format('woff2');
+  unicode-range: U+2000-2001, U+2004-2008, U+200A, U+23B8-23BD, U+2500-259F;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/_assets/55061797a3b3da1a.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/_assets/b43bf733b5c29ddd.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/_assets/23840067d1dda874.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+<script src="/_assets/f2094bbf6141b359.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="/_assets/25cd02ae486cc506.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous"></script>
+<style>html,body{margin:0;background:#F4F4F2;overflow:hidden}svg{display:block;width:100%;height:auto}</style>
+</head><body>
+<svg id="m"></svg>
+<script>
+const W = 1470, H = 620, STEP = 20, R = 1.8;
+const svg = d3.select('#m').attr('viewBox', `0 0 ${W} ${H}`);
+const proj = d3.geoEquirectangular().rotate([-11, 0]);
+const regions = {
+  china: { ids: [156], color: '#FF7A00', n: '50M', t: 'China', sub: 'Construction · Inspection · Maintenance · Logistics', at: [104, 36], to: [86, 58], anchor: 'end' },
+  sea: { ids: [704, 360, 608, 458, 764, 702], color: '#1E48D8', n: '10M', t: 'Southeast Asia', sub: 'Vietnam · Indonesia · Philippines · Malaysia · Thailand · Singapore', at: [112, -1], to: [100, -14], anchor: 'end' },
+  latam: { ids: [484, 76, 604, 152, 170], color: '#1F9D55', n: '2M', t: 'Latin America', sub: 'Mexico · Brazil · Peru · Chile · Colombia', at: [-60, -10], to: [-44, -42], anchor: 'start' }
+};
+const lookup = {}; Object.entries(regions).forEach(([k, r]) => r.ids.forEach(id => lookup[id] = k));
+fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then(r => r.json()).then(topo => {
+  const land = topojson.feature(topo, topo.objects.countries);
+  land.features = land.features.filter(f => +f.id !== 10);
+  proj.scale(W / (2 * Math.PI)).translate([W / 2, 0]);
+  const t = proj([0, 74])[1], b = proj([0, -58])[1];
+  proj.translate([W / 2, H / 2 - (t + b) / 2]);
+  const g = svg.append('g');
+  const dots = { base: [], china: [], sea: [], latam: [] };
+  const feats = land.features.map(f => ({ f, k: lookup[+f.id] || 'base', b: d3.geoBounds(f) }));
+  const inB = (b, ll) => { const [[x0, y0], [x1, y1]] = b; const lon = ll[0], lat = ll[1]; if (lat < y0 || lat > y1) return false; return x0 <= x1 ? (lon >= x0 && lon <= x1) : (lon >= x0 || lon <= x1); };
+  for (let y = STEP / 2; y < H; y += STEP) for (let x = STEP / 2; x < W; x += STEP) {
+    const ll = proj.invert([x, y]); if (!ll || Math.abs(ll[1]) > 89) continue;
+    let k = null;
+    for (const o of feats) { if (inB(o.b, ll) && d3.geoContains(o.f, ll)) { k = o.k; break; } }
+    if (k) dots[k].push([x, y]);
+  }
+  g.append('g').attr('fill', '#CFCFCA').selectAll('circle').data(dots.base).join('circle').attr('cx', d => d[0]).attr('cy', d => d[1]).attr('r', R);
+  Object.entries(regions).forEach(([key, r]) => {
+    g.append('g').attr('fill', r.color).selectAll('circle').data(dots[key]).join('circle').attr('cx', d => d[0]).attr('cy', d => d[1]).attr('r', R + .6);
+  });
+  const sg = proj([103.82, 1.35]);
+  g.append('circle').attr('cx', sg[0]).attr('cy', sg[1]).attr('r', R + .6).attr('fill', regions.sea.color);
+  const lg = svg.append('g');
+  Object.values(regions).forEach(l => {
+    const p = proj(l.at), q = proj(l.to);
+    lg.append('line').attr('x1', p[0]).attr('y1', p[1]).attr('x2', q[0]).attr('y2', q[1]).attr('stroke', l.color).attr('stroke-width', 1);
+    lg.append('rect').attr('x', p[0] - 5).attr('y', p[1] - 5).attr('width', 10).attr('height', 10).attr('transform', `rotate(45 ${p[0]} ${p[1]})`).attr('fill', l.color).attr('stroke', '#F4F4F2').attr('stroke-width', 2);
+    const tx = l.anchor === 'end' ? q[0] - 10 : q[0] + 10;
+    lg.append('text').attr('x', tx).attr('y', q[1] + 4).attr('text-anchor', l.anchor).attr('font-family', 'Geist, sans-serif').attr('font-size', 52).attr('font-weight', 500).attr('letter-spacing', -2.2).attr('fill', '#111').text(l.n);
+    lg.append('text').attr('x', tx).attr('y', q[1] + 30).attr('text-anchor', l.anchor).attr('font-family', 'Geist, sans-serif').attr('font-size', 20).attr('font-weight', 500).attr('fill', '#111').text(l.t + ' · MAU');
+    lg.append('text').attr('x', tx).attr('y', q[1] + 56).attr('text-anchor', l.anchor).attr('font-family', 'Geist Mono, monospace').attr('font-size', 13.5).attr('letter-spacing', 1.2).attr('fill', l.color).text(l.sub.toUpperCase());
+  });
+});
+</script>
+
+</body></html>
