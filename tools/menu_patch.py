@@ -38,7 +38,7 @@ SUB = {
                        ("Data Collection Network", "/data", None),
                        ("Motion Infra", "/nora", None)],
     "Production": [("Eden Factory", "/eden", None),
-                   ("Routing", "#routing", "mNavRouting")],
+                   ("Global Routing", "#routing", "mNavRouting")],
     "Ventures": [("Accelerator", "#ventures", "mNavAccel"),
                  ("Venture Studio", "#ventures", "mNavStudio")],
     "Insights": [("Podcast", "#insights", "mNavPodcast"),
