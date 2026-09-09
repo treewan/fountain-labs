@@ -157,7 +157,7 @@ const proj = d3.geoEquirectangular().rotate([-11, 0]);
 const regions = {
   china: { ids: [156], color: '#FF7A00', n: '50M', t: 'China', sub: 'Construction · Inspection · Maintenance · Logistics', at: [104, 36], to: [86, 58], anchor: 'end' },
   sea: { ids: [704, 360, 608, 458, 764, 702], color: '#1E48D8', n: '10M', t: 'Southeast Asia', sub: 'Vietnam · Indonesia · Philippines · Malaysia · Thailand · Singapore', at: [112, -1], to: [100, -14], anchor: 'end' },
-  latam: { ids: [484, 76, 604, 152, 170], color: '#1F9D55', n: '2M', t: 'Latin America', sub: 'Mexico · Brazil · Peru · Chile · Colombia', at: [-60, -10], to: [-44, -42], anchor: 'start' }
+  latam: { ids: [484, 76, 604, 152, 170], color: '#1F9D55', n: '2M', t: 'Latin America', sub: 'Mexico · Brazil · Peru · Chile · Colombia', at: [-60, -10], to: [-88, -30], anchor: 'end' }
 };
 const lookup = {}; Object.entries(regions).forEach(([k, r]) => r.ids.forEach(id => lookup[id] = k));
 fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then(r => r.json()).then(topo => {
@@ -187,10 +187,17 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then
     const p = proj(l.at), q = proj(l.to);
     lg.append('line').attr('x1', p[0]).attr('y1', p[1]).attr('x2', q[0]).attr('y2', q[1]).attr('stroke', l.color).attr('stroke-width', 1);
     lg.append('rect').attr('x', p[0] - 5).attr('y', p[1] - 5).attr('width', 10).attr('height', 10).attr('transform', `rotate(45 ${p[0]} ${p[1]})`).attr('fill', l.color).attr('stroke', '#F4F4F2').attr('stroke-width', 2);
-    const tx = l.anchor === 'end' ? q[0] - 10 : q[0] + 10;
-    lg.append('text').attr('x', tx).attr('y', q[1] + 4).attr('text-anchor', l.anchor).attr('font-family', 'Geist, sans-serif').attr('font-size', 52).attr('font-weight', 500).attr('letter-spacing', -2.2).attr('fill', '#111').text(l.n);
-    lg.append('text').attr('x', tx).attr('y', q[1] + 30).attr('text-anchor', l.anchor).attr('font-family', 'Geist, sans-serif').attr('font-size', 20).attr('font-weight', 500).attr('fill', '#111').text(l.t + ' · MAU');
-    lg.append('text').attr('x', tx).attr('y', q[1] + 56).attr('text-anchor', l.anchor).attr('font-family', 'Geist Mono, monospace').attr('font-size', 13.5).attr('letter-spacing', 1.2).attr('fill', l.color).text(l.sub.toUpperCase());
+    const tx = l.anchor === 'end' ? q[0] - 12 : q[0] + 12;
+    lg.append('text').attr('x', tx).attr('y', q[1]).attr('text-anchor', l.anchor).attr('font-family', 'Geist, sans-serif').attr('font-size', 52).attr('font-weight', 500).attr('letter-spacing', -2.2).attr('fill', '#111').text(l.n);
+    lg.append('text').attr('x', tx).attr('y', q[1] + 28).attr('text-anchor', l.anchor).attr('font-family', 'Geist, sans-serif').attr('font-size', 19).attr('font-weight', 500).attr('letter-spacing', -.2).attr('fill', '#111').text(l.t + ' · MAU');
+    // The region list is far wider than the number it labels, so it is broken
+    // into rows of three rather than run as one band across the map.
+    const parts = l.sub.split(' · ');
+    const rows = [];
+    for (let i = 0; i < parts.length; i += 3) rows.push(parts.slice(i, i + 3));
+    rows.forEach((row, i) => {
+      lg.append('text').attr('x', tx).attr('y', q[1] + 52 + i * 17).attr('text-anchor', l.anchor).attr('font-family', 'Geist Mono, monospace').attr('font-size', 12).attr('letter-spacing', 1.1).attr('fill', l.color).text(row.join(' · ').toUpperCase());
+    });
   });
 });
 </script>
