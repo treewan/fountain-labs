@@ -12,6 +12,24 @@
 const COOKIE = 'fl_gate';
 const MAX_AGE = 60 * 60 * 24 * 30; // 30 days
 
+// The data-network page is sent to customers directly, so it stands outside
+// the gate. Its assets have to come with it — the fonts, script, hero tiles
+// and the map it frames all live under /_assets, and the page is a blank
+// screen without them. Opening that directory exposes no protected page:
+// every other page's markup sits at the root, and the only document under
+// _assets is the map this page frames.
+const OPEN_PATHS = new Set([
+  '/data',
+  '/data-network',
+  '/data-network.html',
+  '/favicon.svg',
+]);
+const OPEN_PREFIXES = ['/_assets/'];
+
+const isOpen = pathname =>
+  OPEN_PATHS.has(pathname) ||
+  OPEN_PREFIXES.some(prefix => pathname.startsWith(prefix));
+
 export const config = {
   // Everything except the Vercel-internal paths. The unlock page posts to
   // /__gate, which this deliberately still matches so it can be handled here.
@@ -104,9 +122,10 @@ export default async function middleware(request) {
   const secret = process.env.SITE_PASSWORD;
   if (!secret) return; // unconfigured: fail open rather than lock the site out
 
-  const expected = await digest(secret);
   const url = new URL(request.url);
+  if (isOpen(url.pathname)) return;
 
+  const expected = await digest(secret);
   const cookie = request.headers.get('cookie') || '';
   const match = cookie.match(new RegExp(`(?:^|;\\s*)${COOKIE}=([^;]*)`));
   if (match && equal(match[1], expected)) return;
