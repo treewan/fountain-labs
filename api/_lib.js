@@ -2,7 +2,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 
-export const TEAM = (process.env.TEAM_RECIPIENTS || 'tree@fountainbuild.ai,miki@fountainbuild.ai').split(',').map(s => s.trim()).filter(Boolean);
+export const TEAM = (process.env.TEAM_RECIPIENTS || 'tree@fountainbuild.ai').split(',').map(s => s.trim()).filter(Boolean);
 export const FROM = process.env.FROM_EMAIL || 'FOUNTAIN <onboarding@resend.dev>';
 export const SITE = process.env.SITE_URL || 'https://fountainbuild.com';
 
