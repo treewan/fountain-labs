@@ -35,7 +35,8 @@ PAGE = pathlib.Path(__file__).resolve().parent.parent / "public" / "index.html"
 # renderVals; entries without one are ordinary page links.
 SUB = {
     "Infrastructure": [("Data Collection Network", "/data", None),
-                       ("Nora · Motion Infra", "/nora", None)],
+                       ("Nora · Motion Infra", "/nora", None),
+                       ("Robotics Supply Chain", "#platform", "mNavRobotics")],
     "Production": [("Eden Factory", "/eden", None),
                    ("Routing", "#routing", "mNavRouting")],
     "Ventures": [("Accelerator", "#ventures", "mNavAccel"),
@@ -53,6 +54,12 @@ L1_HREF = {
 }
 
 SUB_FONT = "16.5px"
+
+# The header's inline nav inherits this; the wordmark and the MENU button both
+# set their own size, so raising it moves the nav links alone.
+HDR_FONT = ("<div data-rw=\"hdr\" style=\"padding: 24px 48px; display: grid; "
+            "grid-template-columns: 1fr auto 1fr; align-items: center; "
+            "font-size: %s\">")
 
 ROW = re.compile(
     r'<a href="(?P<href>[^"]+)"(?P<attrs>[^>]*?)style="(?P<style>[^"]+)">'
@@ -85,6 +92,14 @@ SHEET_CSS = (
     # carries its own inline colour.
     ' [data-rw="msheet"] nav a { transition: color .18s; }'
     ' [data-rw="msheet"] nav a:hover { color: #1E48D8 !important; }'
+    # Second-level entries read as one line divided by rules. On a phone the
+    # row wraps, and a line beginning with a divider looks like a mistake, so
+    # there the dividers give way to plain gaps.
+    ' [data-rw="msheet"] nav a + a::before { content: "|"; color: #C9C9C4;'
+    ' padding: 0 14px; font-weight: 400; }'
+    ' @media (max-width: 760px) {'
+    ' [data-rw="msheet"] nav a + a::before { content: none; }'
+    ' [data-rw="msheet"] nav > div > div { gap: 8px 22px !important; } }'
 )
 
 OLD_MNAV = '''mnav(id, mp) {
@@ -135,6 +150,7 @@ NEW_VALS = ('mNavInfra: this.mnav(["platform", "m-platform"], "infra"), '
             'mNavInsights: this.mnav(["insights", "m-insights"]), '
             'mNavCta: this.mnav(["cta", "m-cta"]), '
             'mNavRouting: this.mnav(["routing", "m-routing"], "prod"), '
+            'mNavRobotics: this.mnav(["robotics-supply", "m-robotics-supply", "platform", "m-platform"], "infra"), '
             'mNavAccel: this.mnav(["accelerator", "m-accelerator", "ventures", "m-ventures"]), '
             'mNavStudio: this.mnav(["venture-studio", "m-venture-studio", "ventures", "m-ventures"]), '
             'mNavPodcast: this.mnav(["podcast", "m-podcast", "insights", "m-insights"]), '
@@ -160,6 +176,12 @@ ANCHORS = [
     ("m-podcast", 'font-size: 18px; font-weight: 500; letter-spacing: -.02em">Podcast'),
     ("blog", 'font-size: 22px; font-weight: 500; letter-spacing: -.02em">Blog'),
     ("m-blog", 'font-size: 18px; font-weight: 500; letter-spacing: -.02em">Blog'),
+    ("robotics-supply", 'width: 7px; height: 7px; background: #111; transform: '
+                        'rotate(45deg); display: block; flex-shrink: 0"></span>'
+                        'Robotics supply chain Infra'),
+    ("m-robotics-supply", 'width: 6px; height: 6px; background: #111; transform: '
+                          'rotate(45deg); display: block; flex-shrink: 0"></span>'
+                          'Robotics supply chain Infra'),
 ]
 
 HEADER_NAV_DROP = [
@@ -183,7 +205,7 @@ def sub_row(label):
             f'font-size: {SUB_FONT}; letter-spacing: -.01em">{text}</a>')
     if not links:
         return ""
-    return ('<div style="display: flex; flex-wrap: wrap; gap: 10px 28px; '
+    return ('<div style="display: flex; flex-wrap: wrap; gap: 8px 0; '
             f'padding: 0 0 22px">{"".join(links)}</div>')
 
 
@@ -199,7 +221,11 @@ def main():
         return fail("header right slot not found")
     s = s.replace(slot, slot.replace("></div>", f">{DESKTOP_BUTTON}</div>"), 1)
 
-    # 2 · Header nav loses Insights and About; they stay in the sheet.
+    # 2 · Header nav: slightly larger type, and Insights and About drop out
+    #     of it — they keep their place in the sheet.
+    if HDR_FONT % "13.5px" not in s:
+        return fail("header container not found")
+    s = s.replace(HDR_FONT % "13.5px", HDR_FONT % "15px", 1)
     for frag in HEADER_NAV_DROP:
         if frag not in s:
             return fail(f"header nav entry not found: {frag[:48]}…")
