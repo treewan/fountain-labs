@@ -59,6 +59,11 @@ SHEET_DESKTOP_CSS = (
     'padding: 116px 48px 40px !important; } '
     '[data-rw="msheet"] > * { max-width: 1080px; width: 100%; '
     'margin-left: auto; margin-right: auto; } }'
+    # Hover picks up the brand blue. Scoped to the nav so the sheet's black
+    # CTA pill keeps its white label, and !important because every row
+    # carries its own inline colour.
+    ' [data-rw="msheet"] nav a { transition: color .18s; }'
+    ' [data-rw="msheet"] nav a:hover { color: #1E48D8 !important; }'
 )
 
 
