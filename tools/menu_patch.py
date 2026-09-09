@@ -1,18 +1,28 @@
 #!/usr/bin/env python3
-"""Give the homepage a menu button on desktop, and a two-level menu sheet.
+"""Rework the homepage header nav and menu sheet.
 
-The exported page already carries the whole menu machinery — a `menu` flag,
-a MENU/CLOSE toggle and a full-screen sheet — but the button is only shown
-under 760px, and the sheet lists first-level sections alone.
+The exported page already carries the menu machinery — a `menu` flag, a
+MENU/CLOSE toggle, a full-screen sheet — but the button only showed under
+760px, the sheet listed first-level sections alone, and every entry pointed
+at the page's *mobile* section ids. Those ids belong to elements the page
+hides above 760px, so on a desktop a menu click scrolled to something
+invisible and appeared to do nothing.
 
-Two things change here. The button gets a desktop twin, placed in the empty
-`hdrR` grid slot that the header already reserves on the right (the existing
-`mbtn` keeps the narrow layout to itself, so nothing about mobile moves). And
-each first-level row in the sheet gains the pages that sit under it.
+What this does:
 
-The sheet itself needed no unhiding: its visibility rides on an inline
-`display: {{ menuD }}`, which outranks the stylesheet rule that hides it, so
-it already worked at any width.
+  · gives the button a desktop twin, in the empty `hdrR` grid slot the header
+    already reserves on the right (the narrow-width button is untouched)
+  · resolves section ids at click time, so one menu entry drives both the
+    desktop section and its `m-` prefixed twin
+  · lists the second level under each first-level row, on both widths
+  · anchors the Accelerator, Venture Studio, Podcast and Blog blocks so the
+    second level can land on them rather than on the section top
+  · drops Insights and About from the header's inline nav — they stay in the
+    sheet
+  · widens the sheet's phone gutters above 760px and paints links brand blue
+    on hover
+
+Run against a fresh export:  python3 tools/menu_patch.py
 """
 
 import pathlib
@@ -21,17 +31,28 @@ import sys
 
 PAGE = pathlib.Path(__file__).resolve().parent.parent / "public" / "index.html"
 
-# Second level, as agreed: the pages and sections that live under each
-# first-level entry.
+# label -> (href, handler). A handler is the name of a value exposed by
+# renderVals; entries without one are ordinary page links.
 SUB = {
-    "Infrastructure": [("Data Collection Network", "/data"),
-                       ("Nora · Motion Infra", "/nora")],
-    "Production": [("Eden Factory", "/eden")],
-    "Ventures": [("Cortexa", "#ventures"), ("Mark", "#ventures"),
-                 ("Sparkring", "#ventures")],
-    "Insights": [("Nora Memo", "/nora-memo"), ("All posts", "#insights")],
-    "About": [("Team", "/team"), ("Contact", "/contact")],
+    "Infrastructure": [("Data Collection Network", "/data", None),
+                       ("Nora · Motion Infra", "/nora", None)],
+    "Production": [("Eden Factory", "/eden", None),
+                   ("Routing", "#routing", "mNavRouting")],
+    "Ventures": [("Accelerator", "#ventures", "mNavAccel"),
+                 ("Venture Studio", "#ventures", "mNavStudio")],
+    "Insights": [("Podcast", "#insights", "mNavPodcast"),
+                 ("Blog", "#insights", "mNavBlog")],
+    "About": [("Team", "/team", None), ("Contact", "/contact", None)],
 }
+
+# First-level rows point at the desktop anchors now; the resolver below falls
+# back to the mobile twin when that is the one on screen.
+L1_HREF = {
+    "Infrastructure": "#platform", "Production": "#platform",
+    "Ventures": "#ventures", "Insights": "#insights", "About": "/team",
+}
+
+SUB_FONT = "16.5px"
 
 ROW = re.compile(
     r'<a href="(?P<href>[^"]+)"(?P<attrs>[^>]*?)style="(?P<style>[^"]+)">'
@@ -54,7 +75,7 @@ DESKTOP_BUTTON = (
     '</span></span></button>'
 )
 
-SHEET_DESKTOP_CSS = (
+SHEET_CSS = (
     ' @media (min-width: 761px) { [data-rw="msheet"] { '
     'padding: 116px 48px 40px !important; } '
     '[data-rw="msheet"] > * { max-width: 1080px; width: 100%; '
@@ -66,38 +87,155 @@ SHEET_DESKTOP_CSS = (
     ' [data-rw="msheet"] nav a:hover { color: #1E48D8 !important; }'
 )
 
+OLD_MNAV = '''mnav(id, mp) {
+    return (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      this.setState({ menu: false, ...(mp ? { mp } : {}) });
+      document.body.style.overflow = "";
+      setTimeout(() => this.scrollToId(id), 30);
+    };
+  }'''
 
-def sub_row(label: str) -> str:
-    """The second-level strip that sits under one first-level row."""
-    if label not in SUB:
+NEW_MNAV = '''pickId(ids) {
+    // The page ships two parallel section sets — desktop ids and their m-
+    // prefixed twins — and hides whichever does not apply at this width. An
+    // entry names its targets most-specific first and the first one actually
+    // on screen wins, so one entry works at both widths.
+    for (const id of ids) {
+      const el = document.getElementById(id);
+      if (el && el.offsetParent !== null) return id;
+    }
+    return ids[ids.length - 1];
+  }
+  mnav(id, mp) {
+    const ids = Array.isArray(id) ? id : [id];
+    return (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      // mp drives the narrow layout's open pillar, pillar the wide one's
+      // highlight; a menu click means the same thing on both, so set both.
+      this.setState({ menu: false, ...(mp ? { mp, pillar: mp, pinned: true } : {}) });
+      if (mp) {
+        clearTimeout(this._pinT);
+        this._pinT = setTimeout(() => this.setState({ pinned: false }), 1800);
+      }
+      document.body.style.overflow = "";
+      setTimeout(() => this.scrollToId(this.pickId(ids)), 30);
+    };
+  }'''
+
+OLD_VALS = ('mNavInfra: this.mnav("m-platform", "infra"), '
+            'mNavProd: this.mnav("m-platform", "prod"), '
+            'mNavVent: this.mnav("m-ventures"), '
+            'mNavInsights: this.mnav("m-insights"), '
+            'mNavCta: this.mnav("m-cta"),')
+
+NEW_VALS = ('mNavInfra: this.mnav(["platform", "m-platform"], "infra"), '
+            'mNavProd: this.mnav(["platform", "m-platform"], "prod"), '
+            'mNavVent: this.mnav(["ventures", "m-ventures"]), '
+            'mNavInsights: this.mnav(["insights", "m-insights"]), '
+            'mNavCta: this.mnav(["cta", "m-cta"]), '
+            'mNavRouting: this.mnav(["routing", "m-routing"], "prod"), '
+            'mNavAccel: this.mnav(["accelerator", "m-accelerator", "ventures", "m-ventures"]), '
+            'mNavStudio: this.mnav(["venture-studio", "m-venture-studio", "ventures", "m-ventures"]), '
+            'mNavPodcast: this.mnav(["podcast", "m-podcast", "insights", "m-insights"]), '
+            'mNavBlog: this.mnav(["blog", "m-blog", "insights", "m-insights"]),')
+
+# Each of these blocks is laid out twice — once for the narrow layout, once
+# for the wide one — and the two copies differ only in type size. Both get an
+# anchor so a menu entry lands on the block itself at either width, rather
+# than on the top of the section containing it.
+#
+# The anchor is a zero-size span placed *before* the block's flex row: putting
+# it inside would add a third item to a `space-between` row and shift it.
+ANCHORS = [
+    ("accelerator", 'font-size: 15px; font-weight: 500; letter-spacing: .18em; '
+                    'color: #1E48D8">ACCELERATOR'),
+    ("m-accelerator", 'font-size: 14px; font-weight: 500; letter-spacing: .18em; '
+                      'color: #1E48D8">ACCELERATOR'),
+    ("venture-studio", 'font-size: 15px; font-weight: 500; letter-spacing: .18em; '
+                       'color: #1F9D55">VENTURE STUDIO'),
+    ("m-venture-studio", 'font-size: 14px; font-weight: 500; letter-spacing: .18em; '
+                         'color: #1F9D55">VENTURE STUDIO'),
+    ("podcast", 'font-size: 22px; font-weight: 500; letter-spacing: -.02em">Podcast'),
+    ("m-podcast", 'font-size: 18px; font-weight: 500; letter-spacing: -.02em">Podcast'),
+    ("blog", 'font-size: 22px; font-weight: 500; letter-spacing: -.02em">Blog'),
+    ("m-blog", 'font-size: 18px; font-weight: 500; letter-spacing: -.02em">Blog'),
+]
+
+HEADER_NAV_DROP = [
+    '<a href="#insights" sc-camel-on-click="{{ navInsights }}" '
+    'style="color: inherit">Insights</a>',
+    '<a href="/team" style="color: inherit">About</a>',
+]
+
+
+def fail(msg):
+    print(f"  ! {msg}", file=sys.stderr)
+    return 1
+
+
+def sub_row(label):
+    links = []
+    for text, href, handler in SUB.get(label, []):
+        on = f' sc-camel-on-click="{{{{ {handler} }}}}"' if handler else ""
+        links.append(
+            f'<a href="{href}"{on} style="color: #55554F; '
+            f'font-size: {SUB_FONT}; letter-spacing: -.01em">{text}</a>')
+    if not links:
         return ""
-    links = "".join(
-        f'<a href="{href}" style="color: #55554F; font-size: 14.5px; '
-        f'letter-spacing: -.01em">{text}</a>'
-        for text, href in SUB[label]
-    )
-    return (f'<div style="display: flex; flex-wrap: wrap; gap: 8px 26px; '
-            f'padding: 0 0 20px">{links}</div>')
+    return ('<div style="display: flex; flex-wrap: wrap; gap: 10px 28px; '
+            f'padding: 0 0 22px">{"".join(links)}</div>')
 
 
-def main() -> int:
+def main():
     s = PAGE.read_text()
-    before = s
+    before = len(s)
 
-    # 1 · The desktop button, in the header slot that is already empty and
-    #     already hidden under 760px.
-    slot = '<div data-rw="hdrR" style="display: flex; justify-content: flex-end; gap: 28px"></div>'
+    # 1 · Desktop button, in the header slot that is already empty and already
+    #     hidden under 760px.
+    slot = ('<div data-rw="hdrR" style="display: flex; '
+            'justify-content: flex-end; gap: 28px"></div>')
     if slot not in s:
-        print("header right slot not found", file=sys.stderr)
-        return 1
+        return fail("header right slot not found")
     s = s.replace(slot, slot.replace("></div>", f">{DESKTOP_BUTTON}</div>"), 1)
 
-    # 2 · Second level under each row. The row keeps its own top border, so the
-    #     sub-strip goes inside a wrapper that owns the divider instead.
+    # 2 · Header nav loses Insights and About; they stay in the sheet.
+    for frag in HEADER_NAV_DROP:
+        if frag not in s:
+            return fail(f"header nav entry not found: {frag[:48]}…")
+        s = s.replace(frag, "", 1)
+
+    # 3 · Click-time id resolution, and pillar kept in step with mp.
+    if OLD_MNAV not in s:
+        return fail("mnav definition not found")
+    s = s.replace(OLD_MNAV, NEW_MNAV, 1)
+    if OLD_VALS not in s:
+        return fail("renderVals menu entries not found")
+    s = s.replace(OLD_VALS, NEW_VALS, 1)
+
+    # 4 · Anchors for the second-level destinations, wide and narrow copies
+    #     alike. Each marker locates the block's label; the anchor goes in
+    #     front of the row that label sits in. Collected first and applied
+    #     back-to-front so earlier insertions do not shift later offsets.
+    points = []
+    for anchor_id, marker in ANCHORS:
+        hits = [m.start() for m in re.finditer(re.escape(marker), s)]
+        if len(hits) != 1:
+            return fail(f"{anchor_id}: expected 1 match for its marker, got "
+                        f"{len(hits)}")
+        row = s.rfind("<div", 0, hits[0])
+        if row < 0:
+            return fail(f"{anchor_id}: no row element before the label")
+        points.append((row, anchor_id))
+    for row, anchor_id in sorted(points, reverse=True):
+        s = s[:row] + f'<span id="{anchor_id}"></span>' + s[row:]
+
+    # 5 · Second level under each first-level row.
     start = s.find('data-rw="msheet"')
     nav_start = s.find('<nav style="display: flex; flex-direction: column">', start)
     nav_end = s.find("</nav>", nav_start)
-    nav = s[nav_start:nav_end]
+    if min(start, nav_start, nav_end) < 0:
+        return fail("menu sheet nav not found")
 
     added = []
 
@@ -107,8 +245,6 @@ def main() -> int:
         if not sub:
             return m.group(0)
         added.append(label)
-        # Move the divider to the wrapper and tighten the row's own padding so
-        # the pair reads as one block rather than two stacked rules.
         style = m.group("style")
         wrapper_border = "border-top: 1px solid #E6E6E2"
         if "border-bottom" in style:
@@ -117,29 +253,28 @@ def main() -> int:
                      .replace("padding: 22px 0", "padding: 22px 0 10px")
                      .replace("; border-top: 1px solid #E6E6E2", "")
                      .replace("; border-bottom: 1px solid #E6E6E2", ""))
-        row = (f'<a href="{m.group("href")}"{m.group("attrs")}'
-               f'style="{row_style}"><span>{label}</span>'
+        row = (f'<a href="{L1_HREF.get(label, m.group("href"))}"'
+               f'{m.group("attrs")}style="{row_style}"><span>{label}</span>'
                f'<span style="{m.group("numstyle")}">{m.group("num")}</span></a>')
         return f'<div style="{wrapper_border}">{row}{sub}</div>'
 
-    new_nav = ROW.sub(wrap, nav)
+    new_nav = ROW.sub(wrap, s[nav_start:nav_end])
     if len(added) != len(SUB):
-        print(f"expected {len(SUB)} rows, rewrote {len(added)}: {added}",
-              file=sys.stderr)
-        return 1
+        return fail(f"expected {len(SUB)} rows, rewrote {len(added)}: {added}")
     s = s[:nav_start] + new_nav + s[nav_end:]
 
-    # 3 · Give the sheet room on wide screens; it was only ever laid out for a
-    #     phone, and full-bleed 20px gutters read as broken at 1440.
-    anchor = '[data-rw="m"], [data-rw="mbtn"], [data-rw="msheet"] { display: none; }'
-    if anchor not in s:
-        print("base rw rule not found", file=sys.stderr)
-        return 1
-    s = s.replace(anchor, anchor + SHEET_DESKTOP_CSS, 1)
+    # 6 · Sheet gutters above 760px, and the hover colour.
+    css_anchor = ('[data-rw="m"], [data-rw="mbtn"], [data-rw="msheet"] '
+                  '{ display: none; }')
+    if css_anchor not in s:
+        return fail("base rw rule not found")
+    s = s.replace(css_anchor, css_anchor + SHEET_CSS, 1)
 
     PAGE.write_text(s)
-    print(f"patched {PAGE.name}: +{len(s) - len(before)} bytes")
-    print("second level added under:", ", ".join(added))
+    print(f"patched {PAGE.name}: {before} -> {len(s)} bytes")
+    print("  second level:", "; ".join(
+        f"{k} → {', '.join(t for t, _, _ in v)}" for k, v in SUB.items()))
+    print("  header nav: Insights and About removed")
     return 0
 
 
