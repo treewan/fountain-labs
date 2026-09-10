@@ -1,0 +1,1298 @@
+[
+ {
+  "slug": "agibot",
+  "name": "Agibot Innovation (Shanghai) Technology Co., Ltd.",
+  "desc": "General-purpose embodied robots and application ecosystems",
+  "country": "China",
+  "score": "82",
+  "robots": "12",
+  "claimed": 1
+ },
+ {
+  "slug": "cyberdyne",
+  "name": "Cyberdyne",
+  "desc": "Wearable robot suits for work, care, and mobility support",
+  "country": "Japan",
+  "score": "81",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "rokae",
+  "name": "Beijing ROKAE Technology Co., Ltd.",
+  "desc": "Leading robots expert in industrial, commercial and medical automation",
+  "country": "China",
+  "score": "78",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "keenon-robotics",
+  "name": "Shanghai Keenon Robotics Co., Ltd.",
+  "desc": "Smart service robots & solutions",
+  "country": "China",
+  "score": "77",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "neura-robotics",
+  "name": "NEURA Robotics",
+  "desc": "AI-powered cognitive robots for collaborative industrial automation",
+  "country": "Germany",
+  "score": "76",
+  "robots": "4",
+  "claimed": 0
+ },
+ {
+  "slug": "ubtech-robotics",
+  "name": "UBTECH Robotics Corp Ltd.",
+  "desc": "Humanoid and education robots with multimodal interaction",
+  "country": "China",
+  "score": "76",
+  "robots": "12",
+  "claimed": 0
+ },
+ {
+  "slug": "deep-robotics",
+  "name": "Hangzhou DEEP Robotics Co., Ltd.",
+  "desc": "Global quadruped robot leader for industrial and emergency use",
+  "country": "China",
+  "score": "75",
+  "robots": "2",
+  "claimed": 1
+ },
+ {
+  "slug": "pal-robotics",
+  "name": "PAL Robotics",
+  "desc": "Mobile robots and manipulators for research and real workplaces",
+  "country": "Spain",
+  "score": "75",
+  "robots": "3",
+  "claimed": 0
+ },
+ {
+  "slug": "dobot",
+  "name": "Dobot",
+  "desc": "Dobot Robotics provides innovative integrated robotics solutions and guides customers in sustainable industry automation and STEM education. Learn more about our robot arms.",
+  "country": "China",
+  "score": "75",
+  "robots": "3",
+  "claimed": 0
+ },
+ {
+  "slug": "techman-robot-inc",
+  "name": "Techman Robot Inc.",
+  "desc": "AI-powered collaborative robots and humanoid automation for industry",
+  "country": "Taiwan",
+  "score": "73",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "unitree",
+  "name": "Unitree Robotics",
+  "desc": "Quadruped and humanoid robots for education, research, and industry",
+  "country": "China",
+  "score": "73",
+  "robots": "17",
+  "claimed": 0
+ },
+ {
+  "slug": "shanghai-chuangwang-industrial-co-ltd",
+  "name": "Shanghai Chuangwang Industrial Co., Ltd",
+  "desc": "Service robots for food delivery, logistics, and photo voltaic inspection",
+  "country": "China",
+  "score": "72",
+  "robots": "4",
+  "claimed": 0
+ },
+ {
+  "slug": "hanson-robotics",
+  "name": "Hanson Robotics",
+  "desc": "Socially intelligent humanoid robots for research and engagement",
+  "country": "Hong Kong",
+  "score": "72",
+  "robots": "5",
+  "claimed": 0
+ },
+ {
+  "slug": "weston-robot-pte-ltd",
+  "name": "Weston Robot Pte Ltd",
+  "desc": "Indoor AMRs for heavy payloads and customizable warehouse transport",
+  "country": "Singapore",
+  "score": "71",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "boston-dynamics",
+  "name": "Boston Dynamics, Inc. (Hyundai Motor Group subsidiary)",
+  "desc": "Boston Dynamics builds advanced robots that perform complex tasks in real-world environments, enabling safer and more efficient operations across industries.",
+  "country": "United States",
+  "score": "71",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "toyota",
+  "name": "Toyota",
+  "desc": "Automotive and mobility company developing robotics platforms.",
+  "country": "Japan",
+  "score": "70",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "lumos-robotics",
+  "name": "Lumos Robotics",
+  "desc": "Building Intelligent Possibilities.",
+  "country": "China",
+  "score": "70",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "borunte",
+  "name": "BORUNTE",
+  "desc": "Industrial and collaborative robots for modern manufacturing",
+  "country": "China",
+  "score": "69",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "noetix",
+  "name": "Noetix",
+  "desc": "Professional bionic guide robot for shopping malls and public spaces",
+  "country": "China",
+  "score": "69",
+  "robots": "7",
+  "claimed": 0
+ },
+ {
+  "slug": "leju-robotics",
+  "name": "Leju Robotics",
+  "desc": "Industrializing humanoid robots for service, education, and embodied AI",
+  "country": "China",
+  "score": "69",
+  "robots": "4",
+  "claimed": 0
+ },
+ {
+  "slug": "elephant-robotics",
+  "name": "Elephant Robotics",
+  "desc": "Desktop collaborative robots and open-source robotic arms",
+  "country": "China",
+  "score": "69",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "xiaomi",
+  "name": "Xiaomi",
+  "desc": "Smart hardware and robotics for homes and human-centered interaction.",
+  "country": "China",
+  "score": "67",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "kawada-industries",
+  "name": "Kawada Industries",
+  "desc": "Humanoid and industrial robots for research and manufacturing",
+  "country": "Japan",
+  "score": "67",
+  "robots": "3",
+  "claimed": 0
+ },
+ {
+  "slug": "engineered-arts",
+  "name": "Engineered Arts",
+  "desc": "Embodied AI social humanoid robots for businesses and public engagement",
+  "country": "United Kingdom",
+  "score": "66",
+  "robots": "5",
+  "claimed": 0
+ },
+ {
+  "slug": "fourier",
+  "name": "Fourier",
+  "desc": "Fourier Intelligence builds lower-limb exoskeletons like ExoMotus M4 for gait training, enabling machine-assisted rhythmic walking to minimize abnormalities in early-stage rehabilitation.",
+  "country": "Singapore",
+  "score": "66",
+  "robots": "3",
+  "claimed": 0
+ },
+ {
+  "slug": "1x-technologies",
+  "name": "1X Technologies AS",
+  "desc": "Home-safe humanoid robots for chores, assistance, and autonomy",
+  "country": "United States",
+  "score": "66",
+  "robots": "7",
+  "claimed": 0
+ },
+ {
+  "slug": "gitai",
+  "name": "GITAI",
+  "desc": "Robotics startup for space development",
+  "country": "United States",
+  "score": "65",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "x-square-robots",
+  "name": "X Square Robots",
+  "desc": "Providing an Intelligent Singularity Spanning the Physical World",
+  "country": "China",
+  "score": "65",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "luxai",
+  "name": "LuxAI",
+  "desc": "Social humanoid robot platform for research, teaching, and care",
+  "country": "Luxembourg",
+  "score": "65",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "engineai",
+  "name": "EngineAI Robotics",
+  "desc": "General-purpose humanoid robots for research, education, and industry",
+  "country": "China",
+  "score": "65",
+  "robots": "4",
+  "claimed": 0
+ },
+ {
+  "slug": "tesla",
+  "name": "Tesla",
+  "desc": "Electric vehicles, energy storage, and AI robotics",
+  "country": "United States",
+  "score": "65",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "galaxea-ai",
+  "name": "Galaxea AI",
+  "desc": "Full-stack embodied-AI humanoid robots for industrial tasks",
+  "country": "China",
+  "score": "65",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "pollen-robotics",
+  "name": "Pollen Robotics",
+  "desc": "Open-source interactive humanoid robots for research and learning",
+  "country": "France",
+  "score": "65",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "magiclab-robotics-technology-wuxi-co-ltd",
+  "name": "Magiclab Robotics Technology (Wuxi) Co., Ltd.",
+  "desc": "General-purpose robots and embodied intelligence technology",
+  "country": "China",
+  "score": "64",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "foxconn-industrial-internet",
+  "name": "Foxconn Industrial Internet Co., Ltd. (Hon Hai subsidiary)",
+  "desc": "World’s largest electronics manufacturer developing humanoid robots",
+  "country": "Taiwan",
+  "score": "64",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "booster-robotics",
+  "name": "Booster Robotics",
+  "desc": "Made for Developers; humanoid robots for embodied AI development",
+  "country": "China",
+  "score": "64",
+  "robots": "5",
+  "claimed": 0
+ },
+ {
+  "slug": "kondo-kagaku",
+  "name": "Kondo Kagaku",
+  "desc": "Robot parts and humanoid robots for education and hobby use",
+  "country": "Japan",
+  "score": "64",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "lanxin-robotics",
+  "name": "Lanxin Robotics",
+  "desc": "Standard Robots delivers industrial robots service robots warehouse robots and medical robots for global smart manufacturing excellence.",
+  "country": "China",
+  "score": "63",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "robotis",
+  "name": "ROBOTIS Co., Ltd.",
+  "desc": "Small, affordable, programmable robots for education and research",
+  "country": "South Korea",
+  "score": "63",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "duco-robots",
+  "name": "DUCO Robots",
+  "desc": "Collaborative Robotics Solutions",
+  "country": "China",
+  "score": "63",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "nenggou-beijing-technology-co-ltd",
+  "name": "Nenggou (Beijing) Technology Co., Ltd.",
+  "desc": "",
+  "country": "",
+  "score": "63",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "softbank-robotics",
+  "name": "SoftBank Robotics",
+  "desc": "Commercial service robots for cleaning, delivery, and hospitality",
+  "country": "United States",
+  "score": "62",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "walt-disney-imagineering",
+  "name": "Walt Disney Imagineering",
+  "desc": "Advanced animatronics and robotic figures for themed entertainment",
+  "country": "United States",
+  "score": "62",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "robotera",
+  "name": "Robotera",
+  "desc": "High-performance embodied intelligence company building humanoid robots",
+  "country": "China",
+  "score": "62",
+  "robots": "4",
+  "claimed": 0
+ },
+ {
+  "slug": "thecorpora",
+  "name": "Thecorpora",
+  "desc": "Interactive robots for children, educators, developers and enthusiasts",
+  "country": "Spain",
+  "score": "62",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "agility-robotics",
+  "name": "Agility Robotics, Inc.",
+  "desc": "Humanoid robots for repetitive work in logistics and manufacturing.",
+  "country": "United States",
+  "score": "62",
+  "robots": "3",
+  "claimed": 0
+ },
+ {
+  "slug": "apptronik",
+  "name": "Apptronik, Inc.",
+  "desc": "General-purpose humanoid robots for logistics and manufacturing",
+  "country": "United States",
+  "score": "61",
+  "robots": "3",
+  "claimed": 0
+ },
+ {
+  "slug": "kinisi-robotics",
+  "name": "Kinisi Robotics",
+  "desc": "Built to match human capabilities in warehouse automation",
+  "country": "United States",
+  "score": "61",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "agile-robots",
+  "name": "Agile Robots",
+  "desc": "AI-driven robotics and automation solutions for industry",
+  "country": "Germany",
+  "score": "60",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "aobo",
+  "name": "Aobo",
+  "desc": "Intelligent service robots for hospitality, healthcare, and retail",
+  "country": "China",
+  "score": "60",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "kepler-robotics",
+  "name": "Kepler Robotics",
+  "desc": "General-purpose humanoid robot for industrial work",
+  "country": "China",
+  "score": "60",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "humanoid",
+  "name": "Humanoid",
+  "desc": "Advanced modular humanoid robots powered by VLM and VLA KinetIQ",
+  "country": "United Kingdom",
+  "score": "60",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "enchanted-tools",
+  "name": "Enchanted Tools SAS",
+  "desc": "Humanoid robots designed to assist, engage, and inspire.",
+  "country": "France",
+  "score": "59",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "x-humanoid",
+  "name": "X-Humanoid",
+  "desc": "Embodied AI humanoid robots for research, industry, and service",
+  "country": "China",
+  "score": "59",
+  "robots": "3",
+  "claimed": 0
+ },
+ {
+  "slug": "onerobotics-shenzhen-co-ltd",
+  "name": "OneRobotics (Shenzhen) Co., Ltd.",
+  "desc": "Bringing AI robots into every household.",
+  "country": "China",
+  "score": "59",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "cn-b8060ed890",
+  "name": "TLI Robot",
+  "desc": "Humanoid robots and core components for industrial, service, and R&D use",
+  "country": "China",
+  "score": "59",
+  "robots": "3",
+  "claimed": 0
+ },
+ {
+  "slug": "galbot",
+  "name": "Galbot Robotics",
+  "desc": "Mobile dual-arm robot with generalizable manipulation ability.",
+  "country": "China",
+  "score": "59",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "sanbot-innovation-technology",
+  "name": "Sanbot Innovation Technology",
+  "desc": "AI service robots for hospitality, retail, education, and home use",
+  "country": "China",
+  "score": "58",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "limx-dynamics",
+  "name": "LimX Dynamics Technology Co., Ltd",
+  "desc": "AI-driven humanoid robotics company for full-size general-purpose robots",
+  "country": "China",
+  "score": "58",
+  "robots": "8",
+  "claimed": 1
+ },
+ {
+  "slug": "tony-sale",
+  "name": "Tony Sale",
+  "desc": "",
+  "country": "",
+  "score": "58",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "kokoro",
+  "name": "Kokoro",
+  "desc": "",
+  "country": "",
+  "score": "58",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "cn-9b90dcb0c7",
+  "name": "Ti5 Robot",
+  "desc": "High-performance lightweight robot hardware and collaborative robots",
+  "country": "China",
+  "score": "58",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "xpeng",
+  "name": "XPeng",
+  "desc": "AI-driven mobility company building smart EVs and humanoid robots",
+  "country": "China",
+  "score": "57",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "pib",
+  "name": "pib",
+  "desc": "Europe’s first open-source, ready-to-ship humanoid robot platform designed for real-world work, learning, and care.",
+  "country": "Germany",
+  "score": "57",
+  "robots": "3",
+  "claimed": 0
+ },
+ {
+  "slug": "spirit-ai",
+  "name": "Spirit AI",
+  "desc": "Empowering 10% of the world to own their robot within 10 years.",
+  "country": "China",
+  "score": "57",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "figure",
+  "name": "Figure AI",
+  "desc": "General-purpose humanoid robots for everyday work and use",
+  "country": "United States",
+  "score": "57",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "unix-ai",
+  "name": "UniX AI",
+  "desc": "General-purpose humanoid robots for real-world deployment",
+  "country": "China",
+  "score": "56",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "physical-intelligence",
+  "name": "Physical Intelligence, Inc.",
+  "desc": "Building foundation models that control any robot to do any task",
+  "country": "United States",
+  "score": "56",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "sharpa-pte-ltd",
+  "name": "Sharpa Pte Ltd.",
+  "desc": "Dexterous Robotics Solutions for Real-World Autonomy",
+  "country": "Singapore",
+  "score": "56",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "misty-robotics",
+  "name": "Misty Robotics",
+  "desc": "Programmable social robot platform for developers and educators",
+  "country": "United States",
+  "score": "56",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "ant-lingbo-technology",
+  "name": "Ant Lingbo Technology",
+  "desc": "Embodied intelligence company under Ant Group, focused on humanoid robot R&D.",
+  "country": "China",
+  "score": "56",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "kaist",
+  "name": "KAIST",
+  "desc": "Rainbow Robotics is a South Korean robotics company that manufactures the HUBO humanoid robot series, including HUBO-2, as a KAIST spin-off. It develops biped and humanoid robots for research and advanced robotics applications, and was later identified by Samsung as a Korean robotics firm in its investment announcement.",
+  "country": "South Korea",
+  "score": "56",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "generative-bionics-s-r-l",
+  "name": "Generative Bionics S.r.l.",
+  "desc": "Generative Bionics is a deep-tech company building humanoid robot platforms to deploy human-centered Physical AI. Their goal is to create humanoid robots that collaborate with people daily, supporting society as labor shortages grow and work becomes more complex.",
+  "country": "Italy",
+  "score": "56",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "furhat-robotics",
+  "name": "Furhat Robotics",
+  "desc": "The world’s most advanced humanoid social robot platform",
+  "country": "Sweden",
+  "score": "56",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "cn-b5983846f8",
+  "name": "AI² Robotics",
+  "desc": "AGI-native general-purpose robotics company",
+  "country": "China",
+  "score": "56",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "aist",
+  "name": "AIST",
+  "desc": "Advanced humanoid robotics and applied AI research",
+  "country": "Japan",
+  "score": "55",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "sichuan-tianlian-robotics-co-ltd",
+  "name": "Sichuan Tianlian Robotics Co., Ltd.",
+  "desc": "",
+  "country": "",
+  "score": "55",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "iit-bombay",
+  "name": "IIT Bombay",
+  "desc": "",
+  "country": "",
+  "score": "55",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "henan-chuangwang-intelligent-equipment-co-ltd",
+  "name": "Henan Chuangwang Intelligent Equipment Co., LTD",
+  "desc": "Henan Chuangwang Intelligent Equipment Co., Ltd. is a China-based robotics and intelligent equipment manufacturer associated with the CW-R1 Challenge King humanoid robot line. Public product listings describe CW-R1 Challenge King as an intelligent Python-programmable humanoid robot, but the available sources do not provide enough verified detail to confirm its full buyer segments or operating footprint beyond China.",
+  "country": "China",
+  "score": "55",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "byd",
+  "name": "BYD",
+  "desc": "",
+  "country": "",
+  "score": "55",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "kaist-and-rainbow-robotics",
+  "name": "KAIST and Rainbow Robotics",
+  "desc": "KAIST is a leading South Korean research university in science and technology.",
+  "country": "South Korea",
+  "score": "55",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "unical-robot",
+  "name": "Unical Robot",
+  "desc": "Thailand's Leading Robot Manufacturer and Service Expert",
+  "country": "Thailand",
+  "score": "54",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "roscosmos",
+  "name": "Roscosmos",
+  "desc": "",
+  "country": "",
+  "score": "54",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "zeeno-robotics",
+  "name": "Zeeno Robotics",
+  "desc": "Zeeno is the autonomous robotic office assistant improving patient experience in dental and orthodontic practices through automation.",
+  "country": "United States",
+  "score": "54",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "the-robot-studio",
+  "name": "The Robot Studio",
+  "desc": "",
+  "country": "",
+  "score": "54",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "aheadform",
+  "name": "AheadForm",
+  "desc": "Realistic humanoid robot heads for natural human-robot interaction",
+  "country": "China",
+  "score": "53",
+  "robots": "3",
+  "claimed": 0
+ },
+ {
+  "slug": "ucla-and-romela",
+  "name": "UCLA and RoMeLa",
+  "desc": "RoMeLa advances humanoid robotics through cognitive autonomy, novel locomotion, and learning intelligence for next-generation mobile robots.",
+  "country": "United States",
+  "score": "53",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "mirax-robots",
+  "name": "Mirax Robots",
+  "desc": "",
+  "country": "",
+  "score": "53",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "android-technologies",
+  "name": "Android Technologies",
+  "desc": "",
+  "country": "",
+  "score": "53",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "matrix-robotics",
+  "name": "Matrix Robotics",
+  "desc": "Third-generation flagship humanoid robot designed for safe, autonomous operation in real-world human environments with zero-shot generalization.",
+  "country": "China",
+  "score": "53",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "nimbro",
+  "name": "NimbRo",
+  "desc": "Affordable adult-sized 3D-printed open-source humanoid robot for research and RoboCup competitions",
+  "country": "Germany",
+  "score": "53",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "oversonic-robotics",
+  "name": "Oversonic Robotics",
+  "desc": "Humanoid robots with cognitive AI for industrial and healthcare use.",
+  "country": "Italy",
+  "score": "53",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "yoyodyne",
+  "name": "Yoyodyne",
+  "desc": "",
+  "country": "",
+  "score": "53",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "german-aerospace-center-dlr",
+  "name": "German Aerospace Center (DLR)",
+  "desc": "Advanced humanoid and mobile manipulation robotics research",
+  "country": "Germany",
+  "score": "53",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "mechanical-girl",
+  "name": "Mechanical Girl",
+  "desc": "等身大少女型ロボットを開発するヒューマノイドロボットベンチャー",
+  "country": "Japan",
+  "score": "53",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "bxi-robotics",
+  "name": "BXI Robotics",
+  "desc": "Humanoid robot for embodied AI research and education",
+  "country": "China",
+  "score": "52",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "istituto-italiano-di-tecnologia",
+  "name": "Istituto Italiano di Tecnologia",
+  "desc": "",
+  "country": "",
+  "score": "52",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "robros",
+  "name": "Robros",
+  "desc": "",
+  "country": "",
+  "score": "52",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "galaxea",
+  "name": "Galaxea",
+  "desc": "Galaxea R1 is a high-performance, 7-DOF dual-arm wheeled humanoid robot for embodied AI development and real-world automation tasks.",
+  "country": "China",
+  "score": "52",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "zeroth-robotics",
+  "name": "Zeroth Robotics",
+  "desc": "Embodied intelligence robots for homes, classrooms, and light business use",
+  "country": "United States",
+  "score": "52",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "sanctuary-ai",
+  "name": "Sanctuary AI",
+  "desc": "AI-powered humanoid robots for industrial work",
+  "country": "Canada",
+  "score": "52",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "roboparty",
+  "name": "RoboParty",
+  "desc": "World's first full-stack open-source bipedal humanoid robot for DIY builders and researchers",
+  "country": "China",
+  "score": "52",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "wowwee",
+  "name": "WowWee",
+  "desc": "Smart consumer robots and interactive tech toys for families.",
+  "country": "Canada",
+  "score": "51",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "wuhan-glory-road-intelligent-technology-co-ltd",
+  "name": "Wuhan Glory Road Intelligent Technology Co., Ltd.",
+  "desc": "",
+  "country": "",
+  "score": "51",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "tekntrash",
+  "name": "TeknTrash",
+  "desc": "Robotic solutions for trash handling",
+  "country": "United Kingdom",
+  "score": "51",
+  "robots": "1",
+  "claimed": 1
+ },
+ {
+  "slug": "vkf-renzel",
+  "name": "VKF Renzel",
+  "desc": "Le robot humanoïde alimenté par IA de pointe",
+  "country": "Switzerland",
+  "score": "51",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "project-aiko",
+  "name": "Project Aiko",
+  "desc": "Welcome to Project Aiko",
+  "country": "Canada",
+  "score": "51",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "weave-robotics",
+  "name": "Weave Robotics",
+  "desc": "",
+  "country": "",
+  "score": "50",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "romela",
+  "name": "RoMeLa",
+  "desc": "Robotis builds open-platform humanoid robots including DARwIn-OP, a miniature humanoid for research and education with advanced computation, sensors, high payload, and dynamic motion. Developed with Virginia Tech's RoMeLa, Purdue, and UPenn. Targets academic institutions, researchers, and robotics labs.",
+  "country": "South Korea",
+  "score": "50",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "high-torque-technology-co-ltd",
+  "name": "High Torque Technology Co., Ltd.",
+  "desc": "Full-stack bipedal robots for lab research and sim-to-real",
+  "country": "China",
+  "score": "50",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "nasa",
+  "name": "NASA",
+  "desc": "Exploring space, advancing aeronautics, and robotics for spaceflight",
+  "country": "United States",
+  "score": "49",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "cn-f54f8a4862",
+  "name": "足立レイ",
+  "desc": "Humanoid Character Interface robot maker",
+  "country": "Japan",
+  "score": "49",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "mentee-robotics",
+  "name": "Mentee Robotics",
+  "desc": "Personalized AI-based robot you can mentor.",
+  "country": "Israel",
+  "score": "48",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "topstar",
+  "name": "Topstar",
+  "desc": "让工业制造更美好",
+  "country": "China",
+  "score": "47",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "shanghai-innovation-center",
+  "name": "Shanghai Innovation Center",
+  "desc": "",
+  "country": "",
+  "score": "47",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "holiday-robotics",
+  "name": "Holiday Robotics",
+  "desc": "FREEING HUMAN HANDS",
+  "country": "South Korea",
+  "score": "47",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "digit-robotics-digital-china-robotics",
+  "name": "Digit Robotics",
+  "desc": "AI humanoid robots for commercial service scenarios",
+  "country": "China",
+  "score": "46",
+  "robots": "4",
+  "claimed": 0
+ },
+ {
+  "slug": "dataa-robotics-cloudminds",
+  "name": "DataA Robotics (CloudMinds)",
+  "desc": "云端智能，连接未来",
+  "country": "China",
+  "score": "44",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "waseda-university",
+  "name": "Waseda University",
+  "desc": "Waseda University established the Humanoid Robotics Institute in April 2000 to promote research activities which aim to construct a new relationship between humans and machines in the advanced information society.",
+  "country": "Japan",
+  "score": "40",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "willow-garage",
+  "name": "Willow Garage",
+  "desc": "Low-cost personal robot kits with open-source software",
+  "country": "United States",
+  "score": "38",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "monash-university",
+  "name": "Monash University",
+  "desc": "",
+  "country": "",
+  "score": "37",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "italian-institute-of-technology-iit",
+  "name": "Italian Institute of Technology (IIT)",
+  "desc": "Pioneering advanced robotics for disaster response, healthcare, and industrial automation with torque-controlled quadrupeds and humanoid platforms.",
+  "country": "Italy",
+  "score": "36",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "german-research-center-for-artificial-intelligence-gmbh",
+  "name": "German Research Center for Artificial Intelligence GmbH",
+  "desc": "The German Research Center for Artificial Intelligence was founded in 1988 as a non-profit public-private partnership. It has research facilities in Kaiserslautern, Saarbrücken, Bremen, Oldenburg, and Osnabrück, as well as laboratories in Berlin, Darmstadt, and Lübeck, and a branch office in Trier. In the field of innovative commercial software technology using artificial intelligence, DFKI is the leading research center in Germany.",
+  "country": "",
+  "score": "36",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "robot-com",
+  "name": "Robot.com",
+  "desc": "Unitree Robotics, based in Hangzhou, China, develops and sells consumer-grade and industry-grade high-performance quadruped robots like Go2, Go1, and As2, as well as humanoid robots including G1 and H1. Products feature advanced capabilities such as 4D LiDAR for all-terrain navigation, stair climbing, and speeds up to 11mph, targeting research & development, industrial inspection, surveillance, security, outdoor deliveries, and emergency response. They operate globally with leading sales of retail quadruped and humanoid robots.",
+  "country": "China",
+  "score": "35",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "university-of-tehran",
+  "name": "University of Tehran",
+  "desc": "Center for Advanced Systems and Technologies",
+  "country": "Iran",
+  "score": "35",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "technical-university-munich-tum",
+  "name": "Technical University Munich (TUM)",
+  "desc": "TUM’s Chair of Applied Mechanics develops the humanoid research robot LOLA, an electrically actuated platform with 26 distributed joints, 68 kg weight, and 176 cm height for research on legged locomotion and dynamic multi-contact walking. TUM’s Intelligent Autonomous Systems group also built TUM-Rosie as a robotics system for autonomous interaction and manipulation research.",
+  "country": "Germany",
+  "score": "34",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "university-of-western-australia",
+  "name": "University of Western Australia",
+  "desc": "",
+  "country": "",
+  "score": "33",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "karlsruhe-institute-of-technology",
+  "name": "Karlsruhe Institute of Technology",
+  "desc": "Collaborative humanoid assistant robot for industrial environments",
+  "country": "Germany",
+  "score": "33",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "ucla-samueli-school-of-engineering",
+  "name": "UCLA Samueli School of Engineering",
+  "desc": "Open-source humanoid robot for dynamic locomotion and locomanipulation",
+  "country": "United States",
+  "score": "32",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "a-star-social-robotics-lab",
+  "name": "A*STAR Social Robotics Lab",
+  "desc": "null",
+  "country": "Singapore",
+  "score": "32",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "nasa-and-darpa",
+  "name": "NASA and DARPA",
+  "desc": "Robonaut 1A is a remotely operated humanoid robot developed jointly by NASA and DARPA as an experimental astronaut assistant. It is designed to handle tools and small objects with dexterity, capable of performing tasks required of EVA-suited crewmembers. Robonaut 1A was developed at NASA's Lyndon B. Johnson Space Center in Houston, Texas, as part of the Dexterous Robotics Laboratory program.",
+  "country": "United States",
+  "score": "32",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "nasa-johnson-space-center-and-gm",
+  "name": "NASA Johnson Space Center and GM",
+  "desc": "Automotive company applying advanced robotics across manufacturing",
+  "country": "United States",
+  "score": "32",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "delft-university-of-technology",
+  "name": "Delft University of Technology",
+  "desc": "Delft University of Technology is a leading technical university in the Netherlands, offering education and conducting research in engineering, technology, and applied sciences. It serves students and researchers from around the world, contributing to advancements in various fields through innovative projects and collaborations.",
+  "country": "Netherlands",
+  "score": "31",
+  "robots": "2",
+  "claimed": 0
+ },
+ {
+  "slug": "kokoro-atr-and-osaka-university",
+  "name": "Kokoro, ATR, and Osaka University",
+  "desc": "Kokoro Co., Ltd. is a Japanese manufacturer of animatronics and android robots. The Advanced Telecommunications Research Institute International (ATR) is a Japanese research institute focused on robotics and communications. Osaka University is a Japanese national research university. The three organizations collaborated on the Geminoid series of teleoperated android robots under the direction of Professor Hiroshi Ishiguro.",
+  "country": "",
+  "score": "31",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "naval-research-laboratory",
+  "name": "Naval Research Laboratory",
+  "desc": "Xitome Design designed and built Octavia's head and arms. Octavia is a mobile, dexterous, and social (MDS) humanoid robot developed by the Navy Center for Applied Research in Artificial Intelligence (NCARAI) for natural human-robot interaction.",
+  "country": "United States",
+  "score": "30",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "university-of-science-and-technology-of-china",
+  "name": "University of Science and Technology of China",
+  "desc": "",
+  "country": "",
+  "score": "30",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "technical-university-of-munich",
+  "name": "Technical University of Munich",
+  "desc": "Die TUM School of Engineering and Design (ED) bündelt ihre Kompetenzen in Ingenieurwissenschaften und Gestaltung an den Standorten München, Garching und Ottobrunn/Taufkirchen.",
+  "country": "Germany",
+  "score": "30",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "usc-interaction-lab-and-bluesky-robotics",
+  "name": "USC Interaction Lab and BlueSky Robotics",
+  "desc": "Bandit is a socially assistive humanoid robot developed at the University of Southern California’s Robotics and Autonomous Systems Center, with updated design and fabrication performed by BlueSky Robotics. It is used as an expressive human-robot interaction platform, and 6 Bandit robots are currently in use.",
+  "country": "United States",
+  "score": "30",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "tokyo-university",
+  "name": "Tokyo University",
+  "desc": "",
+  "country": "",
+  "score": "30",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "beijing-institute-of-technology",
+  "name": "Beijing Institute of Technology",
+  "desc": "",
+  "country": "",
+  "score": "29",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "korea-institute-of-science-technology-kist",
+  "name": "Korea Institute of Science & Technology (KIST)",
+  "desc": "KIST (Korea Institute of Science and Technology) is a South Korean research institute that developed humanoid robots including Mahru (2005) and Kibo (2011). Mahru is a full-size humanoid robot capable of autonomous walking and household tasks, controllable via motion-capture suit. Kibo is a humanoid robot with expressive features, voice command understanding, and 43 degrees of freedom designed for interaction and hugging.",
+  "country": "South Korea",
+  "score": "28",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "hiroshi-ishiguro-laboratories",
+  "name": "Hiroshi Ishiguro Laboratories",
+  "desc": "",
+  "country": "",
+  "score": "27",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "institute-of-automation-chinese-academy-of-sciences",
+  "name": "Institute of Automation, Chinese Academy of Sciences",
+  "desc": "The Institute of Automation, Chinese Academy of Sciences is a research lab belonging to the Chinese Academy of Sciences which researches robotics, pattern recognition and control theory.",
+  "country": "",
+  "score": "27",
+  "robots": "1",
+  "claimed": 0
+ },
+ {
+  "slug": "kokoro-ishiguro-lab-atr-aalborg-university",
+  "name": "Kokoro, Ishiguro Lab, ATR, Aalborg University",
+  "desc": "",
+  "country": "",
+  "score": "25",
+  "robots": "1",
+  "claimed": 0
+ }
+]

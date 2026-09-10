@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Robotics Supply Chain — FOUNTAIN</title>
-<meta name="description" content="125 component makers behind the humanoid robot programmes, searchable by part, by buyer and by city.">
+<meta name="description" content="125 component makers behind the humanoid robot programmes and the 144 makers buying from them, searchable by part, by buyer, by city and by country.">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <style>
 @font-face{font-family:'Geist';font-style:normal;font-weight:400;font-display:swap;src:url("/_assets/9b6f5ff45b278c74.woff2") format('woff2')}
@@ -86,6 +86,20 @@ input[type=search]:focus{outline:none;border-color:#111}
 .bomrow .pc{font-weight:500}
 .refnote{font-size:14px;line-height:1.65;color:#3A3A38}
 .refnote p+p{margin-top:14px}
+
+/* Demand side — the makers, same card grammar as the index. */
+.substats{margin-top:34px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;
+  padding-top:20px;border-top:1px solid #111}
+.substat{font-size:26px;font-weight:500;letter-spacing:-.03em;line-height:1}
+.geo{margin-top:34px}
+.geobar{display:flex;gap:3px;height:10px;border-radius:2px;overflow:hidden}
+.geobar i{display:block;background:#111}
+.geokey{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 20px;font-size:13px;color:#55554F}
+.geokey span b{font-weight:400;color:#8A8A85;margin-left:6px}
+.tag.trail{background:#111;color:#fff}
+.tag.lab{background:none;border:1px solid #E6E6E2}
+@media (max-width:900px){.substats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.substat{font-size:22px}}
 
 .g3{margin-top:36px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
 .g3 > div{border-top:1px solid #E6E6E2;padding-top:16px}
@@ -182,8 +196,47 @@ input[type=search]:focus{outline:none;border-color:#111}
   </div>
 </section></div>
 
+<div class="wrap"><section id="makers">
+  <div class="eyebrow">03 · WHO BUYS</div>
+  <h2>The other end of the same table: who is building the robots.</h2>
+  <p class="sub">A supply base is only worth what the demand behind it is worth. These are the
+    makers with a humanoid on file — most of them one platform and a plan, a few of them already
+    placing volume orders against the index above.</p>
+
+  <div class="substats">
+    <div><div class="substat" id="mN">—</div><div class="statcap">makers with a humanoid on file</div></div>
+    <div><div class="substat" id="mC">—</div><div class="statcap">of them commercial, the rest research platforms</div></div>
+    <div><div class="substat" id="mG">—</div><div class="statcap">countries, and one country holds a third</div></div>
+    <div><div class="substat" id="mT">—</div><div class="statcap">already named as buyers on the supplier rows</div></div>
+  </div>
+
+  <div class="geo">
+    <div class="geobar" id="geobar"></div>
+    <div class="geokey" id="geokey"></div>
+  </div>
+
+  <div class="tools">
+    <input type="search" id="mq" placeholder="Search maker, country, what they build…" aria-label="Search makers">
+    <button class="btn" id="mreset" type="button">Reset</button>
+    <button class="btn" id="mcsv" type="button">Export CSV</button>
+  </div>
+
+  <div class="facet"><span class="mono">Country</span><div class="chips" id="fGeo"></div></div>
+  <div class="facet"><span class="mono">View</span><div class="chips" id="fView"></div></div>
+
+  <div class="count" id="mcount"></div>
+  <div class="cards" id="mcards"></div>
+
+  <p class="prov">Makers, countries and scores follow the humanoid board published at
+    robolist.ai, scores as of 6 September 2026. Two columns there are wider than humanoids and are
+    labelled as such: RoboScore is a maker's score across every category it lists in, and the
+    catalogue count is its whole range, not its humanoids alone. Legal suffixes are trimmed and
+    descriptions truncated; nothing else is rewritten. Universities, national labs and agencies are
+    kept but tagged, because a research platform is not a customer for parts at volume.</p>
+</section></div>
+
 <div class="wrap"><section style="border:0">
-  <div class="eyebrow">03 · WHY THIS SUPPLY BASE</div>
+  <div class="eyebrow">04 · WHY THIS SUPPLY BASE</div>
   <h2>Three reasons the parts come from where they come from.</h2>
   <div class="g3">
     <div><div class="mono">CARRIED OVER FROM CARS</div>
@@ -210,6 +263,7 @@ input[type=search]:focus{outline:none;border-color:#111}
 </div></div>
 
 <script src="/_assets/supply-chain-data.js"></script>
+<script src="/_assets/humanoid-makers.js"></script>
 <script>
 const PARTS = [
   {cat:'Actuators', share:35, qty:'~28 PER ROBOT',                color:'#FF7A00'},
@@ -247,14 +301,14 @@ PARTS.forEach(p => {
   $('rows').appendChild(r);
 });
 
-function chips(host, entries, get, set) {
+function chips(host, entries, get, set, redraw) {
   entries.forEach(([v, n]) => {
     const b = document.createElement('button');
     b.className = 'chip';
     b.type = 'button';
     b.innerHTML = v + '<b>' + n + '</b>';
     b.dataset.v = v;
-    b.onclick = () => { set(get() === v ? null : v); render(); };
+    b.onclick = () => { set(get() === v ? null : v); (redraw || render)(); };
     host.appendChild(b);
   });
 }
@@ -304,5 +358,108 @@ $('csv').onclick = () => {
 };
 
 render();
+
+/* ---- Demand side ------------------------------------------------------- */
+const M = window.MAKERS || [];
+let geo = null, commercialOnly = false, trailOnly = false;
+
+const geoTally = {};
+M.forEach(r => { geoTally[r.c] = (geoTally[r.c] || 0) + 1; });
+/* '—' is an absence, not a country: it sorts last and is counted out of the
+   country total rather than ranked among them. */
+const GEOS = Object.entries(geoTally)
+  .sort((a, b) => (a[0] === '—') - (b[0] === '—') || b[1] - a[1] || a[0].localeCompare(b[0]));
+const KNOWN = GEOS.filter(([c]) => c !== '—');
+const UNKNOWN = geoTally['—'] || 0;
+
+$('mN').textContent = M.length;
+$('mC').textContent = M.filter(r => !r.lab).length;
+$('mG').textContent = KNOWN.length;
+$('mT').textContent = M.filter(r => r.buy).length;
+
+/* Five bands and a remainder: a bar with twenty slivers reads as noise. */
+KNOWN.slice(0, 5)
+  .concat([['Elsewhere', KNOWN.slice(5).reduce((n, g) => n + g[1], 0)],
+           ['Not on file', UNKNOWN]])
+  .filter(([, n]) => n > 0)
+  .forEach(([c, n], i) => {
+    const bar = document.createElement('i');
+    bar.style.cssText = 'flex:' + n + ';opacity:' + (c === 'Not on file' ? 0.12 : 1 - i * 0.15);
+    bar.title = c + ' · ' + n;
+    $('geobar').appendChild(bar);
+    const k = document.createElement('span');
+    k.innerHTML = c + '<b>' + n + '</b>';
+    $('geokey').appendChild(k);
+  });
+
+chips($('fGeo'), GEOS.map(([c, n]) => [c, n]), () => geo, v => { geo = v; }, renderM);
+[...$('fGeo').children].forEach(b => {
+  if (b.dataset.v === '—') b.innerHTML = 'Not on file<b>' + UNKNOWN + '</b>';
+});
+
+[['Commercial only', () => commercialOnly, v => { commercialOnly = v; }],
+ ['Named in the index above', () => trailOnly, v => { trailOnly = v; }]
+].forEach(([label, get, set]) => {
+  const b = document.createElement('button');
+  b.className = 'chip';
+  b.type = 'button';
+  b.textContent = label;
+  b.onclick = () => { set(!get()); b.setAttribute('aria-pressed', String(get())); renderM(); };
+  b.setAttribute('aria-pressed', 'false');
+  $('fView').appendChild(b);
+});
+
+function visibleM() {
+  const t = $('mq').value.trim().toLowerCase();
+  return M.filter(r => {
+    if (geo && r.c !== geo) return false;
+    if (commercialOnly && r.lab) return false;
+    if (trailOnly && !r.buy) return false;
+    if (!t) return true;
+    return [r.n, r.c, r.d || '', r.buy || ''].join(' ').toLowerCase().indexOf(t) >= 0;
+  });
+}
+
+function renderM() {
+  [...$('fGeo').children].forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === geo)));
+  const rows = visibleM();
+  const scope = [geo, commercialOnly ? 'commercial' : null,
+    trailOnly ? 'in the index' : null].filter(Boolean).join(' · ') || 'everything';
+  $('mcount').textContent = rows.length + ' of ' + M.length + ' · ' + scope;
+  $('mcards').innerHTML = rows.length ? rows.map(r =>
+    '<div class="card"><h3>' + r.n +
+    (r.c !== '—' ? '<span class="cn">' + r.c + '</span>' : '') + '</h3>' +
+    '<div class="meta"><span><b>RoboScore</b> ' + r.s + ' / 100</span>' +
+    '<span><b>Catalogue</b> ' + r.r + (r.r === 1 ? ' robot' : ' robots') + '</span></div>' +
+    ((r.buy || r.lab) ? '<div class="tags">' +
+      (r.buy ? '<span class="tag trail">BUYS AS ' + r.buy.toUpperCase() + '</span>' : '') +
+      (r.lab ? '<span class="tag lab">RESEARCH PLATFORM</span>' : '') + '</div>' : '') +
+    (r.d ? '<div class="note">' + r.d + '</div>' : '') + '</div>').join('')
+    : '<div class="empty">Nothing matches. Clear the search or drop a filter.</div>';
+}
+
+$('mq').oninput = renderM;
+$('mreset').onclick = () => {
+  geo = null; commercialOnly = false; trailOnly = false;
+  $('mq').value = '';
+  [...$('fView').children].forEach(b => b.setAttribute('aria-pressed', 'false'));
+  renderM();
+};
+$('mcsv').onclick = () => {
+  const esc = v => '"' + String(v).replace(/"/g, '""') + '"';
+  const out = [['Maker', 'Country', 'RoboScore (all categories)', 'Catalogue robots',
+    'Buyer in the index', 'Research platform', 'What they build']];
+  visibleM().forEach(r => out.push([r.n, r.c, r.s, r.r, r.buy || '',
+    r.lab ? 'yes' : '', r.d || '']));
+  const blob = new Blob(['﻿' + out.map(r => r.map(esc).join(',')).join('\r\n')],
+    {type: 'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'fountain-humanoid-makers.csv';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+};
+
+renderM();
 </script>
 </body></html>
