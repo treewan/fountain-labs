@@ -68,6 +68,12 @@ input[type=search]:focus{outline:none;border-color:#111}
 .tags{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px}
 .tag{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:1px;padding:3px 8px;
   border-radius:999px;background:#F0F0EC;color:#55554F}
+.tag.integration{background:#1F9D55;color:#fff}
+.tag.partnership{background:#1E48D8;color:#fff}
+.tag.capacity{background:#B87A00;color:#fff}
+.tag.commercial{border:1px solid #E6E6E2;background:none}
+.meta .ev2{grid-column:2/-1}
+.chip[hidden]{display:none}
 .card .note{margin-top:11px;padding-top:10px;border-top:1px dashed #E6E6E2;
   font-size:13px;line-height:1.55;color:#3A3A38}
 .card .flag{margin-top:8px;font-size:12px;color:#B3261E}
@@ -78,13 +84,17 @@ input[type=search]:focus{outline:none;border-color:#111}
 /* Optimus reference — supporting the index, not leading it. */
 .ref{margin-top:36px;display:grid;grid-template-columns:1.15fr 1fr;gap:44px;align-items:start}
 .bom{display:flex;gap:3px;height:12px;border-radius:2px;overflow:hidden}
-.bom i{display:block}
-.bomrows{margin-top:18px;display:grid;gap:0}
-.bomrow{display:grid;grid-template-columns:12px 1fr auto auto;gap:12px;align-items:baseline;
-  padding:11px 0;border-top:1px solid #E6E6E2;font-size:14.5px}
-.dot{width:9px;height:9px;border-radius:2px;align-self:center}
-.bomrow .qty{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:1px;color:#8A8A85}
-.bomrow .pc{font-weight:500}
+.bom i{display:block;min-width:2px}
+.bd + .bd{margin-top:30px;padding-top:26px;border-top:1px solid #E6E6E2}
+.bdhead{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:space-between;
+  align-items:baseline;margin-bottom:12px}
+.bdhead .mono{font-size:10.5px;letter-spacing:1.4px}
+.bdtot{font-size:13.5px;color:#55554F}
+.bdkey{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:#3A3A38}
+.bdkey span{display:inline-flex;align-items:center;gap:6px}
+.bdkey i{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.bdkey b{font-weight:400;color:#8A8A85}
+.bdfoot{margin-top:11px;font-size:12.5px;line-height:1.55;color:#8A8A85}
 .refnote{font-size:14px;line-height:1.65;color:#3A3A38}
 .refnote p+p{margin-top:14px}
 
@@ -142,22 +152,23 @@ input[type=search]:focus{outline:none;border-color:#111}
   <div class="mono">ROBOTICS SUPPLY CHAIN · COMPONENT MAKERS</div>
   <h1 class="h1">Who actually makes the parts inside a humanoid robot.</h1>
   <p class="lead">A searchable index of the component makers behind the humanoid programmes —
-    by part, by buyer, by city. Built for the question a hardware team arrives with: I need this
-    part, at this volume, from someone who has shipped it before.</p>
+    by subsystem, by part, by country, by buyer. Built for the question a hardware team arrives
+    with: I need this part, at this volume, from someone who has shipped it before.</p>
 
   <div class="stats">
     <div><div class="stat" id="sN">—</div><div class="statcap">component makers indexed</div></div>
-    <div><div class="stat" id="sP">—</div><div class="statcap">part categories, from reducers to castings</div></div>
+    <div><div class="stat" id="sP">—</div><div class="statcap">part categories across <span id="sG">—</span> subsystems, magnets to cold plates</div></div>
+    <div><div class="stat" id="sR">—</div><div class="statcap">countries, though one holds more than half</div></div>
     <div><div class="stat" id="sB">—</div><div class="statcap">buyers tracked: Tesla, Figure AI, AGI Bot, Unitree</div></div>
-    <div><div class="stat" id="sC">—</div><div class="statcap">cities, concentrated in the Yangtze delta</div></div>
   </div>
 </div>
 
 <div class="wrap"><section id="db">
   <div class="eyebrow">01 · THE INDEX</div>
   <h2>Search it by part, by buyer, or by name.</h2>
-  <p class="sub">Filters combine: pick a part and a buyer to see only the makers who supply that
-    part to that programme. Export gives you exactly what is on screen.</p>
+  <p class="sub">Filters combine: pick a subsystem and a country to see who makes that half of the
+    robot there, or a part and a buyer to see who supplies it to that programme. Export gives you
+    exactly what is on screen.</p>
 
   <div class="tools">
     <input type="search" id="q" placeholder="Search name, Chinese name, city, ticker…" aria-label="Search suppliers">
@@ -165,7 +176,9 @@ input[type=search]:focus{outline:none;border-color:#111}
     <button class="btn" id="csv" type="button">Export CSV</button>
   </div>
 
+  <div class="facet"><span class="mono">Subsystem</span><div class="chips" id="fGrp"></div></div>
   <div class="facet"><span class="mono">Part</span><div class="chips" id="fCat"></div></div>
+  <div class="facet"><span class="mono">Country</span><div class="chips" id="fCo"></div></div>
   <div class="facet"><span class="mono">Buyer</span><div class="chips" id="fCust"></div></div>
 
   <div class="count" id="count"></div>
@@ -176,29 +189,42 @@ input[type=search]:focus{outline:none;border-color:#111}
     humanityslastmachine.com. Three makers it does not carry, and the figures shown on seven rows
     that it does, come from a 36Kr analysis of the Optimus chain, April 2026. One exact duplicate
     and one internally contradictory row were removed and ticker formats normalised; a row whose
-    name and ticker disagree in the source is marked rather than rewritten.</p>
+    name and ticker disagree in the source is marked rather than rewritten.
+    <br><br>The rows without a listing come from published component guides rather than filings —
+    Black Scarab's humanoid anatomy guide, the Humanoid Press supplier directory, and reporting on
+    the NdFeB magnet base. Those carry a country and an evidence grade instead of a ticker, because
+    that is what their sources give: whether a named platform is documented as using the part,
+    whether both parties disclosed a partnership, or only that the company sells into the category.
+    Where two guides give different countries for the same maker, the field is left empty and the
+    row flagged.</p>
 </section></div>
 
 <div class="wrap"><section>
   <div class="eyebrow">02 · REFERENCE · WHAT A HUMANOID NEEDS</div>
-  <h2>What the parts are for, and how many of each go in.</h2>
-  <p class="sub">Tesla is the only programme to have published a bill of materials in any detail,
-    so its numbers stand in as the reference shape of the problem. Read them as scale, not gospel.</p>
+  <h2>Three teardowns of the same robot, three different answers.</h2>
+  <p class="sub">Nobody outside the programmes has the real bill of materials, so what circulates
+    is estimates that do not agree — on the split, on the axis, or even on the total. They are
+    printed side by side here rather than averaged, because the spread is the finding.</p>
 
   <div class="ref">
-    <div>
-      <div class="bom" id="bar"></div>
-      <div class="bomrows" id="rows"></div>
-    </div>
+    <div id="bds"></div>
     <div class="refnote">
-      <p>The BOM target is about <strong>$20,000</strong> a unit at mass production, down from
-        roughly $43,000 in small batches. Guidance has been 50,000–150,000 units in 2026.</p>
-      <p>Around <strong>70%</strong> of that chain is reported as Chinese, for a specific reason
-        rather than a general one: harmonic reducers at 40–60% of the Japanese equivalent, planetary
-        roller screws at about half the Swiss one. The $20,000 target does not close without it.</p>
+      <p>The totals differ by more than a factor of two: about <strong>$20,000</strong> a unit is
+        Tesla's stated mass-production target, roughly <strong>$43,000</strong> was the small-batch
+        figure, and independent teardowns of a dexterous full-size unit land near
+        <strong>$55,000</strong>. Guidance has been 50,000–150,000 units in 2026.</p>
+      <p>Actuation is the largest line in every version, but by how much is unsettled —
+        <strong>35% to 56%</strong> depending on whether hands, screws and reducers are counted
+        inside it or beside it. Read the bars as three ways of drawing one boundary.</p>
+      <p>Counts hold up better than shares. A unit takes roughly <strong>28 actuators</strong>,
+        <strong>20 coreless motors</strong> in the hands and <strong>14 planetary roller
+        screws</strong> in the load-bearing joints.</p>
+      <p>Around <strong>70%</strong> of the chain is reported as Chinese for a specific reason:
+        harmonic reducers at 40–60% of the Japanese equivalent, roller screws at about half the
+        Swiss one. Built without it, one estimate puts the same robot near $131,000.</p>
       <p>What would unwind it: the schedule spans a factor of three, several suppliers now carry
-        Tesla at close to 40% of revenue, and once the Mexico plant is fully up, local makers
-        compete for the same content.</p>
+        Tesla at close to 40% of revenue, and rare-earth magnet processing — about 90% of it
+        Chinese — is the one link a cheque cannot shorten.</p>
     </div>
   </div>
 </section></div>
@@ -223,7 +249,7 @@ input[type=search]:focus{outline:none;border-color:#111}
   </div>
 
   <div class="tools">
-    <input type="search" id="mq" placeholder="Search maker, country, what they build…" aria-label="Search makers">
+    <input type="search" id="mq" placeholder="Search maker, country, customer, what they build…" aria-label="Search makers">
     <button class="btn" id="mreset" type="button">Reset</button>
     <button class="btn" id="mcsv" type="button">Export CSV</button>
   </div>
@@ -275,41 +301,64 @@ input[type=search]:focus{outline:none;border-color:#111}
 <script src="/_assets/supply-chain-data.js"></script>
 <script src="/_assets/humanoid-makers.js"></script>
 <script>
-const PARTS = [
-  {cat:'Actuators', share:35, qty:'~28 PER ROBOT',                color:'#FF7A00'},
-  {cat:'Sensors',   share:20, qty:'F/T · TACTILE · IMU · VISION', color:'#8A8A85'},
-  {cat:'Screws',    share:18, qty:'~14 PER ROBOT',                color:'#1E48D8'},
-  {cat:'Reducers',  share:15, qty:'HARMONIC · PLANETARY',         color:'#1F9D55'},
-  {cat:'Motors',    share:12, qty:'~20 CORELESS PER ROBOT',       color:'#B87A00'},
+/* One colour per concept, held across the bars, so the eye can follow a line
+   from one teardown to the next even where the labels differ. */
+const C = {act:'#FF7A00', hand:'#B87A00', sens:'#8A8A85', screw:'#1E48D8', red:'#1F9D55',
+           mot:'#7A5CD8', comp:'#0FA3A3', str:'#55554F', wire:'#C9C9C2', batt:'#111'};
+const BREAKDOWNS = [
+  {src:'36Kr', when:'April 2026', axis:'BY PART', total:'$20K target at volume', items:[
+    ['Actuators', 35, C.act], ['Sensors and other', 20, C.sens], ['Lead screws', 18, C.screw],
+    ['Reducers', 15, C.red], ['Motors', 12, C.mot]]},
+  {src:'humanoid.guide', when:'2026', axis:'BY PART', total:'~$50K unit scale', items:[
+    ['Actuators and precision motion', 50, C.act], ['Hands', 15, C.hand], ['Sensors', 10, C.sens],
+    ['AI compute', 8, C.comp], ['Structure', 7, C.str], ['Wiring', 5, C.wire],
+    ['Battery', 5, C.batt]]},
+  {src:'Morgan Stanley', when:'2026', axis:'BY BODY REGION', total:'~$55K', items:[
+    ['Hands', 17.2, '#111'], ['Waist and pelvis', 14.2, '#2E2E2A'], ['Thigh', 13.2, '#45453F'],
+    ['Calf', 13.2, '#5C5C55'], ['Feet', 12.2, '#73736A'], ['Elbow', 4.7, '#8A8A80'],
+    ['Forearm', 3.9, '#A1A196'], ['Head', 3.8, '#B8B8AC'], ['Shoulder', 3.8, '#CFCFC2'],
+    ['Upper arm', 2.0, '#DEDED2'], ['Battery pack', 0.5, '#E8E8DC'], ['Other', 0.9, '#F0F0E6']],
+   foot:'Line items account for 89.6% of the stated total; the rest is unallocated in the source.'},
 ];
 const S = window.SUPPLIERS || [];
+const EV = {
+  integration: 'Documented on a named platform',
+  partnership: 'Partnership both sides disclose',
+  commercial: 'Sells for this use, no platform named',
+  capacity: 'Named as a capacity holder',
+};
 const $ = id => document.getElementById(id);
-let cat = null, cust = null, allS = false;
+let grp = null, cat = null, co = null, cust = null, allS = false;
 
 function tally(key) {
   const t = {};
-  S.forEach(r => (key === 'cat' ? [r.cat] : r.cu).forEach(v => { t[v] = (t[v] || 0) + 1; }));
-  return Object.entries(t).sort((a, b) => b[1] - a[1]);
+  S.forEach(r => (key === 'cu' ? r.cu : [r[key]]).forEach(v => {
+    if (v) t[v] = (t[v] || 0) + 1;
+  }));
+  /* '—' is an unknown, not a place: it sorts last wherever it appears. */
+  return Object.entries(t)
+    .sort((a, b) => (a[0] === '—') - (b[0] === '—') || b[1] - a[1] || a[0].localeCompare(b[0]));
 }
 
-const CATS = tally('cat'), CUSTS = tally('cu');
+const GRPS = tally('grp'), CATS = tally('cat'), COS = tally('co'), CUSTS = tally('cu');
+const CATGRP = {};
+S.forEach(r => { CATGRP[r.cat] = r.grp; });
 $('sN').textContent = S.length;
 $('sP').textContent = CATS.length;
+$('sG').textContent = GRPS.length;
+$('sR').textContent = COS.filter(([c]) => c !== '—').length;
 $('sB').textContent = CUSTS.length;
-$('sC').textContent = new Set(S.map(r => r.city).filter(c => c && c !== '—')).size;
 
-PARTS.forEach(p => {
-  const i = document.createElement('i');
-  i.style.cssText = 'flex:' + p.share + ';background:' + p.color;
-  i.title = p.cat + ' · ' + p.share + '%';
-  $('bar').appendChild(i);
-  const r = document.createElement('div');
-  r.className = 'bomrow';
-  r.innerHTML = '<span class="dot" style="background:' + p.color + '"></span>' +
-    '<span>' + p.cat + '</span><span class="qty">' + p.qty + '</span>' +
-    '<span class="pc">' + p.share + '%</span>';
-  $('rows').appendChild(r);
-});
+$('bds').innerHTML = BREAKDOWNS.map(b =>
+  '<div class="bd"><div class="bdhead"><span class="mono">' + b.axis + ' · ' + b.src.toUpperCase() +
+  ' · ' + b.when.toUpperCase() + '</span><span class="bdtot">' + b.total + '</span></div>' +
+  '<div class="bom">' + b.items.map(([label, pc, col]) =>
+    '<i style="flex:' + pc + ';background:' + col + '" title="' + label + ' · ' + pc + '%"></i>'
+  ).join('') + '</div>' +
+  '<div class="bdkey">' + b.items.map(([label, pc, col]) =>
+    '<span><i style="background:' + col + '"></i>' + label + '<b>' + pc + '%</b></span>'
+  ).join('') + '</div>' +
+  (b.foot ? '<p class="bdfoot">' + b.foot + '</p>' : '') + '</div>').join('');
 
 /* A full index is a reference, not a page. Both lists open on a screenful and
    the reader asks for the rest. */
@@ -331,45 +380,68 @@ function chips(host, entries, get, set, redraw) {
     host.appendChild(b);
   });
 }
+chips($('fGrp'), GRPS, () => grp, v => { grp = v; cat = null; });
 chips($('fCat'), CATS, () => cat, v => { cat = v; });
+chips($('fCo'), COS, () => co, v => { co = v; });
 chips($('fCust'), CUSTS, () => cust, v => { cust = v; });
 
 function visible() {
   const t = $('q').value.trim().toLowerCase();
   return S.filter(r => {
+    if (grp && r.grp !== grp) return false;
     if (cat && r.cat !== cat) return false;
+    if (co && r.co !== co) return false;
     if (cust && r.cu.indexOf(cust) < 0) return false;
     if (!t) return true;
-    return [r.en, r.cn, r.city, r.stk, r.cat, r.note || ''].join(' ').toLowerCase().indexOf(t) >= 0;
+    return [r.en, r.cn, r.co, r.city, r.stk, r.cat, r.grp, r.note || '']
+      .join(' ').toLowerCase().indexOf(t) >= 0;
   });
 }
 
 function render() {
-  [...$('fCat').children].forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === cat)));
+  [...$('fGrp').children].forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === grp)));
+  [...$('fCo').children].forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === co)));
   [...$('fCust').children].forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === cust)));
+  /* A part chip outside the chosen subsystem would always return nothing. */
+  [...$('fCat').children].forEach(b => {
+    b.setAttribute('aria-pressed', String(b.dataset.v === cat));
+    b.hidden = grp ? CATGRP[b.dataset.v] !== grp : false;
+  });
   const rows = visible();
-  const scope = [cat, cust].filter(Boolean).join(' · ') || 'everything';
+  const scope = [grp, cat, co, cust].filter(Boolean).join(' · ') || 'everything';
   const shown = allS ? rows : rows.slice(0, LIMIT);
   $('count').textContent = rows.length + ' of ' + S.length + ' · ' + scope +
     (shown.length < rows.length ? ' · showing ' + shown.length : '');
   more($('moreS'), rows, allS, v => { allS = v; }, render);
   $('cards').innerHTML = rows.length ? shown.map(r =>
     '<div class="card"><h3>' + r.en + (r.cn ? '<span class="cn">' + r.cn + '</span>' : '') + '</h3>' +
-    '<div class="meta"><span><b>Part</b> ' + r.cat + '</span><span><b>City</b> ' + (r.city || '—') + '</span>' +
-    '<span><b>Founded</b> ' + (r.yr || '—') + '</span><span><b>Listed</b> ' + r.stk + '</span></div>' +
-    '<div class="tags">' + r.cu.map(c => '<span class="tag">' + c + '</span>').join('') + '</div>' +
+    '<div class="meta"><span><b>Part</b> ' + r.cat + '</span>' +
+    '<span><b>Where</b> ' + (r.city ? r.city + ', ' + r.co : r.co) + '</span>' +
+    (r.stk ? '<span><b>Founded</b> ' + (r.yr || '—') + '</span>' +
+             '<span><b>Listed</b> ' + r.stk + '</span>'
+           : '<span class="ev2"><b>Evidence</b> ' + (EV[r.ev] || '—') + '</span>') + '</div>' +
+    ((r.cu.length || r.ev) ? '<div class="tags">' +
+      r.cu.map(c => '<span class="tag">' + c + '</span>').join('') +
+      (r.ev ? '<span class="tag ' + r.ev + '">' + r.ev.toUpperCase() + '</span>' : '') +
+      '</div>' : '') +
     (r.note ? '<div class="note">' + r.note + '</div>' : '') +
     (r.flag ? '<div class="flag">⚠ ' + r.flag + '</div>' : '') + '</div>').join('')
     : '<div class="empty">Nothing matches. Clear the search or drop a filter.</div>';
 }
 
 $('q').oninput = render;
-$('reset').onclick = () => { cat = null; cust = null; allS = false; $('q').value = ''; render(); };
+$('reset').onclick = () => {
+  grp = null; cat = null; co = null; cust = null; allS = false;
+  $('q').value = '';
+  render();
+};
 
 $('csv').onclick = () => {
   const esc = v => '"' + String(v).replace(/"/g, '""') + '"';
-  const out = [['Company', 'Chinese name', 'Part', 'City', 'Founded', 'Listing', 'Buyers', 'Note']];
-  visible().forEach(r => out.push([r.en, r.cn, r.cat, r.city, r.yr, r.stk, r.cu.join(' / '), r.note || '']));
+  const out = [['Company', 'Chinese name', 'Subsystem', 'Part', 'Country', 'City',
+    'Founded', 'Listing', 'Buyers', 'Evidence', 'Note']];
+  visible().forEach(r => out.push([r.en, r.cn, r.grp, r.cat, r.co, r.city, r.yr, r.stk,
+    r.cu.join(' / '), EV[r.ev] || '', r.note || '']));
   const blob = new Blob(['﻿' + out.map(r => r.map(esc).join(',')).join('\r\n')],
     {type: 'text/csv;charset=utf-8'});
   const a = document.createElement('a');
@@ -444,7 +516,8 @@ function visibleM() {
     if (fundedOnly && !r.cap) return false;
     if (trailOnly && !r.buy) return false;
     if (!t) return true;
-    return [r.n, r.c, r.d || '', r.buy || ''].join(' ').toLowerCase().indexOf(t) >= 0;
+    return [r.n, r.c, r.hq || '', r.d || '', r.buy || '', r.cap || '', (r.dc || []).join(' ')]
+      .join(' ').toLowerCase().indexOf(t) >= 0;
   });
 }
 
