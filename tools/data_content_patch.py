@@ -71,6 +71,12 @@ SWAPS = [
 
     ("By spec, by the hour.", "By spec, by the effective hour."),
 
+    # The fourth tile carried an accent colour, put there to single out the
+    # hours figure that used to sit in it. Its contents changed; the colour
+    # stayed and started emphasising a number nobody chose to emphasise.
+    ("letter-spacing: -.04em; line-height: 1; color: #FF7A00",
+     "letter-spacing: -.04em; line-height: 1"),
+
     # The fourth card broke the pattern: the other three name model families,
     # this one named a property of the data, under a heading that promises
     # four kinds of model. Naming the task it serves puts it back in line.
