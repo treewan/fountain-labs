@@ -115,6 +115,7 @@ input[type=search]:focus{outline:none;border-color:#111}
 .card .ev{margin-top:10px;display:grid;gap:3px;font-size:13px;line-height:1.5;color:#3A3A38}
 .card .ev b{font-weight:400;color:#8A8A85}
 .tag.lab{background:none;border:1px solid #E6E6E2}
+.tag.added{background:none;border:1px solid #FF7A00;color:#C25E00}
 @media (max-width:900px){.substats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:760px){.substat{font-size:22px}}
 
@@ -238,10 +239,10 @@ input[type=search]:focus{outline:none;border-color:#111}
     placing volume orders against the index above.</p>
 
   <div class="substats">
-    <div><div class="substat" id="mN">—</div><div class="statcap">makers with a humanoid on file, in <span id="mG">—</span> countries</div></div>
+    <div><div class="substat" id="mN">—</div><div class="statcap">makers on file, in <span id="mG">—</span> countries; <span id="mT">—</span> also buy from the index above</div></div>
     <div><div class="substat" id="mD">—</div><div class="statcap">have shipped to a customer someone can name</div></div>
     <div><div class="substat" id="mF">—</div><div class="statcap">have a funding round anyone has confirmed</div></div>
-    <div><div class="substat" id="mT">—</div><div class="statcap">already named as buyers on the supplier rows</div></div>
+    <div><div class="substat" id="mA">—</div><div class="statcap">added by hand, because the board cannot see them</div></div>
   </div>
 
   <div class="geo">
@@ -322,6 +323,11 @@ const BREAKDOWNS = [
    foot:'Line items account for 89.6% of the stated total; the rest is unallocated in the source.'},
 ];
 const S = window.SUPPLIERS || [];
+const SRC = {
+  stub: 'ON ROBOLIST, NO MODEL INDEXED',
+  category: 'ON ROBOLIST, ANOTHER CATEGORY',
+  absent: 'NOT ON ROBOLIST',
+};
 const EV = {
   integration: 'Documented on a named platform',
   partnership: 'Partnership both sides disclose',
@@ -457,7 +463,7 @@ render();
 /* ---- Demand side ------------------------------------------------------- */
 const M = window.MAKERS || [];
 let geo = null, commercialOnly = false, shippedOnly = false, fundedOnly = false,
-    trailOnly = false, allM = false;
+    trailOnly = false, addedOnly = false, allM = false;
 
 const geoTally = {};
 M.forEach(r => { geoTally[r.c] = (geoTally[r.c] || 0) + 1; });
@@ -470,9 +476,10 @@ const UNKNOWN = geoTally['—'] || 0;
 
 $('mN').textContent = M.length;
 $('mG').textContent = KNOWN.length;
+$('mT').textContent = M.filter(r => r.buy).length;
 $('mD').textContent = M.filter(r => r.dep).length;
 $('mF').textContent = M.filter(r => r.cap).length;
-$('mT').textContent = M.filter(r => r.buy).length;
+$('mA').textContent = M.filter(r => r.src).length;
 
 /* Five bands and a remainder: a bar with twenty slivers reads as noise. */
 KNOWN.slice(0, 5)
@@ -497,7 +504,8 @@ chips($('fGeo'), GEOS.map(([c, n]) => [c, n]), () => geo, v => { geo = v; }, ren
 [['Commercial only', () => commercialOnly, v => { commercialOnly = v; }],
  ['Shipped to someone', () => shippedOnly, v => { shippedOnly = v; }],
  ['Funding on file', () => fundedOnly, v => { fundedOnly = v; }],
- ['Named in the index above', () => trailOnly, v => { trailOnly = v; }]
+ ['Named in the index above', () => trailOnly, v => { trailOnly = v; }],
+ ['Missing from the board', () => addedOnly, v => { addedOnly = v; }]
 ].forEach(([label, get, set]) => {
   const b = document.createElement('button');
   b.className = 'chip';
@@ -516,8 +524,9 @@ function visibleM() {
     if (shippedOnly && !r.dep) return false;
     if (fundedOnly && !r.cap) return false;
     if (trailOnly && !r.buy) return false;
+    if (addedOnly && !r.src) return false;
     if (!t) return true;
-    return [r.n, r.c, r.hq || '', r.d || '', r.buy || '', r.cap || '',
+    return [r.n, r.c, r.hq || '', r.d || '', r.buy || '', r.cap || '', r.src || '',
       (r.dc || []).join(' '), (r.rb || []).join(' ')]
       .join(' ').toLowerCase().indexOf(t) >= 0;
   });
@@ -527,7 +536,8 @@ function renderM() {
   [...$('fGeo').children].forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === geo)));
   const rows = visibleM();
   const scope = [geo, commercialOnly ? 'commercial' : null, shippedOnly ? 'shipped' : null,
-    fundedOnly ? 'funded' : null, trailOnly ? 'in the index' : null]
+    fundedOnly ? 'funded' : null, trailOnly ? 'in the index' : null,
+    addedOnly ? 'off the board' : null]
     .filter(Boolean).join(' · ') || 'everything';
   const shown = allM ? rows : rows.slice(0, LIMIT);
   $('mcount').textContent = rows.length + ' of ' + M.length + ' · ' + scope +
@@ -540,8 +550,9 @@ function renderM() {
     /* An em dash where a city should be reads as a broken card, not as a gap. */
     ((r.hq || (r.c !== '—' ? r.c : '')) ?
       '<span class="cn">' + (r.hq || r.c) + '</span>' : '') + '</h3>' +
-    ((r.buy || r.lab) ? '<div class="tags">' +
+    ((r.buy || r.lab || r.src) ? '<div class="tags">' +
       (r.buy ? '<span class="tag trail">BUYS AS ' + r.buy.toUpperCase() + '</span>' : '') +
+      (r.src ? '<span class="tag added">' + SRC[r.src] + '</span>' : '') +
       (r.lab ? '<span class="tag lab">RESEARCH PLATFORM</span>' : '') + '</div>' : '') +
     ((r.cap || r.dep) ? '<div class="ev">' +
       (r.cap ? '<span><b>Raised</b> ' + r.cap + '</span>' : '') +
@@ -557,7 +568,7 @@ function renderM() {
 $('mq').oninput = renderM;
 $('mreset').onclick = () => {
   geo = null; commercialOnly = false; shippedOnly = false; fundedOnly = false;
-  trailOnly = false; allM = false;
+  trailOnly = false; addedOnly = false; allM = false;
   $('mq').value = '';
   [...$('fView').children].forEach(b => b.setAttribute('aria-pressed', 'false'));
   renderM();
@@ -567,10 +578,10 @@ $('mcsv').onclick = () => {
   const out = [['Maker', 'Country', 'HQ', 'Founded', 'Website', 'Price range',
     'Raised', 'Deployments on record', 'Named customers',
     'RoboScore (all categories)', 'Catalogue robots', 'Buyer in the index',
-    'Research platform', 'What they build', 'Models on file']];
+    'Research platform', 'What they build', 'Models on file', 'Why it is not on the board']];
   visibleM().forEach(r => out.push([r.n, r.c, r.hq || '', r.f || '', r.w || '', r.p || '',
     r.cap || '', r.dep || '', (r.dc || []).join(' / '), r.s, r.r, r.buy || '',
-    r.lab ? 'yes' : '', r.d || '', (r.rb || []).join(' / ')]));
+    r.lab ? 'yes' : '', r.d || '', (r.rb || []).join(' / '), r.src ? SRC[r.src] : '']));
   const blob = new Blob(['﻿' + out.map(r => r.map(esc).join(',')).join('\r\n')],
     {type: 'text/csv;charset=utf-8'});
   const a = document.createElement('a');

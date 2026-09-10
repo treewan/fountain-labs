@@ -26,6 +26,9 @@ FACTS = os.path.join(ROOT, "data", "robolist-company-facts-2026-09-06.json")
 OUT = os.path.join(ROOT, "public", "_assets", "humanoid-makers.js")
 BOARD = "https://www.robolist.ai/companies?category=humanoid&sort=rating"
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from extra_makers import rows as extra_rows, WHY  # noqa: E402
+
 # A maker on this board is not automatically a customer for precision parts.
 # Universities, national labs and agencies build one research platform and stop;
 # they are kept, but tagged, so the page can show a commercial-only view.
@@ -209,11 +212,20 @@ def build():
         if not d and f.get("robots"):
             row["rb"] = f["robots"]
         out.append(row)
+    # The supplement has no RoboScore to sort by, so it leads: these are the
+    # rows the board could not produce, and burying them would repeat its gap.
     out.sort(key=lambda x: (-x["s"], x["n"]))
+    out = extra_rows() + out
     with open(OUT, "w") as f:
         f.write("window.MAKERS = " + json.dumps(out, ensure_ascii=False) + ";\n")
     labs = sum(1 for r in out if r.get("lab"))
-    print("%d makers -> %s" % (len(out), os.path.relpath(OUT, ROOT)))
+    added = sum(1 for r in out if r.get("src"))
+    print("%d makers -> %s (%d from the board, %d added by hand)"
+          % (len(out), os.path.relpath(OUT, ROOT), len(out) - added, added))
+    for key, label in WHY.items():
+        n = sum(1 for r in out if r.get("src") == key)
+        if n:
+            print("  %d %s" % (n, label.lower()))
     print("  %d research platforms, %d commercial" % (labs, len(out) - labs))
     print("  %d joined to a buyer in the supplier index" % sum(1 for r in out if r.get("buy")))
     print("  %d robots in their catalogues (all categories, not humanoid only)"
