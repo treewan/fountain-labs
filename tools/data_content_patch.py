@@ -290,10 +290,10 @@ BANDS_LIST = [
     ("MARKED AS A POINT", "Singapore"),
 ]
 
-OLD_MAP_BOX = ('<div style="aspect-ratio: 1470/620; width: 100%; background: '
+OLD_MAP_BOX = ('<div style="aspect-ratio: 1000/470; width: 100%; background: '
                '#F4F4F2; border-radius: 8px; overflow: hidden; padding: 24px; '
                'box-sizing: border-box">')
-NEW_MAP_BOX = ('<div data-rw="mapbox" style="aspect-ratio: 1470/620; width: '
+NEW_MAP_BOX = ('<div data-rw="mapbox" style="aspect-ratio: 1000/470; width: '
                '100%; background: #F4F4F2; border-radius: 8px; overflow: '
                'hidden; padding: 24px; box-sizing: border-box">')
 
