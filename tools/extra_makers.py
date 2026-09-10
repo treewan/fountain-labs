@@ -22,7 +22,7 @@ that no longer exists does not buy parts.
 
 # name, country, HQ, founded, website, raised, what they build, why robolist misses it
 EXTRA = [
-["Sunday Robotics", "United States", "Mountain View, United States", "2024", "",
+["Sunday Robotics", "United States", "Mountain View, United States", "2024", "https://www.sunday.ai",
  "$200M",
  "Memo, a wheeled home robot that learns household chores from demonstration. $35M Series A in November 2025, then $165M in March 2026 at a $1.15B valuation.",
  "stub"],
@@ -30,7 +30,7 @@ EXTRA = [
  "$2B+",
  "Skild Brain, a single foundation model meant to control any robot without retraining. $1.4B Series C in January 2026 at over $14B.",
  "stub"],
-["Generalist AI", "United States", "San Mateo, United States", "2024", "",
+["Generalist AI", "United States", "San Mateo, United States", "2024", "https://generalistai.com",
  "~$600M",
  "GEN-0 and GEN-1, robot foundation models; the first to show scaling laws hold in the physical domain. $3B valuation as of August 2026.",
  "category"],
