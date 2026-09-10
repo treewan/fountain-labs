@@ -39,8 +39,14 @@ OLD_IMG = ('<img src="/_assets/01f80f95f37d3652.jpg" alt="" '
            'style="position: absolute; inset: 0; width: 100%; height: 100%; '
            'object-fit: cover; display: block">')
 
+# Cropping the captions out left one frame much wider than the rest. A tile
+# takes its centre by default, and for that one the centre is panel, not the
+# button the shot is about — so it is told where to look.
+FOCUS = {"scene-06.jpg": "30% center"}
+
 TILE = ('<img src="/_assets/{name}" alt="" loading="{loading}" '
-        'style="width: 100%; height: 100%; object-fit: cover; display: block">')
+        'style="width: 100%; height: 100%; object-fit: cover; '
+        'object-position: {focus}; display: block">')
 
 # Four across, two down. Below 760px the media-query rule turns it two across.
 # minmax(0, …) rather than a bare 1fr: a track's automatic minimum is the
@@ -140,7 +146,8 @@ def main():
     # The first tile carries the headline's backdrop, so it loads eagerly; the
     # rest can wait, since the masks cover them until they arrive.
     tiles = "".join(
-        TILE.format(name=n, loading="eager" if i == 0 else "lazy")
+        TILE.format(name=n, loading="eager" if i == 0 else "lazy",
+                    focus=FOCUS.get(n, "center"))
         for i, n in enumerate(SCENES))
     s = s.replace(OLD_IMG, GRID_OPEN + tiles + "</div>", 1)
 
