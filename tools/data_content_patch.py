@@ -55,8 +55,8 @@ SWAPS = [
      "monthly active users across the network"),
     (">160M<", ">19<"),
     (">photos a day<", ">countries with standing capture pools<"),
-    (">10M+<", ">8<"),
-    ("hours already in the pool", "task scenes you can order directly"),
+    (">10M+<", ">20M<"),
+    ("hours already in the pool", "videos uploaded a day, with GPS and timestamp"),
 
     # The daily video and photograph counts leave the tiles, so they are kept
     # here, where the scale argument is actually made.
@@ -368,14 +368,12 @@ STAT_GRID_OLD = ('data-rw="g4" style="display: grid; grid-template-columns: '
                  'repeat(4, minmax(0,1fr)); gap: 32px; padding-top: 28px; '
                  'border-top: 1px solid rgba(255,255,255,.2)"')
 STAT_GRID_NEW = ('data-rw="stats" style="display: grid; grid-template-columns: '
-                 'repeat(4, minmax(0,1fr)); gap: 36px 32px; padding-top: 28px; '
+                 'repeat(3, minmax(0,1fr)); gap: 34px 32px; padding-top: 28px; '
                  'border-top: 1px solid rgba(255,255,255,.2)"')
 
 EXTRA_STATS = [
-    ("20M", "videos uploaded a day, with GPS and timestamp"),
     ("160M", "photographs a day"),
     ("10M+", "hours of video already in the pool"),
-    ("80–170K", "hours added every day"),
 ]
 
 # Eight tiles in one column is a long scroll on a phone, and g4's own rule
@@ -385,17 +383,19 @@ EXTRA_STATS = [
 # sits a step down, which gives the block a hierarchy to read rather than a
 # grid to scan. Both come down from 48px, which was shouting.
 STATS_CSS = (
-    '[data-rw="stats"] [data-rw="stat"] { font-size: 38px !important; } '
-    '[data-rw="stats"] > div:nth-child(n+5) [data-rw="stat"] { '
-    'font-size: 28px !important; } '
-    '[data-rw="stats"] > div:nth-child(n+5) > div + div { '
+    '[data-rw="stats"] [data-rw="stat"] { font-size: 30px !important; } '
+    '[data-rw="stats"] > div:nth-child(n+4) [data-rw="stat"] { '
+    'font-size: 24px !important; } '
+    '[data-rw="stats"] > div:nth-child(n+4) > div + div { '
     'margin-top: 9px !important; } '
     '@media (max-width: 900px) { [data-rw="stats"] { grid-template-columns: '
-    'repeat(2, minmax(0,1fr)) !important; } } '
+    'repeat(2, minmax(0,1fr)) !important; } '
+    '[data-rw="stats"] > div:nth-child(n+4) [data-rw="stat"] { '
+    'font-size: 30px !important; } } '
     '@media (max-width: 760px) { '
-    '[data-rw="stats"] [data-rw="stat"] { font-size: 28px !important; } '
-    '[data-rw="stats"] > div:nth-child(n+5) [data-rw="stat"] { '
-    'font-size: 22px !important; } }\n  ')
+    '[data-rw="stats"] [data-rw="stat"] { font-size: 26px !important; } '
+    '[data-rw="stats"] > div:nth-child(n+4) [data-rw="stat"] { '
+    'font-size: 26px !important; } }\n  ')
 
 
 def stat_tiles():
@@ -461,7 +461,7 @@ def main():
     if STAT_GRID_OLD not in s:
         return fail("stat grid not found")
     s = s.replace(STAT_GRID_OLD, STAT_GRID_NEW, 1)
-    at = s.find("task scenes you can order directly")
+    at = s.find("videos uploaded a day, with GPS and timestamp")
     close = s.find("</div></div>", at)
     if at < 0 or close < 0:
         return fail("end of the stat tiles not found")
