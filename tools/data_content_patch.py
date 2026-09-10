@@ -74,11 +74,14 @@ SWAPS = [
 
 # Renumbering runs bottom-up so a number never lands on one not yet moved.
 RENUMBER = [
-    ("08 · WHY IT EXISTS", "10 · WHY IT EXISTS"),
-    ("07 · HOW IT FLOWS", "09 · HOW IT FLOWS"),
-    ("06 · CAPTURE HARDWARE", "08 · CAPTURE HARDWARE"),
-    ("05 · WHAT YOU CAN ORDER", "07 · WHAT YOU CAN ORDER"),
-    ("04 · COST STRUCTURE", "05 · COST STRUCTURE"),
+    ("08 · WHY IT EXISTS", "09 · WHY IT EXISTS"),
+    ("07 · HOW IT FLOWS", "08 · HOW IT FLOWS"),
+    ("06 · CAPTURE HARDWARE", "07 · CAPTURE HARDWARE"),
+    ("05 · WHAT YOU CAN ORDER", "06 · WHAT YOU CAN ORDER"),
+    # Cost structure and the moats made the same argument a section apart:
+    # capture capacity is a by-product, so volume does not buy it. Merged, the
+    # cost comparison becomes the evidence and the moats the conclusion.
+    ("04 · COST STRUCTURE", "05 · WHY IT IS HARD TO COPY"),
 ]
 
 # What the corpus contains, as distinct from where it comes from. These are
@@ -253,7 +256,7 @@ def qualities_section():
         f'{cards}</div>')
 
 
-def moats_section():
+def moats_block():
     cards = "".join(
         '<div style="border-top: 1px solid #111; padding-top: 16px">'
         f'<div style="{MONO}">{num}</div>'
@@ -261,15 +264,15 @@ def moats_section():
         f'letter-spacing: -.01em; color: #111">{title}</div>'
         f'<p style="{BODY}">{body}</p></div>'
         for num, title, body in MOATS)
-    return section(
-        "06 · WHY IT IS HARD TO COPY",
-        "Four things a competing supplier cannot simply spend its way into.",
-        "Capture capacity here is a by-product of work that happens anyway. "
-        "That changes what scaling costs, what quality control can enforce, "
-        "and what can be promised on a delivery date.",
-        '<div data-rw="g4" style="margin-top: 32px; display: grid; '
-        'grid-template-columns: repeat(2, minmax(0,1fr)); gap: 32px">'
-        f'{cards}</div>')
+    return ('<div style="margin-top: 56px; border-top: 1px solid #111; '
+            'padding-top: 28px">'
+            '<p style="margin: 0; font-size: 17px; line-height: 1.55; '
+            'color: #111; letter-spacing: -.01em; max-width: 720px">Which is '
+            'why volume does not buy it. Four things a competing supplier '
+            'cannot simply spend its way into.</p>'
+            '<div data-rw="g4" style="margin-top: 32px; display: grid; '
+            'grid-template-columns: repeat(2, minmax(0,1fr)); gap: 32px">'
+            f'{cards}</div></div>')
 
 
 def compliance_block():
@@ -430,29 +433,28 @@ def main():
         return fail("coverage section not found")
     s = s[:close] + industry_block() + scenes_block() + s[close:]
 
-    at = s.find("05 · COST STRUCTURE")
+    at = s.find("05 · WHY IT IS HARD TO COPY")
     start = s.rfind("<section", 0, at)
     if at < 0 or start < 0:
         return fail("insertion point for the qualities section not found")
     s = s[:start] + qualities_section() + s[start:]
 
-    # The new section sits between cost structure and what you can order.
-    marker = "07 · WHAT YOU CAN ORDER"
-    at = s.find(marker)
-    start = s.rfind("<section", 0, at)
-    if at < 0 or start < 0:
-        return fail("insertion point for the new section not found")
-    s = s[:start] + moats_section() + s[start:]
+    # The moats land inside the merged section rather than beside it.
+    at = s.find("05 · WHY IT IS HARD TO COPY")
+    close = s.find("</section>", at)
+    if at < 0 or close < 0:
+        return fail("merged section not found")
+    s = s[:close] + moats_block() + s[close:]
 
     # Delivery detail goes at the end of what-you-can-order.
-    at = s.find("07 · WHAT YOU CAN ORDER")
+    at = s.find("06 · WHAT YOU CAN ORDER")
     close = s.find("</section>", at)
     if close < 0:
         return fail("order section end not found")
     s = s[:close] + DELIVERY_DETAIL + s[close:]
 
     # Compliance, stated in the positive, closes the flow section.
-    at = s.find("09 · HOW IT FLOWS")
+    at = s.find("08 · HOW IT FLOWS")
     close = s.find("</section>", at)
     if at < 0 or close < 0:
         return fail("flow section not found")
@@ -484,7 +486,7 @@ def main():
     print("  headline figures: 8 tiles — reach on row one, throughput on row two")
     print(f"  coverage section: industry split + {len(SCENES)} task scenes")
     print(f"  new 04: {len(QUALITIES)} corpus qualities")
-    print(f"  new 06: {len(MOATS)} structural moats; sections renumbered to 01–10")
+    print(f"  05: cost structure merged with {len(MOATS)} moats; sections 01–09")
     print(f"  delivery: effective-hour definition, production line, schedule")
     print(f"  compliance: {len(COMPLIANCE)} items, stated in the positive")
     return 0
