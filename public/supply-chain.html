@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robotics Supply Chain — FOUNTAIN</title>
+<meta name="description" content="The Optimus bill of materials, component by component: what each part costs, how many go into a robot, and who makes it.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+@font-face{font-family:'Geist';font-style:normal;font-weight:400;font-display:swap;src:url("/_assets/9b6f5ff45b278c74.woff2") format('woff2')}
+@font-face{font-family:'Geist';font-style:normal;font-weight:500;font-display:swap;src:url("/_assets/9b6f5ff45b278c74.woff2") format('woff2')}
+@font-face{font-family:'Geist';font-style:normal;font-weight:600;font-display:swap;src:url("/_assets/9b6f5ff45b278c74.woff2") format('woff2')}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:400;font-display:swap;src:url("/_assets/23840067d1dda874.woff2") format('woff2')}
+@font-face{font-family:'Bebas Neue';font-style:normal;font-weight:400;font-display:swap;src:url("/_assets/441b026df205d289.woff2") format('woff2')}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Geist,-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans SC',sans-serif;
+  background:#FCFCFB;color:#111;-webkit-font-smoothing:antialiased}
+.mono{font-family:'Geist Mono',monospace;letter-spacing:1.5px;font-size:11px;color:#8A8A85;text-transform:uppercase}
+.wrap{max-width:1200px;margin:0 auto;padding:0 48px}
+a{color:inherit}
+
+header{position:fixed;top:0;left:0;right:0;z-index:40;padding:24px 48px;display:flex;
+  justify-content:space-between;align-items:center;font-size:13.5px;background:#FCFCFB;
+  border-bottom:1px solid #E6E6E2}
+.mark{display:flex;align-items:center;gap:12px;text-decoration:none}
+.dia{width:13px;height:13px;background:#111;transform:rotate(45deg);display:block}
+.name{font-family:'Bebas Neue',Geist,sans-serif;font-size:22px;letter-spacing:.04em;line-height:1}
+
+.hero{padding-top:150px}
+.h1{margin:18px 0 0;font-size:56px;line-height:1.04;font-weight:500;letter-spacing:-.035em;
+  max-width:900px;text-wrap:balance}
+.lead{margin:22px 0 0;font-size:17px;line-height:1.6;color:#3A3A38;max-width:720px;text-wrap:pretty}
+.stats{margin-top:48px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;
+  padding-top:26px;border-top:1px solid #111}
+.stat{font-size:30px;font-weight:500;letter-spacing:-.03em;line-height:1}
+.statcap{margin-top:10px;font-size:13.5px;line-height:1.45;color:#55554F}
+
+section{padding:96px 0;border-bottom:1px solid #E6E6E2}
+.eyebrow{font-family:'Geist Mono',monospace;font-size:14px;letter-spacing:2px;color:#55554F}
+h2{margin:20px 0 0;font-size:38px;line-height:1.1;font-weight:500;letter-spacing:-.03em;
+  max-width:760px;text-wrap:balance}
+.sub{margin:18px 0 0;font-size:16px;line-height:1.65;color:#3A3A38;max-width:720px;text-wrap:pretty}
+
+/* The BOM spine: each part sized by what it costs. */
+.bom{margin-top:48px;display:flex;gap:3px;height:15px;border-radius:2px;overflow:hidden}
+.bom i{display:block;transition:opacity .2s}
+.bom i:hover{opacity:.75}
+.parts{margin-top:26px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}
+.part{text-align:left;background:none;border:0;border-top:2px solid;padding:14px 0 0;
+  cursor:pointer;font:inherit;color:inherit;transition:opacity .2s}
+.part:hover{opacity:.62}
+.part[aria-pressed="true"]{opacity:1}
+.part .share{font-size:26px;font-weight:500;letter-spacing:-.02em;line-height:1}
+.part .pname{margin-top:8px;font-size:15px;font-weight:500}
+.part .pqty{margin-top:6px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:1.2px;color:#8A8A85}
+.part .pwhere{margin-top:9px;font-size:13.5px;line-height:1.5;color:#55554F}
+
+.tools{margin-top:44px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+input[type=search]{flex:1;min-width:240px;padding:12px 14px;font:inherit;font-size:15px;
+  border:1px solid #E6E6E2;border-radius:6px;background:#fff;color:#111}
+input[type=search]:focus{outline:none;border-color:#111}
+.btn{padding:12px 18px;font:inherit;font-size:14px;border:1px solid #111;background:none;
+  border-radius:999px;cursor:pointer;white-space:nowrap}
+.btn:hover{background:#111;color:#fff}
+.count{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:1.2px;color:#8A8A85}
+
+.cards{margin-top:28px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px}
+.card{border-top:1px solid #E6E6E2;padding:20px 0}
+.card h3{font-size:19px;font-weight:500;letter-spacing:-.01em}
+.card .cn{margin-left:8px;font-size:14px;color:#8A8A85;font-weight:400}
+.card .role{margin-top:7px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:1.2px}
+.card p{margin-top:11px;font-size:14.5px;line-height:1.6;color:#3A3A38}
+.card .src{margin-top:9px;font-size:12px;color:#8A8A85}
+.empty{grid-column:1/-1;padding:40px 0;color:#8A8A85;font-size:15px}
+
+.g3{margin-top:40px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+.g3 > div{border-top:1px solid #E6E6E2;padding-top:16px}
+.g3 h4{margin-top:10px;font-size:17px;font-weight:500;letter-spacing:-.01em}
+.g3 p{margin-top:10px;font-size:14.5px;line-height:1.6;color:#3A3A38}
+
+.note{margin-top:40px;padding:22px 24px;background:#F4F4F2;border-radius:8px;
+  font-size:14px;line-height:1.65;color:#3A3A38;max-width:860px}
+.srclist{margin-top:22px;display:grid;gap:8px;font-size:13.5px;line-height:1.55;color:#55554F}
+
+.cta{padding:96px 0;background:#111;color:#fff;border:0}
+.cta h2{color:#fff}
+.cta .sub{color:rgba(255,255,255,.66)}
+.pill{display:inline-flex;align-items:center;gap:8px;margin-top:32px;padding:14px 24px;
+  background:#FF7A00;color:#fff;border-radius:999px;text-decoration:none;font-size:15px;font-weight:500}
+
+@media (max-width:1000px){
+  .parts{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g3{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr;gap:0}
+}
+@media (max-width:760px){
+  .wrap{padding:0 20px}
+  header{padding:18px 20px}
+  .hero{padding-top:120px}
+  .h1{font-size:34px}
+  h2{font-size:28px}
+  section{padding:64px 0}
+  .parts{grid-template-columns:1fr}
+  .stat{font-size:26px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="mark" href="/"><span class="dia"></span><span class="name">FOUNTAIN</span></a>
+  <a href="/" style="font-size:13.5px;text-decoration:none">← Back</a>
+</header>
+
+<div class="wrap hero">
+  <div class="mono">ROBOTICS SUPPLY CHAIN · OPTIMUS BILL OF MATERIALS</div>
+  <h1 class="h1">Twenty-eight joints, fourteen roller screws, twenty coreless motors. Who makes them.</h1>
+  <p class="lead">A humanoid is a purchase order before it is a robot. This is the Optimus bill of
+    materials taken apart by cost, by count, and by supplier — so the question stops being
+    <em>who is in the supply chain</em> and becomes <em>who makes the part I need</em>.</p>
+
+  <div class="stats">
+    <div><div class="stat">$20,000</div><div class="statcap">BOM target per unit at mass production, down from about $43,000 in small batches</div></div>
+    <div><div class="stat">28</div><div class="statcap">actuators per robot, rotary and linear</div></div>
+    <div><div class="stat">14</div><div class="statcap">reverse planetary roller screws per robot</div></div>
+    <div><div class="stat">~70%</div><div class="statcap">of the Optimus supply chain reported as Chinese</div></div>
+  </div>
+</div>
+
+<div class="wrap"><section id="bom">
+  <div class="eyebrow">01 · WHERE THE MONEY GOES</div>
+  <h2>Five groups of parts, and one of them is a third of the cost.</h2>
+  <p class="sub">The bar is scaled by share of the $20,000 target. Select a part to see who makes it —
+    the list below filters with it.</p>
+
+  <div class="bom" id="bar"></div>
+  <div class="parts" id="parts"></div>
+</section></div>
+
+<div class="wrap"><section id="makers">
+  <div class="eyebrow">02 · WHO MAKES IT</div>
+  <h2>Ten companies named in the public record, with the figure that names them.</h2>
+  <p class="sub">Every entry carries the data point it is here for and where that came from. Nothing
+    is listed on reputation alone.</p>
+
+  <div class="tools">
+    <input type="search" id="q" placeholder="Search makers, parts, roles…" aria-label="Search suppliers">
+    <button class="btn" id="clear" type="button">All parts</button>
+    <button class="btn" id="csv" type="button">Export CSV</button>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div class="cards" id="cards"></div>
+</section></div>
+
+<div class="wrap"><section>
+  <div class="eyebrow">03 · WHY THERE</div>
+  <h2>Three reasons the parts come from where they come from.</h2>
+  <div class="g3">
+    <div><div class="mono">CARRIED OVER FROM CARS</div>
+      <h4>The same firms, one industry earlier</h4>
+      <p>Top Group, Sanhua, Wuzhou New Spring and Double Ring were already inside Tesla's automotive
+        supply chain. A decade of precision manufacturing, cost control and fast iteration in electric
+        vehicles carries across to joints.</p></div>
+    <div><div class="mono">ONE-HOUR CIRCLE</div>
+      <h4>A cluster, not a set of vendors</h4>
+      <p>Zhejiang, Jiangsu and Shanghai hold a supply base built around Tesla's car programmes, dense
+        enough that a sample can move in twenty-four hours. That density is what Mexico and Berlin
+        cannot stand up quickly.</p></div>
+    <div><div class="mono">PRICE</div>
+      <h4>The $20,000 target needs it</h4>
+      <p>Green Harmonic's harmonic reducers are reported at 40–60% of the equivalent from Japan's
+        Harmonic Drive, and Wuzhou New Spring's roller screws at about half of Switzerland's Rollvis.
+        Without that, the BOM target is out of reach.</p></div>
+  </div>
+</section></div>
+
+<div class="wrap"><section>
+  <div class="eyebrow">04 · WHAT WOULD BREAK IT</div>
+  <h2>Three risks worth pricing before the orders land.</h2>
+  <div class="g3">
+    <div><div class="mono">SCHEDULE</div>
+      <h4>50,000 to 150,000 is a wide band</h4>
+      <p>The 2026 guidance spans a factor of three. At the lower bound the operating leverage across
+        the whole chain roughly halves.</p></div>
+    <div><div class="mono">CONCENTRATION</div>
+      <h4>One customer, most of the revenue</h4>
+      <p>Tesla is already close to 40% of Top Group's revenue, and humanoid work is a fast-rising
+        share at Green Harmonic. A slower order pace compresses both.</p></div>
+    <div><div class="mono">LOCALISATION</div>
+      <h4>North America builds its own</h4>
+      <p>Once Tesla's Mexico plant is fully up, Rollvis and Harmonic Drive's US plant compete for the
+        same content. Top Group and Green Harmonic have both planned Mexican joint ventures against
+        that.</p></div>
+  </div>
+</section></div>
+
+<div class="wrap"><section>
+  <div class="eyebrow">05 · WHEN TO LOOK</div>
+  <h2>Three dates that settle the argument.</h2>
+  <div class="g3">
+    <div><div class="mono">Q2 2026</div>
+      <h4>The order wave</h4>
+      <p>A large round of order placement may follow Tesla's Optimus event.</p></div>
+    <div><div class="mono">Q4 2026</div>
+      <h4>The first 100,000-unit line ramps</h4>
+      <p>Actual delivery and yield from Chinese suppliers become the trigger for re-rating.</p></div>
+    <div><div class="mono">2027</div>
+      <h4>Sales open</h4>
+      <p>Once units sell to businesses and consumers, the chain reprices from order-driven to
+        demand-driven.</p></div>
+  </div>
+</section></div>
+
+<div class="wrap"><section style="border:0">
+  <div class="eyebrow">06 · WHERE THIS COMES FROM</div>
+  <h2>Sourcing of the figures on this page.</h2>
+  <div class="note">
+    <strong>This page reports published figures; it is not FOUNTAIN's own verification.</strong>
+    Cost shares, unit counts and company data points are drawn from a April 2026 industry analysis
+    carried by 36Kr, which in turn cites brokerage research from CITIC, Kaiyuan and Guotai Junan
+    alongside company disclosures and filings. Figures are as reported on those dates and move.
+    Where a number originates with a company rather than an independent source, the card says so.
+  </div>
+  <div class="srclist">
+    <div>Eastmoney — Tesla Optimus supplier analysis, 29 January 2026</div>
+    <div>21st Century Business Herald — Xinjian Transmission IPO, 12 January 2026</div>
+    <div>Sina Finance — First-tier Optimus supplier list, 18 March 2026</div>
+    <div>Sina Technology — $685M Sanhua order, 15 October 2025</div>
+    <div>Wall Street News — Goldman Sachs supply-chain survey, November 2025</div>
+    <div>CSRC filing record — Xinjian Transmission listing guidance, 9 January 2026</div>
+    <div>36Kr / BT财经 — Optimus China supply chain, 24 April 2026</div>
+  </div>
+</section></div>
+
+<div class="cta"><div class="wrap">
+  <div class="mono" style="color:rgba(255,255,255,.5)">SOURCING · EVT/DVT · COMPLIANCE</div>
+  <h2>Knowing who makes the part is the easy half.</h2>
+  <p class="sub">Getting it specified, sampled, qualified and compliant is the work. That is what we
+    do — component sourcing, prototype iteration, and BOM traceability through FCC and Covered List
+    review.</p>
+  <a class="pill" href="/contact">Talk to us about a BOM →</a>
+</div></div>
+
+<script>
+const PARTS = [
+  {key:'actuators', name:'Actuators',        share:35, qty:'~28 PER ROBOT',
+   where:'Rotary and linear, at shoulders, elbows, wrists, hips, knees and ankles.', color:'#FF7A00'},
+  {key:'sensors',   name:'Sensors & other',  share:20, qty:'—',
+   where:'Six-axis force/torque, tactile, IMU and vision, plus harnesses, structure and battery.', color:'#8A8A85'},
+  {key:'screws',    name:'Lead screws',      share:18, qty:'~14 PER ROBOT',
+   where:'Reverse planetary roller screws where torque is highest: hip, knee, ankle.', color:'#1E48D8'},
+  {key:'reducers',  name:'Reducers',         share:15, qty:'—',
+   where:'Harmonic in the rotary joints, planetary in the heavy-load joints of the legs.', color:'#1F9D55'},
+  {key:'motors',    name:'Motors',           share:12, qty:'~20 CORELESS PER ROBOT',
+   where:'Frameless torque motors in the large joints, coreless motors in the hands.', color:'#B87A00'},
+];
+
+const MAKERS = [
+  {en:"Top Group", cn:"拓普集团", part:'actuators', role:'TIER 0.5 · ACTUATOR ASSEMBLY',
+   fact:"Assembles linear and rotary actuators. Tesla is reported at 35–40% of total revenue. Its Mexico plant is in production, with 300,000 sets targeted for Q2 2026.",
+   src:"Company disclosure, via brokerage research"},
+  {en:"Sanhua Intelligent Controls", cn:"三花智控", part:'actuators', role:'JOINT MODULE ASSEMBLY',
+   fact:"A core supplier of joint module assemblies. Took a $685M order from Tesla in October 2025, with delivery from Mexico beginning 2026.",
+   src:"Sina Technology, 15 October 2025"},
+  {en:"Green Harmonic", cn:"绿的谐波", part:'reducers', role:'HARMONIC REDUCERS',
+   fact:"Over 60% of the domestic market and over 35% globally. Passed Tesla supply-chain verification and supplies its Mexico plant exclusively. Humanoid-related revenue reached 30% in Q1 2025.",
+   src:"Company announcement"},
+  {en:"Double Ring Transmission", cn:"双环传动", part:'reducers', role:'RV REDUCERS',
+   fact:"Core RV reducer supplier. Reaches Optimus indirectly, through Top Group and Sanhua rather than directly.",
+   src:"Brokerage research"},
+  {en:"Wuzhou New Spring", cn:"五洲新春", part:'screws', role:'REVERSE PLANETARY ROLLER SCREWS',
+   fact:"Main supplier of the reverse planetary roller screws used in the hip and knee. Its Thailand plant comes online in 2026. Share price rose 183% across 2025.",
+   src:"Eastmoney"},
+  {en:"Xinjian Transmission", cn:"新剑传动", part:'screws', role:'PLANETARY ROLLER SCREWS · UNLISTED',
+   fact:"Filed for listing guidance with the Zhejiang securities bureau on 9 January 2026, CITIC advising. Its line is rated at one million planetary roller screws a year — the chain's least visible large supplier.",
+   src:"CSRC filing record, 9 January 2026"},
+  {en:"AMETEK", cn:"", part:'motors', role:'CORELESS MOTORS',
+   fact:"Among the top three worldwide by share of coreless motors. Selection for 2026 is considered likely rather than settled.",
+   src:"Brokerage research"},
+  {en:"Zhaowei Electromechanical", cn:"兆威机电", part:'motors', role:'DEXTEROUS-HAND DRIVE MODULES',
+   fact:"Supplies drive modules for the dexterous hand, integrating micro-motor, gearbox and screw in one part.",
+   src:"Brokerage research"},
+  {en:"Inovance Technology", cn:"汇川技术", part:'motors', role:'SERVO MOTORS',
+   fact:"Servo motor supplier, and also upstream of domestic robot makers including UBTECH and Unitree.",
+   src:"Brokerage research"},
+  {en:"Coliy Sensor", cn:"柯力传感", part:'sensors', role:'SIX-AXIS FORCE/TORQUE SENSORS',
+   fact:"The only domestic maker in volume production of six-axis force/torque sensors. Its parts have entered Tesla's verification stage.",
+   src:"Brokerage research"},
+];
+
+const bar = document.getElementById('bar');
+const parts = document.getElementById('parts');
+const cards = document.getElementById('cards');
+const q = document.getElementById('q');
+const count = document.getElementById('count');
+let active = null;
+
+PARTS.forEach(p => {
+  const i = document.createElement('i');
+  i.style.cssText = `flex:${p.share};background:${p.color}`;
+  i.title = `${p.name} · ${p.share}%`;
+  i.onclick = () => pick(p.key);
+  bar.appendChild(i);
+
+  const b = document.createElement('button');
+  b.className = 'part';
+  b.style.borderTopColor = p.color;
+  b.setAttribute('aria-pressed', 'false');
+  b.innerHTML = `<div class="share">${p.share}%</div><div class="pname">${p.name}</div>
+    <div class="pqty">${p.qty}</div><div class="pwhere">${p.where}</div>`;
+  b.onclick = () => pick(p.key);
+  parts.appendChild(b);
+});
+
+function pick(key) { active = (active === key) ? null : key; render(); }
+
+function visible() {
+  const t = q.value.trim().toLowerCase();
+  return MAKERS.filter(m => {
+    if (active && m.part !== active) return false;
+    if (!t) return true;
+    const part = PARTS.find(p => p.key === m.part).name;
+    return (m.en + ' ' + m.cn + ' ' + m.role + ' ' + m.fact + ' ' + part).toLowerCase().includes(t);
+  });
+}
+
+function render() {
+  [...parts.children].forEach((b, i) =>
+    b.setAttribute('aria-pressed', String(PARTS[i].key === active)));
+  const rows = visible();
+  cards.innerHTML = rows.length ? rows.map(m => {
+    const p = PARTS.find(x => x.key === m.part);
+    return `<div class="card">
+      <h3>${m.en}${m.cn ? `<span class="cn">${m.cn}</span>` : ''}</h3>
+      <div class="role" style="color:${p.color}">${m.role}</div>
+      <p>${m.fact}</p><div class="src">Source · ${m.src}</div></div>`;
+  }).join('') : '<div class="empty">Nothing matches that. Clear the search, or pick another part.</div>';
+  const scope = active ? PARTS.find(p => p.key === active).name : 'all parts';
+  count.textContent = `${rows.length} of ${MAKERS.length} · ${scope}`;
+}
+
+q.oninput = render;
+document.getElementById('clear').onclick = () => { active = null; q.value = ''; render(); };
+
+document.getElementById('csv').onclick = () => {
+  const esc = v => `"${String(v).replace(/"/g, '""')}"`;
+  const rows = [['Company', 'Chinese name', 'Part group', 'Cost share %', 'Role', 'Data point', 'Source']];
+  visible().forEach(m => {
+    const p = PARTS.find(x => x.key === m.part);
+    rows.push([m.en, m.cn, p.name, p.share, m.role, m.fact, m.src]);
+  });
+  const blob = new Blob(["﻿" + rows.map(r => r.map(esc).join(',')).join('\r\n')],
+    {type: 'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'fountain-optimus-supply-chain.csv';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+};
+
+render();
+</script>
+</body></html>

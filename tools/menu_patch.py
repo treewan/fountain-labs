@@ -34,7 +34,7 @@ PAGE = pathlib.Path(__file__).resolve().parent.parent / "public" / "index.html"
 # label -> (href, handler). A handler is the name of a value exposed by
 # renderVals; entries without one are ordinary page links.
 SUB = {
-    "Infrastructure": [("Robotics Supply Chain", "#platform", "mNavRobotics"),
+    "Infrastructure": [("Robotics Supply Chain", "/supply-chain", None),
                        ("Data Collection Network", "/data", None),
                        ("Motion Infra", "/nora", None)],
     "Production": [("Eden Factory", "/eden", None),
@@ -150,7 +150,6 @@ NEW_VALS = ('mNavInfra: this.mnav(["platform", "m-platform"], "infra"), '
             'mNavInsights: this.mnav(["insights", "m-insights"]), '
             'mNavCta: this.mnav(["cta", "m-cta"]), '
             'mNavRouting: this.mnav(["routing", "m-routing"], "prod"), '
-            'mNavRobotics: this.mnav(["robotics-supply", "m-robotics-supply", "platform", "m-platform"], "infra"), '
             'mNavAccel: this.mnav(["accelerator", "m-accelerator", "ventures", "m-ventures"]), '
             'mNavStudio: this.mnav(["venture-studio", "m-venture-studio", "ventures", "m-ventures"]), '
             'mNavPodcast: this.mnav(["podcast", "m-podcast", "insights", "m-insights"]), '
