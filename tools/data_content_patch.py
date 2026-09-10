@@ -331,7 +331,7 @@ EXTRA_STATS = [
     ("20M", "videos uploaded a day, with GPS and timestamp"),
     ("160M", "photographs a day"),
     ("10M+", "hours of video already in the pool"),
-    ("+80–170K", "hours added every day"),
+    ("80–170K", "hours added every day"),
 ]
 
 # Eight tiles in one column is a long scroll on a phone, and g4's own rule
