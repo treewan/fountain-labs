@@ -115,7 +115,6 @@ input[type=search]:focus{outline:none;border-color:#111}
 .card .ev{margin-top:10px;display:grid;gap:3px;font-size:13px;line-height:1.5;color:#3A3A38}
 .card .ev b{font-weight:400;color:#8A8A85}
 .tag.lab{background:none;border:1px solid #E6E6E2}
-.tag.added{background:none;border:1px solid #FF7A00;color:#C25E00}
 @media (max-width:900px){.substats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:760px){.substat{font-size:22px}}
 
@@ -550,9 +549,8 @@ function renderM() {
     /* An em dash where a city should be reads as a broken card, not as a gap. */
     ((r.hq || (r.c !== '—' ? r.c : '')) ?
       '<span class="cn">' + (r.hq || r.c) + '</span>' : '') + '</h3>' +
-    ((r.buy || r.lab || r.src) ? '<div class="tags">' +
+    ((r.buy || r.lab) ? '<div class="tags">' +
       (r.buy ? '<span class="tag trail">BUYS AS ' + r.buy.toUpperCase() + '</span>' : '') +
-      (r.src ? '<span class="tag added">' + SRC[r.src] + '</span>' : '') +
       (r.lab ? '<span class="tag lab">RESEARCH PLATFORM</span>' : '') + '</div>' : '') +
     ((r.cap || r.dep) ? '<div class="ev">' +
       (r.cap ? '<span><b>Raised</b> ' + r.cap + '</span>' : '') +
