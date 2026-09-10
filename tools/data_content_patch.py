@@ -70,6 +70,16 @@ SWAPS = [
      "Nineteen countries, one capture behaviour."),
 
     ("By spec, by the hour.", "By spec, by the effective hour."),
+
+    # The fourth card broke the pattern: the other three name model families,
+    # this one named a property of the data, under a heading that promises
+    # four kinds of model. Naming the task it serves puts it back in line.
+    (">TEMPORAL<", ">CHANGE DETECTION<"),
+
+    # The old cost-structure headline no longer covers a section that also
+    # argues the moat. This one states the mechanism both halves rest on.
+    ("Workers produce data inside the job they are already doing.",
+     "The footage exists whether or not anyone orders it."),
 ]
 
 # Renumbering runs bottom-up so a number never lands on one not yet moved.
@@ -239,7 +249,7 @@ def industry_block():
 
 def qualities_section():
     cards = "".join(
-        '<div style="border-top: 1px solid #111; padding-top: 16px">'
+        '<div style="border-top: 1px solid #E6E6E2; padding-top: 16px">'
         f'<div style="{MONO}">{tag}</div>'
         f'<div style="margin-top: 10px; font-size: 17px; font-weight: 500; '
         f'letter-spacing: -.01em; color: #111">{title}</div>'
@@ -258,14 +268,15 @@ def qualities_section():
 
 def moats_block():
     cards = "".join(
-        '<div style="border-top: 1px solid #111; padding-top: 16px">'
+        '<div style="border-top: 1px solid #E6E6E2; padding-top: 16px">'
         f'<div style="{MONO}">{num}</div>'
         f'<div style="margin-top: 10px; font-size: 17px; font-weight: 500; '
         f'letter-spacing: -.01em; color: #111">{title}</div>'
         f'<p style="{BODY}">{body}</p></div>'
         for num, title, body in MOATS)
-    return ('<div style="margin-top: 56px; border-top: 1px solid #111; '
-            'padding-top: 28px">'
+    # No rule above this. A full-width dark line here reads as a new section
+    # starting, which undoes the merge it is meant to join.
+    return ('<div style="margin-top: 52px">'
             '<p style="margin: 0; font-size: 17px; line-height: 1.55; '
             'color: #111; letter-spacing: -.01em; max-width: 720px">Which is '
             'why volume does not buy it. Four things a competing supplier '
@@ -410,6 +421,31 @@ def stat_tiles():
         for n, cap in EXTRA_STATS)
 
 
+CARD_OPEN = '<div style="border-top: 1px solid #111; padding-top: 20px">'
+
+
+def lead_with_embodied(s):
+    """Put Embodied AI first among the four model families."""
+    i = s.find("01 · WHO IT IS FOR")
+    end = s.find("</section>", i)
+    if i < 0 or end < 0:
+        return None, "audience section not found"
+    starts = []
+    at = i
+    while len(starts) < 3:
+        at = s.find(CARD_OPEN, at, end)
+        if at < 0:
+            return None, f"expected 3 card boundaries, found {len(starts)}"
+        starts.append(at)
+        at += len(CARD_OPEN)
+    first, second, third = starts
+    if ">WORLD MODELS<" not in s[first:second]:
+        return None, "first card is not World Models"
+    if ">EMBODIED AI<" not in s[second:third]:
+        return None, "second card is not Embodied AI"
+    return s[:first] + s[second:third] + s[first:second] + s[third:], None
+
+
 def fail(msg):
     print(f"  ! {msg}", file=sys.stderr)
     return 1
@@ -459,6 +495,10 @@ def main():
     if at < 0 or close < 0:
         return fail("flow section not found")
     s = s[:close] + compliance_block() + s[close:]
+
+    s, err = lead_with_embodied(s)
+    if err:
+        return fail(err)
 
     if STAT_GRID_OLD not in s:
         return fail("stat grid not found")
