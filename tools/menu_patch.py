@@ -175,12 +175,6 @@ ANCHORS = [
     ("m-podcast", 'font-size: 18px; font-weight: 500; letter-spacing: -.02em">Podcast'),
     ("blog", 'font-size: 22px; font-weight: 500; letter-spacing: -.02em">Blog'),
     ("m-blog", 'font-size: 18px; font-weight: 500; letter-spacing: -.02em">Blog'),
-    ("robotics-supply", 'width: 7px; height: 7px; background: #111; transform: '
-                        'rotate(45deg); display: block; flex-shrink: 0"></span>'
-                        'Robotics supply chain Infra'),
-    ("m-robotics-supply", 'width: 6px; height: 6px; background: #111; transform: '
-                          'rotate(45deg); display: block; flex-shrink: 0"></span>'
-                          'Robotics supply chain Infra'),
 ]
 
 HEADER_NAV_DROP = [
@@ -188,6 +182,37 @@ HEADER_NAV_DROP = [
     'style="color: inherit">Insights</a>',
     '<a href="/team" style="color: inherit">About</a>',
 ]
+
+
+# On the homepage the Infrastructure pillar shows two blocks side by side.
+# Both have the same heading markup — diamond, then the name — but only the
+# data one wraps its name in a link with an arrow. Now that the robotics side
+# has a page too, it gets the same treatment, matched exactly so the pair
+# reads as a pair. The narrow and wide copies differ only in the diamond's
+# size and a tap target on the narrow one.
+ARROW = ('<span style="font-size: 15px; font-weight: 700; color: #1E48D8; '
+         'line-height: 1">→</span>')
+LINKS = [
+    ("6px", ' min-height: 44px;'),   # narrow layout
+    ("7px", ''),                     # wide layout
+]
+
+
+def link_robotics(s):
+    """Give the robotics block the link its neighbour already has."""
+    for size, tap in LINKS:
+        marker = (f'<span style="width: {size}; height: {size}; background: #111; '
+                  'transform: rotate(45deg); display: block; flex-shrink: 0">'
+                  '</span>Robotics supply chain Infra')
+        if s.count(marker) != 1:
+            return None, f"robotics heading ({size}) matched {s.count(marker)} times"
+        anchor = (f'</span><a href="/supply-chain" style="color: #111; '
+                  f'display: inline-flex; align-items: center; gap: 8px;{tap} '
+                  f'transition: color .2s" style-hover="color: #1E48D8">'
+                  f'Robotics supply chain Infra{ARROW}</a>')
+        s = s.replace(marker, marker.replace(
+            '</span>Robotics supply chain Infra', anchor), 1)
+    return s, None
 
 
 def fail(msg):
@@ -230,7 +255,12 @@ def main():
             return fail(f"header nav entry not found: {frag[:48]}…")
         s = s.replace(frag, "", 1)
 
-    # 3 · Click-time id resolution, and pillar kept in step with mp.
+    # 3 · The robotics block gets the link its neighbour already has.
+    s, err = link_robotics(s)
+    if err:
+        return fail(err)
+
+    # 4 · Click-time id resolution, and pillar kept in step with mp.
     if OLD_MNAV not in s:
         return fail("mnav definition not found")
     s = s.replace(OLD_MNAV, NEW_MNAV, 1)
@@ -238,7 +268,7 @@ def main():
         return fail("renderVals menu entries not found")
     s = s.replace(OLD_VALS, NEW_VALS, 1)
 
-    # 4 · Anchors for the second-level destinations, wide and narrow copies
+    # 5 · Anchors for the second-level destinations, wide and narrow copies
     #     alike. Each marker locates the block's label; the anchor goes in
     #     front of the row that label sits in. Collected first and applied
     #     back-to-front so earlier insertions do not shift later offsets.
@@ -255,7 +285,7 @@ def main():
     for row, anchor_id in sorted(points, reverse=True):
         s = s[:row] + f'<span id="{anchor_id}"></span>' + s[row:]
 
-    # 5 · Second level under each first-level row.
+    # 6 · Second level under each first-level row.
     start = s.find('data-rw="msheet"')
     nav_start = s.find('<nav style="display: flex; flex-direction: column">', start)
     nav_end = s.find("</nav>", nav_start)
@@ -288,7 +318,7 @@ def main():
         return fail(f"expected {len(SUB)} rows, rewrote {len(added)}: {added}")
     s = s[:nav_start] + new_nav + s[nav_end:]
 
-    # 6 · Sheet gutters above 760px, and the hover colour.
+    # 7 · Sheet gutters above 760px, and the hover colour.
     css_anchor = ('[data-rw="m"], [data-rw="mbtn"], [data-rw="msheet"] '
                   '{ display: none; }')
     if css_anchor not in s:
