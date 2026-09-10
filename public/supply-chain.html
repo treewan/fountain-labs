@@ -65,13 +65,14 @@ input[type=search]:focus{outline:none;border-color:#111}
 .card .cn{margin-left:7px;font-size:13.5px;color:#8A8A85;font-weight:400}
 .meta{margin-top:9px;display:grid;grid-template-columns:1fr 1fr;gap:2px 14px;font-size:13px;color:#55554F}
 .meta span b{font-weight:400;color:#8A8A85}
-.tags{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px}
+.tags{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px}
 .tag{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:1px;padding:3px 8px;
   border-radius:999px;background:#F0F0EC;color:#55554F}
 .card .note{margin-top:11px;padding-top:10px;border-top:1px dashed #E6E6E2;
   font-size:13px;line-height:1.55;color:#3A3A38}
 .card .flag{margin-top:8px;font-size:12px;color:#B3261E}
 .empty{grid-column:1/-1;padding:40px 0;color:#8A8A85;font-size:15px}
+.more{margin-top:26px;border-top:1px solid #E6E6E2;padding-top:26px}
 .prov{margin-top:28px;font-size:12.5px;line-height:1.6;color:#8A8A85;max-width:760px}
 
 /* Optimus reference — supporting the index, not leading it. */
@@ -164,6 +165,7 @@ input[type=search]:focus{outline:none;border-color:#111}
 
   <div class="count" id="count"></div>
   <div class="cards" id="cards"></div>
+  <div class="more"><button class="btn" id="moreS" type="button" hidden></button></div>
 
   <p class="prov">Listed-company rows follow the Chinese humanoid supplier index published at
     humanityslastmachine.com. Three makers it does not carry, and the figures shown on seven rows
@@ -226,6 +228,7 @@ input[type=search]:focus{outline:none;border-color:#111}
 
   <div class="count" id="mcount"></div>
   <div class="cards" id="mcards"></div>
+  <div class="more"><button class="btn" id="moreM" type="button" hidden></button></div>
 
   <p class="prov">Makers, countries and scores follow the humanoid board published at
     robolist.ai, scores as of 6 September 2026. Two columns there are wider than humanoids and are
@@ -274,7 +277,7 @@ const PARTS = [
 ];
 const S = window.SUPPLIERS || [];
 const $ = id => document.getElementById(id);
-let cat = null, cust = null;
+let cat = null, cust = null, allS = false;
 
 function tally(key) {
   const t = {};
@@ -300,6 +303,15 @@ PARTS.forEach(p => {
     '<span class="pc">' + p.share + '%</span>';
   $('rows').appendChild(r);
 });
+
+/* A full index is a reference, not a page. Both lists open on a screenful and
+   the reader asks for the rest. */
+const LIMIT = 12;
+function more(btn, rows, expanded, set, redraw) {
+  btn.hidden = rows.length <= LIMIT;
+  btn.textContent = expanded ? 'Show fewer' : 'Show all ' + rows.length + ' →';
+  btn.onclick = () => { set(!expanded); redraw(); };
+}
 
 function chips(host, entries, get, set, redraw) {
   entries.forEach(([v, n]) => {
@@ -330,8 +342,11 @@ function render() {
   [...$('fCust').children].forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === cust)));
   const rows = visible();
   const scope = [cat, cust].filter(Boolean).join(' · ') || 'everything';
-  $('count').textContent = rows.length + ' of ' + S.length + ' · ' + scope;
-  $('cards').innerHTML = rows.length ? rows.map(r =>
+  const shown = allS ? rows : rows.slice(0, LIMIT);
+  $('count').textContent = rows.length + ' of ' + S.length + ' · ' + scope +
+    (shown.length < rows.length ? ' · showing ' + shown.length : '');
+  more($('moreS'), rows, allS, v => { allS = v; }, render);
+  $('cards').innerHTML = rows.length ? shown.map(r =>
     '<div class="card"><h3>' + r.en + (r.cn ? '<span class="cn">' + r.cn + '</span>' : '') + '</h3>' +
     '<div class="meta"><span><b>Part</b> ' + r.cat + '</span><span><b>City</b> ' + (r.city || '—') + '</span>' +
     '<span><b>Founded</b> ' + (r.yr || '—') + '</span><span><b>Listed</b> ' + r.stk + '</span></div>' +
@@ -342,7 +357,7 @@ function render() {
 }
 
 $('q').oninput = render;
-$('reset').onclick = () => { cat = null; cust = null; $('q').value = ''; render(); };
+$('reset').onclick = () => { cat = null; cust = null; allS = false; $('q').value = ''; render(); };
 
 $('csv').onclick = () => {
   const esc = v => '"' + String(v).replace(/"/g, '""') + '"';
@@ -361,7 +376,7 @@ render();
 
 /* ---- Demand side ------------------------------------------------------- */
 const M = window.MAKERS || [];
-let geo = null, commercialOnly = false, trailOnly = false;
+let geo = null, commercialOnly = false, trailOnly = false, allM = false;
 
 const geoTally = {};
 M.forEach(r => { geoTally[r.c] = (geoTally[r.c] || 0) + 1; });
@@ -425,12 +440,13 @@ function renderM() {
   const rows = visibleM();
   const scope = [geo, commercialOnly ? 'commercial' : null,
     trailOnly ? 'in the index' : null].filter(Boolean).join(' · ') || 'everything';
-  $('mcount').textContent = rows.length + ' of ' + M.length + ' · ' + scope;
-  $('mcards').innerHTML = rows.length ? rows.map(r =>
+  const shown = allM ? rows : rows.slice(0, LIMIT);
+  $('mcount').textContent = rows.length + ' of ' + M.length + ' · ' + scope +
+    (shown.length < rows.length ? ' · showing ' + shown.length : '');
+  more($('moreM'), rows, allM, v => { allM = v; }, renderM);
+  $('mcards').innerHTML = rows.length ? shown.map(r =>
     '<div class="card"><h3>' + r.n +
     (r.c !== '—' ? '<span class="cn">' + r.c + '</span>' : '') + '</h3>' +
-    '<div class="meta"><span><b>RoboScore</b> ' + r.s + ' / 100</span>' +
-    '<span><b>Catalogue</b> ' + r.r + (r.r === 1 ? ' robot' : ' robots') + '</span></div>' +
     ((r.buy || r.lab) ? '<div class="tags">' +
       (r.buy ? '<span class="tag trail">BUYS AS ' + r.buy.toUpperCase() + '</span>' : '') +
       (r.lab ? '<span class="tag lab">RESEARCH PLATFORM</span>' : '') + '</div>' : '') +
@@ -440,7 +456,7 @@ function renderM() {
 
 $('mq').oninput = renderM;
 $('mreset').onclick = () => {
-  geo = null; commercialOnly = false; trailOnly = false;
+  geo = null; commercialOnly = false; trailOnly = false; allM = false;
   $('mq').value = '';
   [...$('fView').children].forEach(b => b.setAttribute('aria-pressed', 'false'));
   renderM();
