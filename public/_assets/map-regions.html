@@ -203,6 +203,64 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then
   lg.append('text').attr('x', cq[0] - 12).attr('y', cq[1]).attr('text-anchor', 'end').attr('font-family', 'Geist, sans-serif').attr('font-size', 52).attr('font-weight', 500).attr('letter-spacing', -2.2).attr('fill', '#111').text('10M+');
   lg.append('text').attr('x', cq[0] - 12).attr('y', cq[1] + 28).attr('text-anchor', 'end').attr('font-family', 'Geist, sans-serif').attr('font-size', 19).attr('font-weight', 500).attr('letter-spacing', -.2).attr('fill', '#111').text('China · daily active');
 
+
+  // Every country named. China is already named by the callout, so the other
+  // eighteen are labelled here: directly where there is room, and on leader
+  // lines where there is not. Southeast Asia packs seven countries into about
+  // a hundred pixels and the Andes four more, so both get a stacked column
+  // with leaders rather than overlapping type.
+  const direct = [
+    { n: 'United States',  at: [-98, 39],  dy: -30 },
+    { n: 'Mexico',         at: [-102, 23], dy: 26 },
+    { n: 'Brazil',         at: [-52, -10], dy: 30 },
+    { n: 'United Kingdom', at: [-2, 54],   dy: -26 },
+    { n: 'Saudi Arabia',   at: [45, 24],   dy: 30 },
+    { n: 'India',          at: [79, 22],   dy: 30 },
+  ];
+  const stacks = [
+    { x: 1338, anchor: 'start', top: 196, rows: [
+      { n: 'South Korea', at: [128, 36] },
+      { n: 'Philippines', at: [122, 12] },
+      { n: 'Vietnam',     at: [106, 16] },
+      { n: 'Thailand',    at: [101, 15] },
+      { n: 'Cambodia',    at: [105, 12] },
+      { n: 'Malaysia',    at: [109, 4] },
+      { n: 'Singapore',   at: [103.82, 1.35] },
+      { n: 'Indonesia',   at: [118, -2] },
+    ] },
+    { x: 300, anchor: 'end', top: 350, rows: [
+      { n: 'Colombia',  at: [-74, 4] },
+      { n: 'Ecuador',   at: [-78, -1] },
+      { n: 'Peru',      at: [-75, -10] },
+      { n: 'Bolivia',   at: [-64, -17] },
+    ] },
+  ];
+
+  const nameStyle = t => t.attr('font-family', 'Geist, sans-serif')
+    .attr('font-size', 13.5).attr('font-weight', 500).attr('fill', '#3A3A38');
+
+  direct.forEach(d => {
+    const q = proj(d.at);
+    nameStyle(lg.append('text').attr('x', q[0]).attr('y', q[1] + d.dy)
+      .attr('text-anchor', 'middle'))
+      .attr('paint-order', 'stroke').attr('stroke', '#F4F4F2')
+      .attr('stroke-width', 3).text(d.n);
+  });
+
+  stacks.forEach(st => {
+    st.rows.forEach((r, i) => {
+      const y = st.top + i * 24, q = proj(r.at);
+      const edge = st.anchor === 'start' ? st.x - 8 : st.x + 8;
+      lg.append('line').attr('x1', edge).attr('y1', y - 4)
+        .attr('x2', q[0]).attr('y2', q[1])
+        .attr('stroke', '#B8B8B2').attr('stroke-width', .8);
+      lg.append('circle').attr('cx', q[0]).attr('cy', q[1]).attr('r', 1.8)
+        .attr('fill', '#7C8073');
+      nameStyle(lg.append('text').attr('x', st.x).attr('y', y)
+        .attr('text-anchor', st.anchor)).text(r.n);
+    });
+  });
+
   // Legend, bottom left: the ramp and what each step means.
   const lx = 40, ly = H - 150;
   lg.append('text').attr('x', lx).attr('y', ly).attr('font-family', 'Geist Mono, monospace').attr('font-size', 12).attr('letter-spacing', 1.2).attr('fill', '#8A8A85').text('DAILY ACTIVE CAPTURERS');

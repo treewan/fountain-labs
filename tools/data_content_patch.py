@@ -278,6 +278,46 @@ SCENES_MOBILE = (
     '[data-rw="scenes"] > div:first-child { display: none !important; } }\n  ')
 
 
+# The map lives in a 1470x620 frame that scales to the column it sits in. At
+# 375px that is 287x93 — a thumbnail, where 13.5px country labels render at
+# 2.6px. Below 760px the map is replaced by the same information as a list.
+BANDS_LIST = [
+    ("10M+", "China"),
+    ("1M – 10M", "Vietnam · Indonesia"),
+    ("100K – 1M", "Malaysia · Mexico · Philippines · Thailand"),
+    ("10K – 100K",
+     "Cambodia · South Korea · Ecuador · Colombia · Saudi Arabia · Bolivia · "
+     "Peru · India · United Kingdom · Brazil · United States"),
+    ("MARKED AS A POINT", "Singapore"),
+]
+
+OLD_MAP_BOX = ('<div style="aspect-ratio: 1470/620; width: 100%; background: '
+               '#F4F4F2; border-radius: 8px; overflow: hidden; padding: 24px; '
+               'box-sizing: border-box">')
+NEW_MAP_BOX = ('<div data-rw="mapbox" style="aspect-ratio: 1470/620; width: '
+               '100%; background: #F4F4F2; border-radius: 8px; overflow: '
+               'hidden; padding: 24px; box-sizing: border-box">')
+
+MAP_LIST_CSS = (
+    '[data-rw="maplist"] { display: none; } '
+    '@media (max-width: 760px) { '
+    '[data-rw="mapbox"] { display: none !important; } '
+    '[data-rw="maplist"] { display: block !important; } }\n  ')
+
+
+def map_list():
+    rows = "".join(
+        '<div style="padding: 12px 0; border-top: 1px solid #E6E6E2">'
+        f'<div style="{MONO}">{band}</div>'
+        f'<div style="margin-top: 6px; font-size: 14.5px; line-height: 1.5; '
+        f'color: #3A3A38">{names}</div></div>'
+        for band, names in BANDS_LIST)
+    return ('<div data-rw="maplist" style="background: #F4F4F2; '
+            'border-radius: 8px; padding: 20px">'
+            f'<div style="{MONO}">DAILY ACTIVE CAPTURERS</div>'
+            f'<div style="margin-top: 14px">{rows}</div></div>')
+
+
 def fail(msg):
     print(f"  ! {msg}", file=sys.stderr)
     return 1
@@ -323,10 +363,16 @@ def main():
         return fail("flow section not found")
     s = s[:close] + compliance_block() + s[close:]
 
+    if OLD_MAP_BOX not in s:
+        return fail("map container not found")
+    s = s.replace(OLD_MAP_BOX, NEW_MAP_BOX, 1)
+    close = s.find("</iframe></div>") + len("</iframe></div>")
+    s = s[:close] + map_list() + s[close:]
+
     css_anchor = "@media (max-width: 760px) {"
     if css_anchor not in s:
         return fail("mobile media block not found")
-    s = s.replace(css_anchor, SCENES_MOBILE + css_anchor, 1)
+    s = s.replace(css_anchor, SCENES_MOBILE + MAP_LIST_CSS + css_anchor, 1)
 
     PAGE.write_text(s)
     print(f"patched {PAGE.name}")
