@@ -63,9 +63,8 @@ SWAPS = [
     ("This pool adds 80K to 170K hours of new video every day and grows "
      "without a collection budget.",
      "This pool adds 80K to 170K hours of new video every day and grows "
-     "without a collection budget. Daily upload runs to 20 million videos and "
-     "160 million photographs, each stamped with time and location at the "
-     "moment of capture."),
+     "without a collection budget. Every upload is stamped with time and "
+     "location at the moment it is taken, not afterwards."),
 
     ("Three regions, one capture behaviour.",
      "Nineteen countries, one capture behaviour."),
@@ -318,6 +317,41 @@ def map_list():
             f'<div style="margin-top: 14px">{rows}</div></div>')
 
 
+# Eight headline figures rather than four: the document's four, then the
+# volume the network actually moves. Four across, two down — reach on the top
+# row, throughput on the bottom.
+STAT_GRID_OLD = ('data-rw="g4" style="display: grid; grid-template-columns: '
+                 'repeat(4, minmax(0,1fr)); gap: 32px; padding-top: 28px; '
+                 'border-top: 1px solid rgba(255,255,255,.2)"')
+STAT_GRID_NEW = ('data-rw="stats" style="display: grid; grid-template-columns: '
+                 'repeat(4, minmax(0,1fr)); gap: 36px 32px; padding-top: 28px; '
+                 'border-top: 1px solid rgba(255,255,255,.2)"')
+
+EXTRA_STATS = [
+    ("20M", "videos uploaded a day, with GPS and timestamp"),
+    ("160M", "photographs a day"),
+    ("10M+", "hours of video already in the pool"),
+    ("+80–170K", "hours added every day"),
+]
+
+# Eight tiles in one column is a long scroll on a phone, and g4's own rule
+# would do exactly that, so the stat grid gets its own breakpoints.
+STATS_CSS = (
+    '@media (max-width: 900px) { [data-rw="stats"] { grid-template-columns: '
+    'repeat(2, minmax(0,1fr)) !important; } } '
+    '@media (max-width: 760px) { [data-rw="stats"] [data-rw="stat"] { '
+    'font-size: 30px !important; } }\n  ')
+
+
+def stat_tiles():
+    return "".join(
+        '<div><div data-rw="stat" style="font-size: 48px; font-weight: 500; '
+        f'letter-spacing: -.04em; line-height: 1">{n}</div>'
+        '<div style="margin-top: 12px; font-size: 13.5px; line-height: 1.45; '
+        f'color: rgba(255,255,255,.6)">{cap}</div></div>'
+        for n, cap in EXTRA_STATS)
+
+
 def fail(msg):
     print(f"  ! {msg}", file=sys.stderr)
     return 1
@@ -363,6 +397,16 @@ def main():
         return fail("flow section not found")
     s = s[:close] + compliance_block() + s[close:]
 
+    if STAT_GRID_OLD not in s:
+        return fail("stat grid not found")
+    s = s.replace(STAT_GRID_OLD, STAT_GRID_NEW, 1)
+    at = s.find("task scenes available on demand")
+    close = s.find("</div></div>", at)
+    if at < 0 or close < 0:
+        return fail("end of the stat tiles not found")
+    close += len("</div></div>")
+    s = s[:close] + stat_tiles() + s[close:]
+
     if OLD_MAP_BOX not in s:
         return fail("map container not found")
     s = s.replace(OLD_MAP_BOX, NEW_MAP_BOX, 1)
@@ -372,11 +416,11 @@ def main():
     css_anchor = "@media (max-width: 760px) {"
     if css_anchor not in s:
         return fail("mobile media block not found")
-    s = s.replace(css_anchor, SCENES_MOBILE + MAP_LIST_CSS + css_anchor, 1)
+    s = s.replace(css_anchor, SCENES_MOBILE + MAP_LIST_CSS + STATS_CSS + css_anchor, 1)
 
     PAGE.write_text(s)
     print(f"patched {PAGE.name}")
-    print(f"  headline figures: 15–20M daily · 60–70M monthly · 19 countries · 8 scenes")
+    print("  headline figures: 8 tiles — reach on row one, throughput on row two")
     print(f"  coverage section: industry split + {len(SCENES)} task scenes")
     print(f"  new 05: {len(MOATS)} structural moats; sections below renumbered")
     print(f"  delivery: effective-hour definition, production line, schedule")
