@@ -1,0 +1,1695 @@
+{
+ "cyberdyne": {
+  "web": "https://www.cyberdyne.jp/english/",
+  "hq": "Tsukuba, Japan",
+  "founded": "2004 · 22 yrs",
+  "stage": "",
+  "price": "$4.1K – $5.5K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "institute-of-automation-chinese-academy-of-sciences": {
+  "web": "",
+  "hq": "",
+  "founded": "1956 · 70 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "cn-b8060ed890": {
+  "web": "https://www.tlibot.com",
+  "hq": "Mianyang, China",
+  "founded": "2012 · 14 yrs",
+  "stage": "Public (New Third Board 2015)",
+  "price": "$38.6K",
+  "raised": "",
+  "customers": [
+   "Defense and military applications",
+   "Scientific research and education institutions"
+  ],
+  "deployments": 2,
+  "employees": ""
+ },
+ "agile-robots": {
+  "web": "https://www.agile-robots.com/en/",
+  "hq": "Munich, Germany",
+  "founded": "2018 · 8 yrs",
+  "stage": "Series C · Sep 2021",
+  "price": "$100K – $150K",
+  "raised": "US$220.0M",
+  "customers": [],
+  "deployments": 0,
+  "employees": "2,300"
+ },
+ "kaist": {
+  "web": "https://www.kaist.ac.kr/en/",
+  "hq": "South Korea",
+  "founded": "1971 · 55 yrs",
+  "stage": "",
+  "price": "$400K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "unix-ai": {
+  "web": "https://www.unix-group.ai",
+  "hq": "Suzhou, China",
+  "founded": "2024 · 2 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "kepler-robotics": {
+  "web": "https://www.gotokepler.com",
+  "hq": "Shanghai, China",
+  "founded": "2023 · 3 yrs",
+  "stage": "Series A (2025)",
+  "price": "$60K",
+  "raised": "",
+  "customers": [
+   "SAIC-GM"
+  ],
+  "deployments": 1,
+  "employees": "51"
+ },
+ "agibot": {
+  "web": "https://www.agibot.com",
+  "hq": "Shanghai, China",
+  "founded": "2023 · 3 yrs",
+  "stage": "",
+  "price": "$16.8K – $145K",
+  "raised": "",
+  "customers": [
+   "Longcheer"
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "kondo-kagaku": {
+  "web": "https://kondo-robot.com",
+  "hq": "Tokyo, Japan",
+  "founded": "1964 · 62 yrs",
+  "stage": "",
+  "price": "$1.5K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "usc-interaction-lab-and-bluesky-robotics": {
+  "web": "https://rasc.usc.edu/robots/humanoid/bandit/",
+  "hq": "Los Angeles, United States",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "technical-university-of-munich": {
+  "web": "https://www.mw.tum.de/en/am/research/current-projects/robotics/humanoid-robot-lola/",
+  "hq": "Munich, Germany",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "spirit-ai": {
+  "web": "https://spirit-ai.com/",
+  "hq": "Hangzhou, China",
+  "founded": "2024 · 2 yrs",
+  "stage": "",
+  "price": "$150K",
+  "raised": "US$509.0M",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "figure": {
+  "web": "https://www.figure.ai",
+  "hq": "San Jose, United States",
+  "founded": "2022 · 4 yrs",
+  "stage": "Series C (2025)",
+  "price": "$130K",
+  "raised": "",
+  "customers": [
+   "BMW Group, Plant Spartanburg (South Carolina)"
+  ],
+  "deployments": 1,
+  "employees": "180"
+ },
+ "mentee-robotics": {
+  "web": "https://menteerobotics.com",
+  "hq": "Herzliya, Israel",
+  "founded": "2022 · 4 yrs",
+  "stage": "Series A (2022)",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "iit-bombay": {
+  "web": "",
+  "hq": "",
+  "founded": "1958 · 68 yrs",
+  "stage": "",
+  "price": "$710",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "istituto-italiano-di-tecnologia": {
+  "web": "",
+  "hq": "",
+  "founded": "2003 · 23 yrs",
+  "stage": "",
+  "price": "$250K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "physical-intelligence": {
+  "web": "https://www.physicalintelligence.company",
+  "hq": "San Francisco, United States",
+  "founded": "2024 · 2 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "US$1.6B",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "ubtech-robotics": {
+  "web": "https://www.ubtrobot.com",
+  "hq": "Shenzhen, China",
+  "founded": "2012 · 14 yrs",
+  "stage": "",
+  "price": "$120 – $100K",
+  "raised": "",
+  "customers": [
+   "BYD",
+   "Dongfeng",
+   "FAW-Volkswagen",
+   "Foxconn"
+  ],
+  "deployments": 7,
+  "employees": ""
+ },
+ "limx-dynamics": {
+  "web": "https://www.limxdynamics.com",
+  "hq": "Shenzhen, China",
+  "founded": "2022 · 4 yrs",
+  "stage": "",
+  "price": "$20K – $90K",
+  "raised": "US$200.0M",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "magiclab-robotics-technology-wuxi-co-ltd": {
+  "web": "https://www.magiclab.top",
+  "hq": "Wuxi, China",
+  "founded": "2024 · 2 yrs",
+  "stage": "",
+  "price": "$35.6K",
+  "raised": "",
+  "customers": [
+   "Unnamed electronics factory"
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "nasa-johnson-space-center-and-gm": {
+  "web": "https://www.gm.com",
+  "hq": "Detroit, United States",
+  "founded": "1961 · 65 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [
+   "NASA Johnson Space Center",
+   "General Motors"
+  ],
+  "deployments": 2,
+  "employees": ""
+ },
+ "ucla-samueli-school-of-engineering": {
+  "web": "https://www.romela.org",
+  "hq": "Los Angeles, United States",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "bxi-robotics": {
+  "web": "https://www.bxi-robot.com",
+  "hq": "Shanghai, China",
+  "founded": "",
+  "stage": "",
+  "price": "$36K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": "30"
+ },
+ "engineai": {
+  "web": "https://en.engineai.com.cn",
+  "hq": "Shenzhen, China",
+  "founded": "2023 · 3 yrs",
+  "stage": "",
+  "price": "$10K – $26K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "furhat-robotics": {
+  "web": "https://www.furhatrobotics.com",
+  "hq": "Stockholm, Sweden",
+  "founded": "2014 · 12 yrs",
+  "stage": "Seed · Sep 2017",
+  "price": "$31K",
+  "raised": "US$2.5M",
+  "customers": [
+   "Microsoft",
+   "University of Waterloo"
+  ],
+  "deployments": 2,
+  "employees": ""
+ },
+ "dataa-robotics-cloudminds": {
+  "web": "https://www.dataarobotics.com",
+  "hq": "China",
+  "founded": "2015 · 11 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "zeeno-robotics": {
+  "web": "https://zeenorobotics.com",
+  "hq": "Atlanta, United States",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [
+   "Chang Orthodontics"
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "yoyodyne": {
+  "web": "",
+  "hq": "",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "cn-b5983846f8": {
+  "web": "https://ai2robotics.com/en/",
+  "hq": "Shenzhen, China",
+  "founded": "2023 · 3 yrs",
+  "stage": "Series B",
+  "price": "",
+  "raised": "US$880.0M",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "zeroth-robotics": {
+  "web": "https://www.zeroth0.com",
+  "hq": "United States",
+  "founded": "2025 · 1 yr",
+  "stage": "",
+  "price": "$2.5K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "mechanical-girl": {
+  "web": "https://mechanicalgirl.jp",
+  "hq": "null, Japan",
+  "founded": "2017 · 9 yrs",
+  "stage": "",
+  "price": "$1K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "nasa": {
+  "web": "https://www.nasa.gov",
+  "hq": "United States",
+  "founded": "1958 · 68 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [
+   "NASA / International Space Station"
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "mirax-robots": {
+  "web": "",
+  "hq": "",
+  "founded": "",
+  "stage": "",
+  "price": "$6.5K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "unitree": {
+  "web": "https://www.unitree.com",
+  "hq": "Hangzhou, China",
+  "founded": "2016 · 10 yrs",
+  "stage": "",
+  "price": "$1.6K – $209K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": "500"
+ },
+ "robotera": {
+  "web": "https://www.robotera.com/en/",
+  "hq": "Beijing, China",
+  "founded": "2023 · 3 yrs",
+  "stage": "Series A+ (2025)",
+  "price": "$20K – $120K",
+  "raised": "US$552.7M",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "pib": {
+  "web": "https://pib.rocks",
+  "hq": "Nuremberg, Germany",
+  "founded": "2010 · 16 yrs",
+  "stage": "",
+  "price": "$4.1K – $6K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": "60"
+ },
+ "kawada-industries": {
+  "web": "https://www.kawadarobot.co.jp/en/",
+  "hq": "Kawaguchi, Japan",
+  "founded": "1962 · 64 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [
+   "Glory Ltd."
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "boston-dynamics": {
+  "web": "https://www.bostondynamics.com",
+  "hq": "Waltham, United States",
+  "founded": "1992 · 34 yrs",
+  "stage": "",
+  "price": "$74.5K – $150K",
+  "raised": "",
+  "customers": [
+   "Oswego County",
+   "Aker BP — Skarv installation, North Sea",
+   "Bakersfield police",
+   "FIFA World Cup 2026 venues"
+  ],
+  "deployments": 8,
+  "employees": "1,000"
+ },
+ "hiroshi-ishiguro-laboratories": {
+  "web": "",
+  "hq": "",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "shanghai-innovation-center": {
+  "web": "",
+  "hq": "",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "cn-f54f8a4862": {
+  "web": "https://shapes.inc",
+  "hq": "Tokyo, Japan",
+  "founded": "2019 · 7 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "fourier": {
+  "web": "https://www.fftai.com",
+  "hq": "Singapore, Singapore",
+  "founded": "2015 · 11 yrs",
+  "stage": "",
+  "price": "$220K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": "51"
+ },
+ "monash-university": {
+  "web": "https://monash.edu",
+  "hq": "",
+  "founded": "1958 · 68 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "softbank-robotics": {
+  "web": "https://us.softbankrobotics.com",
+  "hq": "Boston, United States",
+  "founded": "2004 · 22 yrs",
+  "stage": "",
+  "price": "$2K – $24K",
+  "raised": "",
+  "customers": [
+   "BES Cleaning",
+   "HSBC Bank",
+   "Renault"
+  ],
+  "deployments": 3,
+  "employees": ""
+ },
+ "waseda-university": {
+  "web": "https://www.humanoid.waseda.ac.jp",
+  "hq": "Tokyo, Japan",
+  "founded": "2000 · 26 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "sanbot-innovation-technology": {
+  "web": "https://en.sanbot.com",
+  "hq": "Shenzhen, China",
+  "founded": "2006 · 20 yrs",
+  "stage": "",
+  "price": "$2.8K – $11K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": "22"
+ },
+ "misty-robotics": {
+  "web": "https://www.mistyrobotics.com",
+  "hq": "Boulder, United States",
+  "founded": "2017 · 9 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "US$11.5M",
+  "customers": [],
+  "deployments": 0,
+  "employees": "11"
+ },
+ "thecorpora": {
+  "web": "http://thecorpora.com/",
+  "hq": "Barcelona, Spain",
+  "founded": "2008 · 18 yrs",
+  "stage": "",
+  "price": "$249 – $5.5K",
+  "raised": "",
+  "customers": [
+   "Universities and Technology Companies (hundreds worldwide)"
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "project-aiko": {
+  "web": "https://www.projectaiko.com",
+  "hq": "Canada",
+  "founded": "2007 · 19 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "german-aerospace-center-dlr": {
+  "web": "https://www.dlr.de/en/rm",
+  "hq": "Oberpfaffenhofen-Weßling, Germany",
+  "founded": "1969 · 57 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "digit-robotics-digital-china-robotics": {
+  "web": "https://www.digit.com.cn",
+  "hq": "Shenzhen, China",
+  "founded": "2024 · 2 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "tekntrash": {
+  "web": "https://www.tekntrash.com",
+  "hq": "London, United Kingdom",
+  "founded": "2018 · 8 yrs",
+  "stage": "",
+  "price": "$62.5K",
+  "raised": "",
+  "customers": [
+   "Sharp Group"
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "pal-robotics": {
+  "web": "https://pal-robotics.com",
+  "hq": "Barcelona, Spain",
+  "founded": "2004 · 22 yrs",
+  "stage": "",
+  "price": "$90K – $900K",
+  "raised": "",
+  "customers": [
+   "Decathlon",
+   "University of Waterloo"
+  ],
+  "deployments": 2,
+  "employees": ""
+ },
+ "nimbro": {
+  "web": "https://www.nimbro.net",
+  "hq": "Bonn, Germany",
+  "founded": "2004 · 22 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [
+   "University of Bonn Autonomous Intelligent Systems"
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "the-robot-studio": {
+  "web": "",
+  "hq": "",
+  "founded": "",
+  "stage": "",
+  "price": "$250K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "galaxea": {
+  "web": "https://galaxea-dynamics.com",
+  "hq": "Shenzhen, China",
+  "founded": "2023 · 3 yrs",
+  "stage": "Series A (2024)",
+  "price": "$70K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "x-humanoid": {
+  "web": "https://www.x-humanoid.com",
+  "hq": "Beijing, China",
+  "founded": "2023 · 3 yrs",
+  "stage": "",
+  "price": "$41K – $41.2K",
+  "raised": "US$100.0M",
+  "customers": [
+   "Foton Cummins engine plant"
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "karlsruhe-institute-of-technology": {
+  "web": "https://h2t.iar.kit.edu/english/397.php",
+  "hq": "Karlsruhe, Germany",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [
+   "Ocado"
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "university-of-tehran": {
+  "web": "https://cast-tech.ir",
+  "hq": "Tehran, Iran",
+  "founded": "2005 · 21 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "unical-robot": {
+  "web": "https://unical-robot.com",
+  "hq": "Chonburi, Thailand",
+  "founded": "",
+  "stage": "",
+  "price": "$53.1K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "kokoro-atr-and-osaka-university": {
+  "web": "",
+  "hq": "",
+  "founded": "1984 · 42 yrs",
+  "stage": "",
+  "price": "$127K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "sichuan-tianlian-robotics-co-ltd": {
+  "web": "",
+  "hq": "",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "sharpa-pte-ltd": {
+  "web": "https://www.sharpa.com",
+  "hq": "Singapore",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "hanson-robotics": {
+  "web": "https://www.hansonrobotics.com",
+  "hq": "Hong Kong, Hong Kong",
+  "founded": "2007 · 19 yrs",
+  "stage": "",
+  "price": "$249 – $150K",
+  "raised": "",
+  "customers": [
+   "University of California, San Diego",
+   "University of Texas at Arlington",
+   "University of Hong Kong",
+   "University of Oxford"
+  ],
+  "deployments": 6,
+  "employees": "45"
+ },
+ "roscosmos": {
+  "web": "",
+  "hq": "",
+  "founded": "1992 · 34 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "nenggou-beijing-technology-co-ltd": {
+  "web": "",
+  "hq": "",
+  "founded": "",
+  "stage": "",
+  "price": "$19.1K – $37.8K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "university-of-western-australia": {
+  "web": "",
+  "hq": "",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "lanxin-robotics": {
+  "web": "https://www.lanxinrobotics.com/",
+  "hq": "Shenzhen, China",
+  "founded": "2016 · 10 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "lumos-robotics": {
+  "web": "https://www.lumosbot.tech",
+  "hq": "Shenzhen, China",
+  "founded": "2024 · 2 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "US$293.8M",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "aist": {
+  "web": "https://www.aist.go.jp/",
+  "hq": "Tsukuba, Japan",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "apptronik": {
+  "web": "https://apptronik.com",
+  "hq": "Austin, United States",
+  "founded": "2016 · 10 yrs",
+  "stage": "Series A Extension (2025)",
+  "price": "$30K – $150K",
+  "raised": "US$870.0M",
+  "customers": [],
+  "deployments": 0,
+  "employees": "100"
+ },
+ "ant-lingbo-technology": {
+  "web": "https://www.antgroup.com/en",
+  "hq": "Shanghai, China",
+  "founded": "2024 · 2 yrs",
+  "stage": "",
+  "price": "$55K",
+  "raised": "",
+  "customers": [
+   "Shanghai History Museum"
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "1x-technologies": {
+  "web": "https://www.1x.tech",
+  "hq": "Palo Alto, United States",
+  "founded": "2014 · 12 yrs",
+  "stage": "Series A2 (2023)",
+  "price": "$20K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": "150"
+ },
+ "x-square-robots": {
+  "web": "https://x2robot.com/en",
+  "hq": "Shenzhen, China",
+  "founded": "2023 · 3 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "leju-robotics": {
+  "web": "https://www.lejurobot.com/en",
+  "hq": "Shenzhen, China",
+  "founded": "2016 · 10 yrs",
+  "stage": "",
+  "price": "$38K – $57K",
+  "raised": "",
+  "customers": [
+   "FAW Hongqi factory"
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "beijing-institute-of-technology": {
+  "web": "",
+  "hq": "",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "nasa-and-darpa": {
+  "web": "",
+  "hq": "Houston, United States",
+  "founded": "1958 · 68 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [
+   "NASA"
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "galaxea-ai": {
+  "web": "https://www.galaxea-ai.com",
+  "hq": "China",
+  "founded": "2023 · 3 yrs",
+  "stage": "Series B · Apr 2026",
+  "price": "$40K – $70K",
+  "raised": "US$534.4M",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "roboparty": {
+  "web": "https://roboparty.org/",
+  "hq": "Shanghai, China",
+  "founded": "2025 · 1 yr",
+  "stage": "Seed (2025)",
+  "price": "$7K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "robot-com": {
+  "web": "",
+  "hq": "Hangzhou, China",
+  "founded": "2016 · 10 yrs",
+  "stage": "Pre-IPO ($7B valuation target)",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "deep-robotics": {
+  "web": "https://www.deeprobotics.cn",
+  "hq": "Hangzhou, China",
+  "founded": "2017 · 9 yrs",
+  "stage": "",
+  "price": "$4.3K – $85K",
+  "raised": "",
+  "customers": [
+   "State Grid Corporation of China",
+   "China Southern Power Grid",
+   "Baosteel",
+   "Lenovo"
+  ],
+  "deployments": 5,
+  "employees": ""
+ },
+ "galbot": {
+  "web": "https://www.galbot.com",
+  "hq": "Beijing, China",
+  "founded": "2023 · 3 yrs",
+  "stage": "Seed · Jun 2024",
+  "price": "$206K",
+  "raised": "US$98.6M",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "xiaomi": {
+  "web": "https://www.mi.com",
+  "hq": "Beijing, China",
+  "founded": "2010 · 16 yrs",
+  "stage": "",
+  "price": "$1.4K – $150K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "delft-university-of-technology": {
+  "web": "https://tudelft.nl",
+  "hq": "Delft, Netherlands",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "kaist-and-rainbow-robotics": {
+  "web": "https://www.kaist.ac.kr",
+  "hq": "Daejeon, South Korea",
+  "founded": "1971 · 55 yrs",
+  "stage": "",
+  "price": "$320K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "ucla-and-romela": {
+  "web": "https://www.romela.org",
+  "hq": "Los Angeles, United States",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "vkf-renzel": {
+  "web": "https://www.robertrobot.com/fr/",
+  "hq": "Genève, Switzerland",
+  "founded": "1985 · 41 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "weave-robotics": {
+  "web": "",
+  "hq": "",
+  "founded": "",
+  "stage": "",
+  "price": "$8K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "luxai": {
+  "web": "https://luxai.com",
+  "hq": "Luxembourg, Luxembourg",
+  "founded": "2016 · 10 yrs",
+  "stage": "",
+  "price": "$2K – $11.9K",
+  "raised": "",
+  "customers": [
+   "Luxembourg Institute of Health (LIH)",
+   "University of Birmingham"
+  ],
+  "deployments": 2,
+  "employees": ""
+ },
+ "gitai": {
+  "web": "https://gitai.tech",
+  "hq": "Torrance, United States",
+  "founded": "2016 · 10 yrs",
+  "stage": "",
+  "price": "$12K – $3M",
+  "raised": "US$51.2M",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "kinisi-robotics": {
+  "web": "https://kinisi.com",
+  "hq": "California, United States",
+  "founded": "2024 · 2 yrs",
+  "stage": "Seed",
+  "price": "$75K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "robotis": {
+  "web": "https://www.robotis.com",
+  "hq": "Seoul, South Korea",
+  "founded": "1999 · 27 yrs",
+  "stage": "",
+  "price": "$549 – $12K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "weston-robot-pte-ltd": {
+  "web": "https://www.westonrobot.com",
+  "hq": "Singapore, Singapore",
+  "founded": "2019 · 7 yrs",
+  "stage": "",
+  "price": "$8.3K – $43K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": "60"
+ },
+ "shanghai-chuangwang-industrial-co-ltd": {
+  "web": "https://www.chuangwangrobot.com",
+  "hq": "Shenzhen, China",
+  "founded": "2016 · 10 yrs",
+  "stage": "",
+  "price": "$3.7K – $4.3K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "cn-9b90dcb0c7": {
+  "web": "https://www.ti5robot.com",
+  "hq": "Shanghai, China",
+  "founded": "2020 · 6 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [
+   "Fourier Intelligence (傅利叶)",
+   "SenseTime (商汤科技)",
+   "Shanghai Electric Group (上海电气集团)"
+  ],
+  "deployments": 3,
+  "employees": ""
+ },
+ "holiday-robotics": {
+  "web": "https://holiday-robotics.com",
+  "hq": "Seoul, South Korea",
+  "founded": "2024 · 2 yrs",
+  "stage": "Series A · Jul 2026",
+  "price": "",
+  "raised": "US$105.0M",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "keenon-robotics": {
+  "web": "https://www.keenon.com",
+  "hq": "Shanghai, China",
+  "founded": "2010 · 16 yrs",
+  "stage": "",
+  "price": "$5.5K – $100K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": "500"
+ },
+ "kokoro": {
+  "web": "",
+  "hq": "",
+  "founded": "1984 · 42 yrs",
+  "stage": "",
+  "price": "$909.1K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "byd": {
+  "web": "",
+  "hq": "",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "korea-institute-of-science-technology-kist": {
+  "web": "",
+  "hq": "South Korea",
+  "founded": "1966 · 60 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "matrix-robotics": {
+  "web": "https://www.matrixrobotics.ai/",
+  "hq": "Shanghai, China",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "booster-robotics": {
+  "web": "https://www.booster.tech",
+  "hq": "Beijing, China",
+  "founded": "2023 · 3 yrs",
+  "stage": "",
+  "price": "$6K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "aobo": {
+  "web": "http://www.aoborobot.com",
+  "hq": "Guangzhou, China",
+  "founded": "2014 · 12 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [
+   "Beixin Community Service Center"
+  ],
+  "deployments": 1,
+  "employees": "9"
+ },
+ "topstar": {
+  "web": "https://www.topstarltd.com",
+  "hq": "China",
+  "founded": "2007 · 19 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "foxconn-industrial-internet": {
+  "web": "https://www.foxconn.com",
+  "hq": "Tucheng, Taiwan",
+  "founded": "1974 · 52 yrs",
+  "stage": "",
+  "price": "$4.7K – $150K",
+  "raised": "",
+  "customers": [
+   "NVIDIA",
+   "Apple"
+  ],
+  "deployments": 2,
+  "employees": ""
+ },
+ "elephant-robotics": {
+  "web": "https://www.elephantrobotics.com",
+  "hq": "Shenzhen, China",
+  "founded": "2016 · 10 yrs",
+  "stage": "",
+  "price": "$16K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "walt-disney-imagineering": {
+  "web": "https://theluxmachine.com",
+  "hq": "Burbank, United States",
+  "founded": "1952 · 74 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [
+   "Walt Disney Imagineering"
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "wuhan-glory-road-intelligent-technology-co-ltd": {
+  "web": "",
+  "hq": "",
+  "founded": "2018 · 8 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "italian-institute-of-technology-iit": {
+  "web": "https://icub.iit.it",
+  "hq": "Genoa, Italy",
+  "founded": "2003 · 23 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [
+   "Moog Inc.",
+   "E++ Consortium"
+  ],
+  "deployments": 2,
+  "employees": "150"
+ },
+ "noetix": {
+  "web": "https://noetixrobotics.com",
+  "hq": "Beijing, China",
+  "founded": "2023 · 3 yrs",
+  "stage": "Series B · Mar 2026",
+  "price": "$2.8K – $21.2K",
+  "raised": "US$145.0M",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "henan-chuangwang-intelligent-equipment-co-ltd": {
+  "web": "https://www.chuangwangzn.com/",
+  "hq": "China",
+  "founded": "2016 · 10 yrs",
+  "stage": "",
+  "price": "$4.3K – $4.9K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "tokyo-university": {
+  "web": "",
+  "hq": "",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "neura-robotics": {
+  "web": "https://neura-robotics.com",
+  "hq": "Metzingen, Germany",
+  "founded": "2019 · 7 yrs",
+  "stage": "Series C · Jun 2026",
+  "price": "$10K – $49.4K",
+  "raised": "US$1.5B",
+  "customers": [
+   "Kawasaki Robotics",
+   "Delta Electronics",
+   "Omron Robotics and Safety Technologies"
+  ],
+  "deployments": 3,
+  "employees": "600"
+ },
+ "toyota": {
+  "web": "https://global.toyota.com/en/",
+  "hq": "Toyota City, Japan",
+  "founded": "1937 · 89 yrs",
+  "stage": "",
+  "price": "$355 – $150K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "willow-garage": {
+  "web": "https://www.turtlebot.com",
+  "hq": "Menlo Park, United States",
+  "founded": "2006 · 20 yrs",
+  "stage": "",
+  "price": "$1.5K – $400K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "wowwee": {
+  "web": "https://wowwee.com",
+  "hq": "Markham, Canada",
+  "founded": "1982 · 44 yrs",
+  "stage": "",
+  "price": "$99 – $138",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "sanctuary-ai": {
+  "web": "https://www.sanctuary.ai",
+  "hq": "Vancouver, Canada",
+  "founded": "2018 · 8 yrs",
+  "stage": "Series A · Mar 2022",
+  "price": "",
+  "raised": "US$75.5M",
+  "customers": [],
+  "deployments": 0,
+  "employees": "51"
+ },
+ "naval-research-laboratory": {
+  "web": "",
+  "hq": "United States",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [
+   "US Navy / Navy Center for Applied Research in Artificial Intelligence (NCARAI)"
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "romela": {
+  "web": "https://en.robotis.com",
+  "hq": "Seongnam, South Korea",
+  "founded": "",
+  "stage": "",
+  "price": "$49.5K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "engineered-arts": {
+  "web": "https://engineeredarts.com",
+  "hq": "Falmouth, United Kingdom",
+  "founded": "2004 · 22 yrs",
+  "stage": "Series A · Dec 2024",
+  "price": "$250K",
+  "raised": "US$10.0M",
+  "customers": [
+   "Altus Schools"
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "agility-robotics": {
+  "web": "https://www.agilityrobotics.com",
+  "hq": "Salem, United States",
+  "founded": "2015 · 11 yrs",
+  "stage": "Series C (2025)",
+  "price": "$250K – $300K",
+  "raised": "",
+  "customers": [
+   "GXO Logistics",
+   "GXO Logistics (SPANX facility)",
+   "Spanx",
+   "Toyota"
+  ],
+  "deployments": 4,
+  "employees": "11"
+ },
+ "borunte": {
+  "web": "https://www.borunte.net",
+  "hq": "Dongguan, China",
+  "founded": "2008 · 18 yrs",
+  "stage": "",
+  "price": "$5.5K – $12K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "technical-university-munich-tum": {
+  "web": "https://tum.de",
+  "hq": "Munich, Germany",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "a-star-social-robotics-lab": {
+  "web": "",
+  "hq": "Singapore, Singapore",
+  "founded": "2008 · 18 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "techman-robot-inc": {
+  "web": "https://www.tm-robot.com/en",
+  "hq": "Taoyuan, Taiwan",
+  "founded": "2015 · 11 yrs",
+  "stage": "",
+  "price": "$25K – $34K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "generative-bionics-s-r-l": {
+  "web": "https://gbionics.ai",
+  "hq": "Italy",
+  "founded": "",
+  "stage": "",
+  "price": "$50K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "robros": {
+  "web": "",
+  "hq": "",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "aheadform": {
+  "web": "https://aheadform.com",
+  "hq": "Shanghai, China",
+  "founded": "2024 · 2 yrs",
+  "stage": "",
+  "price": "$50K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "duco-robots": {
+  "web": "https://www.ducorobots.com",
+  "hq": "Shanghai, China",
+  "founded": "2014 · 12 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "enchanted-tools": {
+  "web": "https://enchanted.tools",
+  "hq": "Paris, France",
+  "founded": "2021 · 5 yrs",
+  "stage": "",
+  "price": "$30K",
+  "raised": "",
+  "customers": [
+   "Institut des Systèmes Intelligents et de Robotique (ISIR)"
+  ],
+  "deployments": 1,
+  "employees": "100"
+ },
+ "rokae": {
+  "web": "https://www.rokae.com",
+  "hq": "Beijing, China",
+  "founded": "2015 · 11 yrs",
+  "stage": "Strategic financing (2024)",
+  "price": "$16K – $39K",
+  "raised": "",
+  "customers": [
+   "Valeo",
+   "Schaeffler"
+  ],
+  "deployments": 2,
+  "employees": ""
+ },
+ "dobot": {
+  "web": "https://www.dobot-robots.com",
+  "hq": "Shenzhen, China",
+  "founded": "2015 · 11 yrs",
+  "stage": "",
+  "price": "$995 – $84.5K",
+  "raised": "",
+  "customers": [
+   "Terra Robotics"
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "humanoid": {
+  "web": "https://thehumanoid.ai",
+  "hq": "Burnaby, United Kingdom",
+  "founded": "2024 · 2 yrs",
+  "stage": "Series A (2026)",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "oversonic-robotics": {
+  "web": "https://oversonic.com",
+  "hq": "Besana Brianza, Italy",
+  "founded": "2020 · 6 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": "65"
+ },
+ "tesla": {
+  "web": "https://www.tesla.com",
+  "hq": "Austin, United States",
+  "founded": "2003 · 23 yrs",
+  "stage": "Public company",
+  "price": "$30K",
+  "raised": "",
+  "customers": [
+   "Tesla, Inc. (internal use)",
+   "Tesla Fremont Factory",
+   "Tesla Austin Factory"
+  ],
+  "deployments": 3,
+  "employees": "140,000+"
+ },
+ "kokoro-ishiguro-lab-atr-aalborg-university": {
+  "web": "",
+  "hq": "",
+  "founded": "",
+  "stage": "",
+  "price": "$165K",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "xpeng": {
+  "web": "https://www.xpeng.com",
+  "hq": "Guangzhou, China",
+  "founded": "2014 · 12 yrs",
+  "stage": "Series A (2022)",
+  "price": "$150K",
+  "raised": "US$133.5M",
+  "customers": [
+   "XPENG internal operations (factory assembly)"
+  ],
+  "deployments": 1,
+  "employees": ""
+ },
+ "onerobotics-shenzhen-co-ltd": {
+  "web": "https://www.onerobot.com",
+  "hq": "Shenzhen, China",
+  "founded": "2025 · 1 yr",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "tony-sale": {
+  "web": "",
+  "hq": "",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "german-research-center-for-artificial-intelligence-gmbh": {
+  "web": "",
+  "hq": "",
+  "founded": "1988 · 38 yrs",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "university-of-science-and-technology-of-china": {
+  "web": "",
+  "hq": "",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "android-technologies": {
+  "web": "",
+  "hq": "",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "high-torque-technology-co-ltd": {
+  "web": "https://www.hightorquerobotics.com",
+  "hq": "Guangzhou, China",
+  "founded": "",
+  "stage": "",
+  "price": "",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": ""
+ },
+ "pollen-robotics": {
+  "web": "https://www.pollen-robotics.com",
+  "hq": "Bordeaux, France",
+  "founded": "2016 · 10 yrs",
+  "stage": "Acquired (2025)",
+  "price": "$449",
+  "raised": "",
+  "customers": [],
+  "deployments": 0,
+  "employees": "20"
+ }
+}

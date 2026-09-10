@@ -98,6 +98,11 @@ input[type=search]:focus{outline:none;border-color:#111}
 .geokey{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 20px;font-size:13px;color:#55554F}
 .geokey span b{font-weight:400;color:#8A8A85;margin-left:6px}
 .tag.trail{background:#111;color:#fff}
+.card h3 .out{text-decoration:none;border-bottom:1px solid #D8D8D2;transition:border-color .2s}
+.card h3 .out:hover{border-color:#111}
+.card h3 .arr{margin-left:5px;font-size:12px;color:#8A8A85;border:0}
+.card .ev{margin-top:10px;display:grid;gap:3px;font-size:13px;line-height:1.5;color:#3A3A38}
+.card .ev b{font-weight:400;color:#8A8A85}
 .tag.lab{background:none;border:1px solid #E6E6E2}
 @media (max-width:900px){.substats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:760px){.substat{font-size:22px}}
@@ -206,9 +211,9 @@ input[type=search]:focus{outline:none;border-color:#111}
     placing volume orders against the index above.</p>
 
   <div class="substats">
-    <div><div class="substat" id="mN">—</div><div class="statcap">makers with a humanoid on file</div></div>
-    <div><div class="substat" id="mC">—</div><div class="statcap">of them commercial, the rest research platforms</div></div>
-    <div><div class="substat" id="mG">—</div><div class="statcap">countries, and one country holds a third</div></div>
+    <div><div class="substat" id="mN">—</div><div class="statcap">makers with a humanoid on file, in <span id="mG">—</span> countries</div></div>
+    <div><div class="substat" id="mD">—</div><div class="statcap">have shipped to a customer someone can name</div></div>
+    <div><div class="substat" id="mF">—</div><div class="statcap">have a funding round anyone has confirmed</div></div>
     <div><div class="substat" id="mT">—</div><div class="statcap">already named as buyers on the supplier rows</div></div>
   </div>
 
@@ -233,7 +238,9 @@ input[type=search]:focus{outline:none;border-color:#111}
   <p class="prov">Makers, countries and scores follow the humanoid board published at
     robolist.ai, scores as of 6 September 2026. Two columns there are wider than humanoids and are
     labelled as such: RoboScore is a maker's score across every category it lists in, and the
-    catalogue count is its whole range, not its humanoids alone. Legal suffixes are trimmed and
+    catalogue count is its whole range, not its humanoids alone. Funding and deployments are
+    recorded there only against a public source, so most rows carry neither — including makers
+    that have plainly raised money. Read a blank as "not on file", never as "none". Legal suffixes are trimmed and
     descriptions truncated; nothing else is rewritten. Universities, national labs and agencies are
     kept but tagged, because a research platform is not a customer for parts at volume.</p>
 </section></div>
@@ -376,7 +383,8 @@ render();
 
 /* ---- Demand side ------------------------------------------------------- */
 const M = window.MAKERS || [];
-let geo = null, commercialOnly = false, trailOnly = false, allM = false;
+let geo = null, commercialOnly = false, shippedOnly = false, fundedOnly = false,
+    trailOnly = false, allM = false;
 
 const geoTally = {};
 M.forEach(r => { geoTally[r.c] = (geoTally[r.c] || 0) + 1; });
@@ -388,8 +396,9 @@ const KNOWN = GEOS.filter(([c]) => c !== '—');
 const UNKNOWN = geoTally['—'] || 0;
 
 $('mN').textContent = M.length;
-$('mC').textContent = M.filter(r => !r.lab).length;
 $('mG').textContent = KNOWN.length;
+$('mD').textContent = M.filter(r => r.dep).length;
+$('mF').textContent = M.filter(r => r.cap).length;
 $('mT').textContent = M.filter(r => r.buy).length;
 
 /* Five bands and a remainder: a bar with twenty slivers reads as noise. */
@@ -413,6 +422,8 @@ chips($('fGeo'), GEOS.map(([c, n]) => [c, n]), () => geo, v => { geo = v; }, ren
 });
 
 [['Commercial only', () => commercialOnly, v => { commercialOnly = v; }],
+ ['Shipped to someone', () => shippedOnly, v => { shippedOnly = v; }],
+ ['Funding on file', () => fundedOnly, v => { fundedOnly = v; }],
  ['Named in the index above', () => trailOnly, v => { trailOnly = v; }]
 ].forEach(([label, get, set]) => {
   const b = document.createElement('button');
@@ -429,6 +440,8 @@ function visibleM() {
   return M.filter(r => {
     if (geo && r.c !== geo) return false;
     if (commercialOnly && r.lab) return false;
+    if (shippedOnly && !r.dep) return false;
+    if (fundedOnly && !r.cap) return false;
     if (trailOnly && !r.buy) return false;
     if (!t) return true;
     return [r.n, r.c, r.d || '', r.buy || ''].join(' ').toLowerCase().indexOf(t) >= 0;
@@ -438,34 +451,46 @@ function visibleM() {
 function renderM() {
   [...$('fGeo').children].forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === geo)));
   const rows = visibleM();
-  const scope = [geo, commercialOnly ? 'commercial' : null,
-    trailOnly ? 'in the index' : null].filter(Boolean).join(' · ') || 'everything';
+  const scope = [geo, commercialOnly ? 'commercial' : null, shippedOnly ? 'shipped' : null,
+    fundedOnly ? 'funded' : null, trailOnly ? 'in the index' : null]
+    .filter(Boolean).join(' · ') || 'everything';
   const shown = allM ? rows : rows.slice(0, LIMIT);
   $('mcount').textContent = rows.length + ' of ' + M.length + ' · ' + scope +
     (shown.length < rows.length ? ' · showing ' + shown.length : '');
   more($('moreM'), rows, allM, v => { allM = v; }, renderM);
   $('mcards').innerHTML = rows.length ? shown.map(r =>
-    '<div class="card"><h3>' + r.n +
-    (r.c !== '—' ? '<span class="cn">' + r.c + '</span>' : '') + '</h3>' +
+    '<div class="card"><h3>' +
+    (r.w ? '<a class="out" href="' + r.w + '" target="_blank" rel="noopener noreferrer">' +
+      r.n + '<span class="arr">↗</span></a>' : r.n) +
+    '<span class="cn">' + (r.hq || r.c) + '</span></h3>' +
     ((r.buy || r.lab) ? '<div class="tags">' +
       (r.buy ? '<span class="tag trail">BUYS AS ' + r.buy.toUpperCase() + '</span>' : '') +
       (r.lab ? '<span class="tag lab">RESEARCH PLATFORM</span>' : '') + '</div>' : '') +
+    ((r.cap || r.dep) ? '<div class="ev">' +
+      (r.cap ? '<span><b>Raised</b> ' + r.cap + '</span>' : '') +
+      (r.dep ? '<span><b>Shipped to</b> ' + (r.dc && r.dc.length ? r.dc.join(', ')
+        : r.dep + (r.dep === 1 ? ' customer' : ' customers') + ' on record') + '</span>' : '') +
+      '</div>' : '') +
     (r.d ? '<div class="note">' + r.d + '</div>' : '') + '</div>').join('')
     : '<div class="empty">Nothing matches. Clear the search or drop a filter.</div>';
 }
 
 $('mq').oninput = renderM;
 $('mreset').onclick = () => {
-  geo = null; commercialOnly = false; trailOnly = false; allM = false;
+  geo = null; commercialOnly = false; shippedOnly = false; fundedOnly = false;
+  trailOnly = false; allM = false;
   $('mq').value = '';
   [...$('fView').children].forEach(b => b.setAttribute('aria-pressed', 'false'));
   renderM();
 };
 $('mcsv').onclick = () => {
   const esc = v => '"' + String(v).replace(/"/g, '""') + '"';
-  const out = [['Maker', 'Country', 'RoboScore (all categories)', 'Catalogue robots',
-    'Buyer in the index', 'Research platform', 'What they build']];
-  visibleM().forEach(r => out.push([r.n, r.c, r.s, r.r, r.buy || '',
+  const out = [['Maker', 'Country', 'HQ', 'Founded', 'Website', 'Price range',
+    'Raised', 'Deployments on record', 'Named customers',
+    'RoboScore (all categories)', 'Catalogue robots', 'Buyer in the index',
+    'Research platform', 'What they build']];
+  visibleM().forEach(r => out.push([r.n, r.c, r.hq || '', r.f || '', r.w || '', r.p || '',
+    r.cap || '', r.dep || '', (r.dc || []).join(' / '), r.s, r.r, r.buy || '',
     r.lab ? 'yes' : '', r.d || '']));
   const blob = new Blob(['﻿' + out.map(r => r.map(esc).join(',')).join('\r\n')],
     {type: 'text/csv;charset=utf-8'});
