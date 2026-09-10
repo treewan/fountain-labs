@@ -37,7 +37,7 @@ SWAPS = [
     ("65 million workers capturing their own work every day, built with "
      "Timemark. Order by spec, receive by the hour, delivered through our "
      "Singapore entity.",
-     "15–20 million workers capture their own work every day, across 19 "
+     "60–70 million workers a month capture their own work, across 19 "
      "countries, built with Timemark. Order by spec, receive by effective "
      "hour, delivered through our Singapore entity."),
 
@@ -56,7 +56,7 @@ SWAPS = [
     (">160M<", ">19<"),
     (">photos a day<", ">countries with standing capture pools<"),
     (">10M+<", ">8<"),
-    ("hours already in the pool", "task scenes available on demand"),
+    ("hours already in the pool", "task scenes you can order directly"),
 
     # The daily video and photograph counts leave the tiles, so they are kept
     # here, where the scale argument is actually made.
@@ -74,10 +74,35 @@ SWAPS = [
 
 # Renumbering runs bottom-up so a number never lands on one not yet moved.
 RENUMBER = [
-    ("08 · WHY IT EXISTS", "09 · WHY IT EXISTS"),
-    ("07 · HOW IT FLOWS", "08 · HOW IT FLOWS"),
-    ("06 · CAPTURE HARDWARE", "07 · CAPTURE HARDWARE"),
-    ("05 · WHAT YOU CAN ORDER", "06 · WHAT YOU CAN ORDER"),
+    ("08 · WHY IT EXISTS", "10 · WHY IT EXISTS"),
+    ("07 · HOW IT FLOWS", "09 · HOW IT FLOWS"),
+    ("06 · CAPTURE HARDWARE", "08 · CAPTURE HARDWARE"),
+    ("05 · WHAT YOU CAN ORDER", "07 · WHAT YOU CAN ORDER"),
+    ("04 · COST STRUCTURE", "05 · COST STRUCTURE"),
+]
+
+# What the corpus contains, as distinct from where it comes from. These are
+# properties of the footage itself; the moats two sections down are properties
+# of the supply that produces it.
+QUALITIES = [
+    ("LONG TAIL", "Enough trades to reach past the head",
+     "Eighteen industry classes inside China and ten more outside it, running "
+     "past construction and logistics into utilities, agriculture, waste and "
+     "repair. A curated set stops near the head of that distribution. "
+     "Deployment happens along the tail."),
+    ("DEPTH PER INDUSTRY", "Enough of any one trade to train on",
+     "Volume does not thin out as the list lengthens. A single industry "
+     "carries enough hours to train against on its own, rather than being "
+     "sampled a handful of clips at a time."),
+    ("FAILURE AND RECOVERY", "Work that goes wrong, then gets put right",
+     "This is footage of real jobs, so it holds mis-grasps, dropped parts, the "
+     "wrong tool reached for first, and the correction that follows. "
+     "Demonstration data is filmed to succeed. A policy learns to recover only "
+     "from footage where something needed recovering."),
+    ("GLOBAL VARIANCE", "The same task, done differently",
+     "The same job runs differently across nineteen countries — different "
+     "tools, materials, layouts and pace. That variance is what tells you how "
+     "a robot behaves once it leaves the site it was tuned on."),
 ]
 
 SCENES = [
@@ -209,6 +234,25 @@ def industry_block():
         'that region\'s labeled users.</p>')
 
 
+def qualities_section():
+    cards = "".join(
+        '<div style="border-top: 1px solid #111; padding-top: 16px">'
+        f'<div style="{MONO}">{tag}</div>'
+        f'<div style="margin-top: 10px; font-size: 17px; font-weight: 500; '
+        f'letter-spacing: -.01em; color: #111">{title}</div>'
+        f'<p style="{BODY}">{body}</p></div>'
+        for tag, title, body in QUALITIES)
+    return section(
+        "04 · WHY IT TRAINS WELL",
+        "Breadth, depth, and the parts a demonstration set edits out.",
+        "Scale gets a corpus considered. What a policy learns from is which "
+        "trades are in it, how much of each, and whether the footage contains "
+        "work going wrong as well as work going right.",
+        '<div data-rw="g4" style="margin-top: 32px; display: grid; '
+        'grid-template-columns: repeat(2, minmax(0,1fr)); gap: 32px">'
+        f'{cards}</div>')
+
+
 def moats_section():
     cards = "".join(
         '<div style="border-top: 1px solid #111; padding-top: 16px">'
@@ -218,7 +262,7 @@ def moats_section():
         f'<p style="{BODY}">{body}</p></div>'
         for num, title, body in MOATS)
     return section(
-        "05 · WHY IT IS HARD TO COPY",
+        "06 · WHY IT IS HARD TO COPY",
         "Four things a competing supplier cannot simply spend its way into.",
         "Capture capacity here is a by-product of work that happens anyway. "
         "That changes what scaling costs, what quality control can enforce, "
@@ -290,7 +334,7 @@ BANDS_LIST = [
     ("MARKED AS A POINT", "Singapore"),
 ]
 
-OLD_MAP_BOX = ('<div style="aspect-ratio: 1000/470; width: 100%; background: '
+OLD_MAP_BOX = ('<div style="aspect-ratio: 1470/620; width: 100%; background: '
                '#F4F4F2; border-radius: 8px; overflow: hidden; padding: 24px; '
                'box-sizing: border-box">')
 NEW_MAP_BOX = ('<div data-rw="mapbox" style="aspect-ratio: 1000/470; width: '
@@ -336,11 +380,22 @@ EXTRA_STATS = [
 
 # Eight tiles in one column is a long scroll on a phone, and g4's own rule
 # would do exactly that, so the stat grid gets its own breakpoints.
+# Eight numbers set at one size read as a slab. The first row — who, where,
+# what work — stays primary; the second row is the volume that backs it up and
+# sits a step down, which gives the block a hierarchy to read rather than a
+# grid to scan. Both come down from 48px, which was shouting.
 STATS_CSS = (
+    '[data-rw="stats"] [data-rw="stat"] { font-size: 38px !important; } '
+    '[data-rw="stats"] > div:nth-child(n+5) [data-rw="stat"] { '
+    'font-size: 28px !important; } '
+    '[data-rw="stats"] > div:nth-child(n+5) > div + div { '
+    'margin-top: 9px !important; } '
     '@media (max-width: 900px) { [data-rw="stats"] { grid-template-columns: '
     'repeat(2, minmax(0,1fr)) !important; } } '
-    '@media (max-width: 760px) { [data-rw="stats"] [data-rw="stat"] { '
-    'font-size: 30px !important; } }\n  ')
+    '@media (max-width: 760px) { '
+    '[data-rw="stats"] [data-rw="stat"] { font-size: 28px !important; } '
+    '[data-rw="stats"] > div:nth-child(n+5) [data-rw="stat"] { '
+    'font-size: 22px !important; } }\n  ')
 
 
 def stat_tiles():
@@ -375,8 +430,14 @@ def main():
         return fail("coverage section not found")
     s = s[:close] + industry_block() + scenes_block() + s[close:]
 
+    at = s.find("05 · COST STRUCTURE")
+    start = s.rfind("<section", 0, at)
+    if at < 0 or start < 0:
+        return fail("insertion point for the qualities section not found")
+    s = s[:start] + qualities_section() + s[start:]
+
     # The new section sits between cost structure and what you can order.
-    marker = "06 · WHAT YOU CAN ORDER"
+    marker = "07 · WHAT YOU CAN ORDER"
     at = s.find(marker)
     start = s.rfind("<section", 0, at)
     if at < 0 or start < 0:
@@ -384,14 +445,14 @@ def main():
     s = s[:start] + moats_section() + s[start:]
 
     # Delivery detail goes at the end of what-you-can-order.
-    at = s.find("06 · WHAT YOU CAN ORDER")
+    at = s.find("07 · WHAT YOU CAN ORDER")
     close = s.find("</section>", at)
     if close < 0:
         return fail("order section end not found")
     s = s[:close] + DELIVERY_DETAIL + s[close:]
 
     # Compliance, stated in the positive, closes the flow section.
-    at = s.find("08 · HOW IT FLOWS")
+    at = s.find("09 · HOW IT FLOWS")
     close = s.find("</section>", at)
     if at < 0 or close < 0:
         return fail("flow section not found")
@@ -400,7 +461,7 @@ def main():
     if STAT_GRID_OLD not in s:
         return fail("stat grid not found")
     s = s.replace(STAT_GRID_OLD, STAT_GRID_NEW, 1)
-    at = s.find("task scenes available on demand")
+    at = s.find("task scenes you can order directly")
     close = s.find("</div></div>", at)
     if at < 0 or close < 0:
         return fail("end of the stat tiles not found")
@@ -422,7 +483,8 @@ def main():
     print(f"patched {PAGE.name}")
     print("  headline figures: 8 tiles — reach on row one, throughput on row two")
     print(f"  coverage section: industry split + {len(SCENES)} task scenes")
-    print(f"  new 05: {len(MOATS)} structural moats; sections below renumbered")
+    print(f"  new 04: {len(QUALITIES)} corpus qualities")
+    print(f"  new 06: {len(MOATS)} structural moats; sections renumbered to 01–10")
     print(f"  delivery: effective-hour definition, production line, schedule")
     print(f"  compliance: {len(COMPLIANCE)} items, stated in the positive")
     return 0
