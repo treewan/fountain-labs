@@ -97,6 +97,7 @@ def facts():
     """
     strip = lambda x: html.unescape(re.sub(r"<!--.*?-->|<[^>]+>", "", x)).strip()
     out = {}
+    robots = {}
     for i, row in enumerate(json.load(open(SNAP)), 1):
         slug = row["slug"]
         req = urllib.request.Request("https://www.robolist.ai/companies/" + slug,
@@ -134,10 +135,28 @@ def facts():
             "deployments": int(ndep.group(1)) if ndep else 0,
             "customers": deps[:4],
         }
+        seen = []
+        for m in re.finditer(r'href="/robots/[a-z0-9\-]+"[^>]*>(.*?)</a>', body, re.S):
+            name = strip(m.group(1))
+            if name and len(name) < 50 and name not in seen:
+                seen.append(name)
+        robots[slug] = seen
         if i % 25 == 0:
             print("  %d/%d" % (i, len(json.load(open(SNAP)))))
+    # Every company page carries the same promoted models in its footer. They
+    # are not that company's robots, and a name on more than half the pages is
+    # the only reliable way to tell furniture from product.
+    tally = {}
+    for names in robots.values():
+        for name in set(names):
+            tally[name] = tally.get(name, 0) + 1
+    furniture = {n for n, c in tally.items() if c > len(robots) * 0.5}
+    for slug, names in robots.items():
+        out[slug]["robots"] = [n for n in names if n not in furniture][:3]
     json.dump(out, open(FACTS, "w"), ensure_ascii=False, indent=1)
     print("company facts for %d makers -> %s" % (len(out), os.path.relpath(FACTS, ROOT)))
+    print("  dropped %d promoted models that appear on most pages: %s"
+          % (len(furniture), ", ".join(sorted(furniture))))
 
 
 def build():
@@ -147,10 +166,13 @@ def build():
     for r in raw:
         if not r["name"] or not r["score"]:
             continue
-        # A description that is a marketing line in another language, a bare
-        # "null", or the maker's own name adds nothing to a card.
+        # A bare "null", or a description that is only the maker's name again,
+        # adds nothing to a card. A real sentence that happens to open with the
+        # company name is not that, and was being thrown away.
         d = r["desc"]
-        if d.lower() in ("null", "none", "") or d.startswith(r["name"]):
+        if d.lower() in ("null", "none", ""):
+            d = ""
+        elif d.startswith(r["name"]) and len(d) - len(r["name"]) < 15:
             d = ""
         row = {
             "n": TRIM.sub("", r["name"]).strip(),
@@ -182,6 +204,10 @@ def build():
             row["dep"] = f["deployments"]
         if f.get("customers"):
             row["dc"] = f["customers"]
+        # Where the source carries no description at all, the models it does
+        # list are the only real thing left to say about the company.
+        if not d and f.get("robots"):
+            row["rb"] = f["robots"]
         out.append(row)
     out.sort(key=lambda x: (-x["s"], x["n"]))
     with open(OUT, "w") as f:
@@ -193,6 +219,10 @@ def build():
     print("  %d robots in their catalogues (all categories, not humanoid only)"
           % sum(r["r"] for r in out))
     print("  %d countries" % len({r["c"] for r in out if r["c"] != "—"}))
+    blank = [r["n"] for r in out if not r.get("d") and not r.get("rb")]
+    print("  %d with a one-line description, %d falling back to their models, %d with neither%s"
+          % (sum(1 for r in out if r.get("d")), sum(1 for r in out if r.get("rb")), len(blank),
+             (": " + ", ".join(blank)) if blank else ""))
     print("  %d with a website, %d with funding on file, %d with a named deployment"
           % (sum(1 for r in out if r.get("w")), sum(1 for r in out if r.get("cap")),
              sum(1 for r in out if r.get("dep"))))

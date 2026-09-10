@@ -8,7 +8,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "TRANSPORTATION ROBOT",
+   "HAL FOR WELL-BEING LOWER LIMB TYPE",
+   "Cyberdyne"
+  ]
  },
  "institute-of-automation-chinese-academy-of-sciences": {
   "web": "",
@@ -19,7 +24,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Meinü robot"
+  ]
  },
  "cn-b8060ed890": {
   "web": "https://www.tlibot.com",
@@ -33,7 +41,12 @@
    "Scientific research and education institutions"
   ],
   "deployments": 2,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Super Species - Little Sky",
+   "Tianxian Humanoid Robot T1 Pro",
+   "Tianxian Humanoid Robot T1"
+  ]
  },
  "agile-robots": {
   "web": "https://www.agile-robots.com/en/",
@@ -44,7 +57,12 @@
   "raised": "US$220.0M",
   "customers": [],
   "deployments": 0,
-  "employees": "2,300"
+  "employees": "2,300",
+  "robots": [
+   "A2 Max",
+   "Agile ONE",
+   "Thor series"
+  ]
  },
  "kaist": {
   "web": "https://www.kaist.ac.kr/en/",
@@ -55,7 +73,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Hubo 2"
+  ]
  },
  "unix-ai": {
   "web": "https://www.unix-group.ai",
@@ -66,7 +87,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Wanda 2.0"
+  ]
  },
  "kepler-robotics": {
   "web": "https://www.gotokepler.com",
@@ -79,7 +103,11 @@
    "SAIC-GM"
   ],
   "deployments": 1,
-  "employees": "51"
+  "employees": "51",
+  "robots": [
+   "K2 Forerunner",
+   "K2 Bumblebee"
+  ]
  },
  "agibot": {
   "web": "https://www.agibot.com",
@@ -92,7 +120,12 @@
    "Longcheer"
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "· AGIBOT G2",
+   "A2-W",
+   "Expedition A3"
+  ]
  },
  "kondo-kagaku": {
   "web": "https://kondo-robot.com",
@@ -103,7 +136,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Kondo KHR 3HV Ver.3 Humanoid Robot",
+   "KHR-3",
+   "Kondo Kagaku"
+  ]
  },
  "usc-interaction-lab-and-bluesky-robotics": {
   "web": "https://rasc.usc.edu/robots/humanoid/bandit/",
@@ -114,7 +152,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Bandit"
+  ]
  },
  "technical-university-of-munich": {
   "web": "https://www.mw.tum.de/en/am/research/current-projects/robotics/humanoid-robot-lola/",
@@ -125,7 +166,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Humanoid robot H-1"
+  ]
  },
  "spirit-ai": {
   "web": "https://spirit-ai.com/",
@@ -136,7 +180,10 @@
   "raised": "US$509.0M",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Moz1"
+  ]
  },
  "figure": {
   "web": "https://www.figure.ai",
@@ -149,7 +196,11 @@
    "BMW Group, Plant Spartanburg (South Carolina)"
   ],
   "deployments": 1,
-  "employees": "180"
+  "employees": "180",
+  "robots": [
+   "· Figure 03",
+   "Figure 03"
+  ]
  },
  "mentee-robotics": {
   "web": "https://menteerobotics.com",
@@ -160,7 +211,11 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Mentee Robotics",
+   "MenteeBot"
+  ]
  },
  "iit-bombay": {
   "web": "",
@@ -171,7 +226,11 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "IIT Bombay",
+   "Shalu"
+  ]
  },
  "istituto-italiano-di-tecnologia": {
   "web": "",
@@ -182,7 +241,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "R1"
+  ]
  },
  "physical-intelligence": {
   "web": "https://www.physicalintelligence.company",
@@ -193,7 +255,12 @@
   "raised": "US$1.6B",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Physical Intelligence",
+   "π0",
+   "π0.5"
+  ]
  },
  "ubtech-robotics": {
   "web": "https://www.ubtrobot.com",
@@ -209,7 +276,12 @@
    "Foxconn"
   ],
   "deployments": 7,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "· Walker S1",
+   "· Walker S",
+   "· Walker S Lite"
+  ]
  },
  "limx-dynamics": {
   "web": "https://www.limxdynamics.com",
@@ -220,7 +292,12 @@
   "raised": "US$200.0M",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "LimX Oli",
+   "TRON 1",
+   "TRON 2"
+  ]
  },
  "magiclab-robotics-technology-wuxi-co-ltd": {
   "web": "https://www.magiclab.top",
@@ -233,7 +310,12 @@
    "Unnamed electronics factory"
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "MagicBot Gen1",
+   "MagicBot Z1",
+   "Magiclab Robotics Technology (Wuxi)"
+  ]
  },
  "nasa-johnson-space-center-and-gm": {
   "web": "https://www.gm.com",
@@ -247,7 +329,11 @@
    "General Motors"
   ],
   "deployments": 2,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "NASA Johnson Space Center and GM",
+   "Robonaut 2"
+  ]
  },
  "ucla-samueli-school-of-engineering": {
   "web": "https://www.romela.org",
@@ -258,7 +344,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "ARTEMIS"
+  ]
  },
  "bxi-robotics": {
   "web": "https://www.bxi-robot.com",
@@ -269,7 +358,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": "30"
+  "employees": "30",
+  "robots": [
+   "Elf 3 Humanoid Robot"
+  ]
  },
  "engineai": {
   "web": "https://en.engineai.com.cn",
@@ -280,7 +372,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "T800",
+   "SA01",
+   "SE01"
+  ]
  },
  "furhat-robotics": {
   "web": "https://www.furhatrobotics.com",
@@ -294,7 +391,10 @@
    "University of Waterloo"
   ],
   "deployments": 2,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Furhat"
+  ]
  },
  "dataa-robotics-cloudminds": {
   "web": "https://www.dataarobotics.com",
@@ -305,7 +405,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Cloud Ginger 2.0"
+  ]
  },
  "zeeno-robotics": {
   "web": "https://zeenorobotics.com",
@@ -318,7 +421,11 @@
    "Chang Orthodontics"
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "· Zeeno",
+   "Zeeno"
+  ]
  },
  "yoyodyne": {
   "web": "",
@@ -329,7 +436,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "TOPIO Dio"
+  ]
  },
  "cn-b5983846f8": {
   "web": "https://ai2robotics.com/en/",
@@ -340,7 +450,10 @@
   "raised": "US$880.0M",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "AlphaBot 2"
+  ]
  },
  "zeroth-robotics": {
   "web": "https://www.zeroth0.com",
@@ -351,7 +464,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Zeroth M1"
+  ]
  },
  "mechanical-girl": {
   "web": "https://mechanicalgirl.jp",
@@ -362,7 +478,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Adachi Rei"
+  ]
  },
  "nasa": {
   "web": "https://www.nasa.gov",
@@ -375,7 +494,12 @@
    "NASA / International Space Station"
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "· Astrobee Bumble",
+   "Astrobee Bumble",
+   "NASA"
+  ]
  },
  "mirax-robots": {
   "web": "",
@@ -386,7 +510,11 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Doc",
+   "LEA"
+  ]
  },
  "unitree": {
   "web": "https://www.unitree.com",
@@ -397,7 +525,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": "500"
+  "employees": "500",
+  "robots": [
+   "Laikago",
+   "B2-W",
+   "Unitree G1 EDU Ultimate B Humanoid…"
+  ]
  },
  "robotera": {
   "web": "https://www.robotera.com/en/",
@@ -408,7 +541,12 @@
   "raised": "US$552.7M",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Q5",
+   "XBot-L",
+   "ROBOTERA L7"
+  ]
  },
  "pib": {
   "web": "https://pib.rocks",
@@ -419,7 +557,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": "60"
+  "employees": "60",
+  "robots": [
+   "pib",
+   "pib.Pro",
+   "pib.Advanced"
+  ]
  },
  "kawada-industries": {
   "web": "https://www.kawadarobot.co.jp/en/",
@@ -432,7 +575,12 @@
    "Glory Ltd."
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "· Nextage",
+   "Nextage",
+   "HRP-4"
+  ]
  },
  "boston-dynamics": {
   "web": "https://www.bostondynamics.com",
@@ -448,7 +596,12 @@
    "FIFA World Cup 2026 venues"
   ],
   "deployments": 8,
-  "employees": "1,000"
+  "employees": "1,000",
+  "robots": [
+   "· Spot",
+   "· Atlas",
+   "Spot"
+  ]
  },
  "hiroshi-ishiguro-laboratories": {
   "web": "",
@@ -459,7 +612,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "ibuki"
+  ]
  },
  "shanghai-innovation-center": {
   "web": "",
@@ -470,7 +626,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Qinglong"
+  ]
  },
  "cn-f54f8a4862": {
   "web": "https://shapes.inc",
@@ -481,7 +640,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "HCI3-P0"
+  ]
  },
  "fourier": {
   "web": "https://www.fftai.com",
@@ -492,7 +654,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": "51"
+  "employees": "51",
+  "robots": [
+   "Fourier GR-1",
+   "Fourier",
+   "GR-3"
+  ]
  },
  "monash-university": {
   "web": "https://monash.edu",
@@ -503,7 +670,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Monash University",
+   "Plasticman",
+   "Metalman"
+  ]
  },
  "softbank-robotics": {
   "web": "https://us.softbankrobotics.com",
@@ -518,7 +690,12 @@
    "Renault"
   ],
   "deployments": 3,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "· Whiz",
+   "· Pepper",
+   "Whiz"
+  ]
  },
  "waseda-university": {
   "web": "https://www.humanoid.waseda.ac.jp",
@@ -529,7 +706,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Twendy One",
+   "Kobian",
+   "Waseda Flutist"
+  ]
  },
  "sanbot-innovation-technology": {
   "web": "https://en.sanbot.com",
@@ -540,7 +722,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": "22"
+  "employees": "22",
+  "robots": [
+   "Sanbot Innovation Technology",
+   "Sanbot Nano",
+   "Sanbot S1"
+  ]
  },
  "misty-robotics": {
   "web": "https://www.mistyrobotics.com",
@@ -551,7 +738,11 @@
   "raised": "US$11.5M",
   "customers": [],
   "deployments": 0,
-  "employees": "11"
+  "employees": "11",
+  "robots": [
+   "Misty II",
+   "Misty"
+  ]
  },
  "thecorpora": {
   "web": "http://thecorpora.com/",
@@ -564,7 +755,12 @@
    "Universities and Technology Companies (hundreds worldwide)"
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Qbo One",
+   "Qbo",
+   "Qbo Pro Evo Robot with Intelligence"
+  ]
  },
  "project-aiko": {
   "web": "https://www.projectaiko.com",
@@ -575,7 +771,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Aiko"
+  ]
  },
  "german-aerospace-center-dlr": {
   "web": "https://www.dlr.de/en/rm",
@@ -586,7 +785,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Hand Arm System",
+   "Justin",
+   "TORO"
+  ]
  },
  "digit-robotics-digital-china-robotics": {
   "web": "https://www.digit.com.cn",
@@ -597,7 +801,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Xingxinxia P2",
+   "Digit Robotics",
+   "Xialan S02"
+  ]
  },
  "tekntrash": {
   "web": "https://www.tekntrash.com",
@@ -610,7 +819,10 @@
    "Sharp Group"
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "ALPHA"
+  ]
  },
  "pal-robotics": {
   "web": "https://pal-robotics.com",
@@ -624,7 +836,12 @@
    "University of Waterloo"
   ],
   "deployments": 2,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "· StockBot",
+   "· TALOS",
+   "TALOS"
+  ]
  },
  "nimbro": {
   "web": "https://www.nimbro.net",
@@ -637,7 +854,10 @@
    "University of Bonn Autonomous Intelligent Systems"
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "NimbRo-OP2X"
+  ]
  },
  "the-robot-studio": {
   "web": "",
@@ -648,7 +868,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "ECCE"
+  ]
  },
  "galaxea": {
   "web": "https://galaxea-dynamics.com",
@@ -659,7 +882,11 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Galaxea R1",
+   "Galaxea R1 Pro"
+  ]
  },
  "x-humanoid": {
   "web": "https://www.x-humanoid.com",
@@ -672,7 +899,12 @@
    "Foton Cummins engine plant"
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Tien Kung 2.0",
+   "X-Humanoid Tien Kung 2.0 Plus",
+   "Tien Kung"
+  ]
  },
  "karlsruhe-institute-of-technology": {
   "web": "https://h2t.iar.kit.edu/english/397.php",
@@ -685,7 +917,11 @@
    "Ocado"
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Armar 6",
+   "Armar 3"
+  ]
  },
  "university-of-tehran": {
   "web": "https://cast-tech.ir",
@@ -696,7 +932,11 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Surena 4",
+   "Surena"
+  ]
  },
  "unical-robot": {
   "web": "https://unical-robot.com",
@@ -707,7 +947,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "iR18 - 1000",
+   "iR18-1200",
+   "iR18-600"
+  ]
  },
  "kokoro-atr-and-osaka-university": {
   "web": "",
@@ -718,7 +963,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Geminoid F"
+  ]
  },
  "sichuan-tianlian-robotics-co-ltd": {
   "web": "",
@@ -729,7 +977,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "TLIBOT"
+  ]
  },
  "sharpa-pte-ltd": {
   "web": "https://www.sharpa.com",
@@ -740,7 +991,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Sharpa Wave"
+  ]
  },
  "hanson-robotics": {
   "web": "https://www.hansonrobotics.com",
@@ -756,7 +1010,12 @@
    "University of Oxford"
   ],
   "deployments": 6,
-  "employees": "45"
+  "employees": "45",
+  "robots": [
+   "BINA48",
+   "Han",
+   "Joey Chaos"
+  ]
  },
  "roscosmos": {
   "web": "",
@@ -767,7 +1026,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Skybot F-850"
+  ]
  },
  "nenggou-beijing-technology-co-ltd": {
   "web": "",
@@ -778,7 +1040,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Desktop Robot",
+   "Embodied Tien Kung3.0",
+   "DR860-R2"
+  ]
  },
  "university-of-western-australia": {
   "web": "",
@@ -789,7 +1056,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "StUWArt",
+   "University of Western Australia",
+   "Jack Daniels"
+  ]
  },
  "lanxin-robotics": {
   "web": "https://www.lanxinrobotics.com/",
@@ -800,7 +1072,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "VMR-MC600",
+   "H6 Standard",
+   "VMR-FL21501P"
+  ]
  },
  "lumos-robotics": {
   "web": "https://www.lumosbot.tech",
@@ -811,7 +1088,12 @@
   "raised": "US$293.8M",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Lumos NIX S3",
+   "LUD",
+   "Lumos FastUMI Go"
+  ]
  },
  "aist": {
   "web": "https://www.aist.go.jp/",
@@ -822,7 +1104,11 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "HRP-5P",
+   "HRP-4C"
+  ]
  },
  "apptronik": {
   "web": "https://apptronik.com",
@@ -833,7 +1119,12 @@
   "raised": "US$870.0M",
   "customers": [],
   "deployments": 0,
-  "employees": "100"
+  "employees": "100",
+  "robots": [
+   "Mercury",
+   "RoMan",
+   "Apollo"
+  ]
  },
  "ant-lingbo-technology": {
   "web": "https://www.antgroup.com/en",
@@ -846,7 +1137,10 @@
    "Shanghai History Museum"
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Robbyant R1"
+  ]
  },
  "1x-technologies": {
   "web": "https://www.1x.tech",
@@ -857,7 +1151,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": "150"
+  "employees": "150",
+  "robots": [
+   "1X EVE",
+   "Eve Industrial",
+   "NEO Home Robot"
+  ]
  },
  "x-square-robots": {
   "web": "https://x2robot.com/en",
@@ -868,7 +1167,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "ArtiXon Hand",
+   "Quantum No.1 Pro",
+   "X Square Robots"
+  ]
  },
  "leju-robotics": {
   "web": "https://www.lejurobot.com/en",
@@ -881,7 +1185,12 @@
    "FAW Hongqi factory"
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "· Kuavo",
+   "AELOS",
+   "Kuavo-5"
+  ]
  },
  "beijing-institute-of-technology": {
   "web": "",
@@ -892,7 +1201,11 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Beijing Institute of Technology",
+   "BHR-5"
+  ]
  },
  "nasa-and-darpa": {
   "web": "",
@@ -905,7 +1218,11 @@
    "NASA"
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "NASA and DARPA",
+   "Robonaut 1A"
+  ]
  },
  "galaxea-ai": {
   "web": "https://www.galaxea-ai.com",
@@ -916,7 +1233,12 @@
   "raised": "US$534.4M",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "R1 Pro",
+   "R1 Lite",
+   "A1"
+  ]
  },
  "roboparty": {
   "web": "https://roboparty.org/",
@@ -927,7 +1249,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Roboto Origin"
+  ]
  },
  "robot-com": {
   "web": "",
@@ -938,7 +1263,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "R-Noid"
+  ]
  },
  "deep-robotics": {
   "web": "https://www.deeprobotics.cn",
@@ -954,7 +1282,12 @@
    "Lenovo"
   ],
   "deployments": 5,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "DR02",
+   "M20 industrial quadruped",
+   "Jueying X30"
+  ]
  },
  "galbot": {
   "web": "https://www.galbot.com",
@@ -965,7 +1298,11 @@
   "raised": "US$98.6M",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Galbot G1",
+   "G1 wheeled humanoid"
+  ]
  },
  "xiaomi": {
   "web": "https://www.mi.com",
@@ -976,7 +1313,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Xiaomi",
+   "CyberDog",
+   "Xiaomi CyberOne"
+  ]
  },
  "delft-university-of-technology": {
   "web": "https://tudelft.nl",
@@ -987,7 +1329,11 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "TUlip",
+   "Flame"
+  ]
  },
  "kaist-and-rainbow-robotics": {
   "web": "https://www.kaist.ac.kr",
@@ -998,7 +1344,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "DRC-Hubo+"
+  ]
  },
  "ucla-and-romela": {
   "web": "https://www.romela.org",
@@ -1009,7 +1358,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "CHARLI"
+  ]
  },
  "vkf-renzel": {
   "web": "https://www.robertrobot.com/fr/",
@@ -1020,7 +1372,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Robert"
+  ]
  },
  "weave-robotics": {
   "web": "",
@@ -1031,7 +1386,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Isaac 1"
+  ]
  },
  "luxai": {
   "web": "https://luxai.com",
@@ -1045,7 +1403,12 @@
    "University of Birmingham"
   ],
   "deployments": 2,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "LuxAI",
+   "QTrobot AI@Edge",
+   "QTrobot"
+  ]
  },
  "gitai": {
   "web": "https://gitai.tech",
@@ -1056,7 +1419,12 @@
   "raised": "US$51.2M",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "GITAI",
+   "STAR TRACKERS",
+   "GITAI G1"
+  ]
  },
  "kinisi-robotics": {
   "web": "https://kinisi.com",
@@ -1067,7 +1435,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Kinisi KR1",
+   "Kinisi 01",
+   "Kinisi Robotics"
+  ]
  },
  "robotis": {
   "web": "https://www.robotis.com",
@@ -1078,7 +1451,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Darwin-OP",
+   "TurtleBot 3",
+   "TurtleBot 3 Burger"
+  ]
  },
  "weston-robot-pte-ltd": {
   "web": "https://www.westonrobot.com",
@@ -1089,7 +1467,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": "60"
+  "employees": "60",
+  "robots": [
+   "Weston Robot",
+   "G1 Base",
+   "G1 EDU Plus (U2)"
+  ]
  },
  "shanghai-chuangwang-industrial-co-ltd": {
   "web": "https://www.chuangwangrobot.com",
@@ -1100,7 +1483,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "AlexBot",
+   "XUANWU10-R",
+   "CW-G"
+  ]
  },
  "cn-9b90dcb0c7": {
   "web": "https://www.ti5robot.com",
@@ -1115,7 +1503,11 @@
    "Shanghai Electric Group (上海电气集团)"
   ],
   "deployments": 3,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Ti5 Robot",
+   "Ti5 EBLM Hydrogen Series Collaborative Robot"
+  ]
  },
  "holiday-robotics": {
   "web": "https://holiday-robotics.com",
@@ -1126,7 +1518,11 @@
   "raised": "US$105.0M",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Holiday Robotics",
+   "FRIDAY"
+  ]
  },
  "keenon-robotics": {
   "web": "https://www.keenon.com",
@@ -1137,7 +1533,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": "500"
+  "employees": "500",
+  "robots": [
+   "KLEENBOT C55",
+   "BUTLERBOT W3",
+   "DINERBOT T3"
+  ]
  },
  "kokoro": {
   "web": "",
@@ -1148,7 +1549,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Mindar"
+  ]
  },
  "byd": {
   "web": "",
@@ -1159,7 +1563,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "BYD Xiaodi"
+  ]
  },
  "korea-institute-of-science-technology-kist": {
   "web": "",
@@ -1170,7 +1577,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Kibo"
+  ]
  },
  "matrix-robotics": {
   "web": "https://www.matrixrobotics.ai/",
@@ -1181,7 +1591,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "MATRIX-3"
+  ]
  },
  "booster-robotics": {
   "web": "https://www.booster.tech",
@@ -1192,7 +1605,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Booster Robotics T1-D",
+   "Champion Model",
+   "Booster T1 with Dexterous Hands"
+  ]
  },
  "aobo": {
   "web": "http://www.aoborobot.com",
@@ -1205,7 +1623,12 @@
    "Beixin Community Service Center"
   ],
   "deployments": 1,
-  "employees": "9"
+  "employees": "9",
+  "robots": [
+   "Pepe",
+   "Doctor Guidance Robot",
+   "Little Blue Hat"
+  ]
  },
  "topstar": {
   "web": "https://www.topstarltd.com",
@@ -1216,7 +1639,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "TWH020"
+  ]
  },
  "foxconn-industrial-internet": {
   "web": "https://www.foxconn.com",
@@ -1230,7 +1656,11 @@
    "Apple"
   ],
   "deployments": 2,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Foxconn Humanoid",
+   "FoxLink AMR"
+  ]
  },
  "elephant-robotics": {
   "web": "https://www.elephantrobotics.com",
@@ -1241,7 +1671,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "myCobot 280",
+   "myCobot 280 Raspberry Pi",
+   "myCobot 320 M5stack"
+  ]
  },
  "walt-disney-imagineering": {
   "web": "https://theluxmachine.com",
@@ -1254,7 +1689,12 @@
    "Walt Disney Imagineering"
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Walt Disney Imagineering",
+   "Na'vi Shaman",
+   "Automatronics"
+  ]
  },
  "wuhan-glory-road-intelligent-technology-co-ltd": {
   "web": "",
@@ -1265,7 +1705,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Wuhan Glory Road Intelligent Technology",
+   "Laborer-1",
+   "Laborer"
+  ]
  },
  "italian-institute-of-technology-iit": {
   "web": "https://icub.iit.it",
@@ -1279,7 +1724,11 @@
    "E++ Consortium"
   ],
   "deployments": 2,
-  "employees": "150"
+  "employees": "150",
+  "robots": [
+   "COMAN",
+   "HyQ"
+  ]
  },
  "noetix": {
   "web": "https://noetixrobotics.com",
@@ -1290,7 +1739,12 @@
   "raised": "US$145.0M",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Athlete",
+   "Hobbs W1",
+   "Noetix"
+  ]
  },
  "henan-chuangwang-intelligent-equipment-co-ltd": {
   "web": "https://www.chuangwangzn.com/",
@@ -1301,7 +1755,11 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "CW-R1 Bipedal Robot",
+   "CW-R1 Challenge King"
+  ]
  },
  "tokyo-university": {
   "web": "",
@@ -1312,7 +1770,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Kojiro"
+  ]
  },
  "neura-robotics": {
   "web": "https://neura-robotics.com",
@@ -1327,7 +1788,12 @@
    "Omron Robotics and Safety Technologies"
   ],
   "deployments": 3,
-  "employees": "600"
+  "employees": "600",
+  "robots": [
+   "MAiRA M",
+   "LARA 3",
+   "LARA 8"
+  ]
  },
  "toyota": {
   "web": "https://global.toyota.com/en/",
@@ -1338,7 +1804,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Kirobo Mini",
+   "T-HR3",
+   "Kirobo"
+  ]
  },
  "willow-garage": {
   "web": "https://www.turtlebot.com",
@@ -1349,7 +1820,11 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "PR2",
+   "TurtleBot"
+  ]
  },
  "wowwee": {
   "web": "https://wowwee.com",
@@ -1360,7 +1835,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Miposaur",
+   "Robosapien X",
+   "MiP"
+  ]
  },
  "sanctuary-ai": {
   "web": "https://www.sanctuary.ai",
@@ -1371,7 +1851,10 @@
   "raised": "US$75.5M",
   "customers": [],
   "deployments": 0,
-  "employees": "51"
+  "employees": "51",
+  "robots": [
+   "Phoenix (7th Gen)"
+  ]
  },
  "naval-research-laboratory": {
   "web": "",
@@ -1384,7 +1867,10 @@
    "US Navy / Navy Center for Applied Research in Artificial Intelligence (NCARAI)"
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Octavia"
+  ]
  },
  "romela": {
   "web": "https://en.robotis.com",
@@ -1395,7 +1881,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "THOR-RD"
+  ]
  },
  "engineered-arts": {
   "web": "https://engineeredarts.com",
@@ -1408,7 +1897,12 @@
    "Altus Schools"
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "· Ameca",
+   "Ameca",
+   "RoboThespian 3"
+  ]
  },
  "agility-robotics": {
   "web": "https://www.agilityrobotics.com",
@@ -1424,7 +1918,12 @@
    "Toyota"
   ],
   "deployments": 4,
-  "employees": "11"
+  "employees": "11",
+  "robots": [
+   "· Digit",
+   "Digit V4",
+   "Agility Robotics Digit"
+  ]
  },
  "borunte": {
   "web": "https://www.borunte.net",
@@ -1435,7 +1934,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Lightweight Horizontal Robot",
+   "BRTIRSC0810A",
+   "BRTIRXZ0805A"
+  ]
  },
  "technical-university-munich-tum": {
   "web": "https://tum.de",
@@ -1446,7 +1950,11 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Rosie",
+   "Lola"
+  ]
  },
  "a-star-social-robotics-lab": {
   "web": "",
@@ -1457,7 +1965,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Olivia"
+  ]
  },
  "techman-robot-inc": {
   "web": "https://www.tm-robot.com/en",
@@ -1468,7 +1979,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "TM14S",
+   "TM12",
+   "TM16M"
+  ]
  },
  "generative-bionics-s-r-l": {
   "web": "https://gbionics.ai",
@@ -1479,7 +1995,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "GENE.01"
+  ]
  },
  "robros": {
   "web": "",
@@ -1490,7 +2009,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "IGRIS-C"
+  ]
  },
  "aheadform": {
   "web": "https://aheadform.com",
@@ -1501,7 +2023,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Origin-M1",
+   "Elf-Xuan",
+   "Elf-Iridium"
+  ]
  },
  "duco-robots": {
   "web": "https://www.ducorobots.com",
@@ -1512,7 +2039,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "DSCR3",
+   "BR-MR73A Wheeled Humanoid Robot",
+   "DUCO Robots"
+  ]
  },
  "enchanted-tools": {
   "web": "https://enchanted.tools",
@@ -1525,7 +2057,12 @@
    "Institut des Systèmes Intelligents et de Robotique (ISIR)"
   ],
   "deployments": 1,
-  "employees": "100"
+  "employees": "100",
+  "robots": [
+   "Miroki",
+   "Mirokaï",
+   "Mirokai"
+  ]
  },
  "rokae": {
   "web": "https://www.rokae.com",
@@ -1539,7 +2076,12 @@
    "Schaeffler"
   ],
   "deployments": 2,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "ROKAE xMate ER7 Pro",
+   "NB4",
+   "NB12"
+  ]
  },
  "dobot": {
   "web": "https://www.dobot-robots.com",
@@ -1552,7 +2094,12 @@
    "Terra Robotics"
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "· DOBOT Atom",
+   "Nova 5",
+   "Nova 2"
+  ]
  },
  "humanoid": {
   "web": "https://thehumanoid.ai",
@@ -1563,7 +2110,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "HMND 01 ALPHA WHEELED"
+  ]
  },
  "oversonic-robotics": {
   "web": "https://oversonic.com",
@@ -1574,7 +2124,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": "65"
+  "employees": "65",
+  "robots": [
+   "RoBee Series R"
+  ]
  },
  "tesla": {
   "web": "https://www.tesla.com",
@@ -1589,7 +2142,11 @@
    "Tesla Austin Factory"
   ],
   "deployments": 3,
-  "employees": "140,000+"
+  "employees": "140,000+",
+  "robots": [
+   "Tesla Optimus Gen 2",
+   "Optimus Gen 3"
+  ]
  },
  "kokoro-ishiguro-lab-atr-aalborg-university": {
   "web": "",
@@ -1600,7 +2157,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Geminoid DK"
+  ]
  },
  "xpeng": {
   "web": "https://www.xpeng.com",
@@ -1613,7 +2173,11 @@
    "XPENG internal operations (factory assembly)"
   ],
   "deployments": 1,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "IRON",
+   "PX5"
+  ]
  },
  "onerobotics-shenzhen-co-ltd": {
   "web": "https://www.onerobot.com",
@@ -1624,7 +2188,12 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "onero A1",
+   "onero H1",
+   "OneModel 1.7 FrontoStria-RL"
+  ]
  },
  "tony-sale": {
   "web": "",
@@ -1635,7 +2204,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "George"
+  ]
  },
  "german-research-center-for-artificial-intelligence-gmbh": {
   "web": "",
@@ -1646,7 +2218,11 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "RH5 Manus",
+   "MANTIS"
+  ]
  },
  "university-of-science-and-technology-of-china": {
   "web": "",
@@ -1657,7 +2233,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Jiajia"
+  ]
  },
  "android-technologies": {
   "web": "",
@@ -1668,7 +2247,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "AR-600"
+  ]
  },
  "high-torque-technology-co-ltd": {
   "web": "https://www.hightorquerobotics.com",
@@ -1679,7 +2261,10 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": ""
+  "employees": "",
+  "robots": [
+   "Bipedal Robot π"
+  ]
  },
  "pollen-robotics": {
   "web": "https://www.pollen-robotics.com",
@@ -1690,6 +2275,11 @@
   "raised": "",
   "customers": [],
   "deployments": 0,
-  "employees": "20"
+  "employees": "20",
+  "robots": [
+   "Reachy Robot",
+   "Reachy 2",
+   "Reachy Mini"
+  ]
  }
 }

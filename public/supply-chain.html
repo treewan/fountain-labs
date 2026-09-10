@@ -76,6 +76,7 @@ input[type=search]:focus{outline:none;border-color:#111}
 .chip[hidden]{display:none}
 .card .note{margin-top:11px;padding-top:10px;border-top:1px dashed #E6E6E2;
   font-size:13px;line-height:1.55;color:#3A3A38}
+.card .note b{font-weight:400;color:#8A8A85}
 .card .flag{margin-top:8px;font-size:12px;color:#B3261E}
 .empty{grid-column:1/-1;padding:40px 0;color:#8A8A85;font-size:15px}
 .more{margin-top:26px;border-top:1px solid #E6E6E2;padding-top:26px}
@@ -516,7 +517,8 @@ function visibleM() {
     if (fundedOnly && !r.cap) return false;
     if (trailOnly && !r.buy) return false;
     if (!t) return true;
-    return [r.n, r.c, r.hq || '', r.d || '', r.buy || '', r.cap || '', (r.dc || []).join(' ')]
+    return [r.n, r.c, r.hq || '', r.d || '', r.buy || '', r.cap || '',
+      (r.dc || []).join(' '), (r.rb || []).join(' ')]
       .join(' ').toLowerCase().indexOf(t) >= 0;
   });
 }
@@ -535,7 +537,9 @@ function renderM() {
     '<div class="card"><h3>' +
     (r.w ? '<a class="out" href="' + r.w + '" target="_blank" rel="noopener noreferrer">' +
       r.n + '<span class="arr">↗</span></a>' : r.n) +
-    '<span class="cn">' + (r.hq || r.c) + '</span></h3>' +
+    /* An em dash where a city should be reads as a broken card, not as a gap. */
+    ((r.hq || (r.c !== '—' ? r.c : '')) ?
+      '<span class="cn">' + (r.hq || r.c) + '</span>' : '') + '</h3>' +
     ((r.buy || r.lab) ? '<div class="tags">' +
       (r.buy ? '<span class="tag trail">BUYS AS ' + r.buy.toUpperCase() + '</span>' : '') +
       (r.lab ? '<span class="tag lab">RESEARCH PLATFORM</span>' : '') + '</div>' : '') +
@@ -544,7 +548,9 @@ function renderM() {
       (r.dep ? '<span><b>Shipped to</b> ' + (r.dc && r.dc.length ? r.dc.join(', ')
         : r.dep + (r.dep === 1 ? ' customer' : ' customers') + ' on record') + '</span>' : '') +
       '</div>' : '') +
-    (r.d ? '<div class="note">' + r.d + '</div>' : '') + '</div>').join('')
+    (r.d ? '<div class="note">' + r.d + '</div>'
+         : r.rb ? '<div class="note"><b>On file</b> ' + r.rb.join(', ') + '</div>' : '') +
+    '</div>').join('')
     : '<div class="empty">Nothing matches. Clear the search or drop a filter.</div>';
 }
 
@@ -561,10 +567,10 @@ $('mcsv').onclick = () => {
   const out = [['Maker', 'Country', 'HQ', 'Founded', 'Website', 'Price range',
     'Raised', 'Deployments on record', 'Named customers',
     'RoboScore (all categories)', 'Catalogue robots', 'Buyer in the index',
-    'Research platform', 'What they build']];
+    'Research platform', 'What they build', 'Models on file']];
   visibleM().forEach(r => out.push([r.n, r.c, r.hq || '', r.f || '', r.w || '', r.p || '',
     r.cap || '', r.dep || '', (r.dc || []).join(' / '), r.s, r.r, r.buy || '',
-    r.lab ? 'yes' : '', r.d || '']));
+    r.lab ? 'yes' : '', r.d || '', (r.rb || []).join(' / ')]));
   const blob = new Blob(['﻿' + out.map(r => r.map(esc).join(',')).join('\r\n')],
     {type: 'text/csv;charset=utf-8'});
   const a = document.createElement('a');
