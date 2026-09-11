@@ -571,7 +571,7 @@ const PLACES = window.SUPPLY_MAP || [];
 let place = null;
 const maps = [];
 
-function makeMap(svg, labels, ctrls, rows, baseR) {
+function makeMap(svg, labels, ctrls, rows, baseR, floor) {
   const ns = 'http://www.w3.org/2000/svg';
   const el = (t, a) => { const e = document.createElementNS(ns, t);
     for (const k in a) e.setAttribute(k, a[k]); return e; };
@@ -650,8 +650,11 @@ function makeMap(svg, labels, ctrls, rows, baseR) {
     /* Radius is set in user units but held constant on screen, so zooming in
        separates neighbours instead of inflating them. */
     const k = view.w / base.w;
+    /* The floor keeps a single maker visible. Set high it also flattens one
+       against two, and on the province panel it made every thin province the
+       same fat dot. */
     bubbles.forEach((c, p) =>
-      c.setAttribute('r', (Math.max(baseR * 2, Math.sqrt(p.c) * baseR) * k).toFixed(2)));
+      c.setAttribute('r', (Math.max(baseR * floor, Math.sqrt(p.c) * baseR) * k).toFixed(2)));
     arcs.forEach(p => p.setAttribute('stroke-width',
       (Math.max(0.5, Math.sqrt(+p.dataset.c) * 0.22) * k).toFixed(2)));
     rings.forEach((ring, p) => {
@@ -755,9 +758,9 @@ function makeMap(svg, labels, ctrls, rows, baseR) {
 }
 
 makeMap($('mapWorld'), $('lblWorld'), $('ctrlWorld'),
-        PLACES.filter(p => p.lv === 'country'), 1.9);
+        PLACES.filter(p => p.lv === 'country'), 1.9, 2);
 makeMap($('mapCN'), $('lblCN'), $('ctrlCN'),
-        PLACES.filter(p => p.lv === 'province'), 0.62);
+        PLACES.filter(p => p.lv === 'province'), 0.62, 1.15);
 
 /* Written from the data, not typed: both of these went stale the first time a
    source was added underneath them. */
