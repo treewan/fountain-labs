@@ -17,6 +17,7 @@ Emits public/_assets/supply-map.js.
 """
 import json
 import math
+import os
 import pathlib
 import re
 import sys
@@ -77,6 +78,7 @@ AT = {
     "Switzerland": (46.8, 8.2), "Taiwan": (23.7, 121.0), "South Korea": (36.5, 127.9),
     "Sweden": (62.2, 15.0), "Israel": (31.4, 35.0), "Netherlands": (52.2, 5.3),
     "Italy": (42.8, 12.6), "United Kingdom": (54.0, -2.0), "Austria": (47.6, 14.1),
+    "Portugal": (39.5, -8.0),
     "Slovakia": (48.7, 19.7), "China": (35.9, 104.2),
 }
 
@@ -111,6 +113,10 @@ def main():
                 p["cities"][city] = p["cities"].get(city, 0) + 1
 
     out = []
+    missing = sorted({p["n"] for p in places.values() if p["n"] not in AT})
+    if missing:
+        raise SystemExit("no coordinate for: " + ", ".join(missing)
+                         + " — add it to AT in " + os.path.basename(__file__))
     for p in sorted(places.values(), key=lambda p: -p["c"]):
         lat, lon = AT[p["n"]]
         ranked = sorted(p["cities"].items(), key=lambda kv: -kv[1])
@@ -126,7 +132,7 @@ def main():
     REGIONS = [
         ("North America", ["United States"]),
         ("Europe", ["Germany", "Switzerland", "Sweden", "Netherlands", "Italy",
-                    "United Kingdom", "Austria", "Slovakia"]),
+                    "United Kingdom", "Austria", "Slovakia", "Portugal"]),
         ("East Asia", ["Japan", "South Korea", "Taiwan"]),
         ("Middle East", ["Israel"]),
     ]

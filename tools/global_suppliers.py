@@ -21,8 +21,12 @@ publishes:
     commercial   sells a product built for this use, no specific platform named
     capacity     named as a capacity holder in the category
 
-Country is taken from the source. Where two sources disagree, the field is left
-empty and the row is flagged, the same way the Chinese index rows are handled.
+Country is taken from the source. Four rows arrived with two guides disagreeing
+and were left empty and flagged; each was then checked against the company's own
+site and resolved — XELA Robotics is Tokyo, not Germany; Tesollo is South Korea,
+not China; Seed Robotics is Portugal, not Spain; Inspire Robots is Beijing, not
+the United States. Any future disagreement is handled the same way: left empty
+and flagged until a first-party source settles it.
 """
 
 # name, category, country, note, evidence, [flag], [makers the note names]
@@ -108,8 +112,8 @@ GLOBAL = [
 ["Bota Systems", "Sensors", "Switzerland", "Compact six-axis force/torque sensors.", "commercial"],
 ["Resense", "Sensors", "Switzerland", "Miniature six-axis force/torque sensors.", "commercial"],
 ["GelSight", "Sensors", "United States", "Optical elastomer tactile imaging — touch read as a picture.", "commercial"],
-["XELA Robotics", "Sensors", "",
- "uSkin three-axis tactile arrays.", "commercial", "Country disagrees across sources: Japan in one guide, Germany in another"],
+["XELA Robotics", "Sensors", "Japan",
+ "uSkin three-axis tactile arrays. A 2018 spin-out from Waseda University.", "commercial"],
 ["Pressure Profile Systems", "Sensors", "United States", "RoboTact and Digitacts embedded force sensing.", "commercial"],
 ["Tekscan", "Sensors", "United States", "Tactile pressure arrays.", "commercial"],
 ["SynTouch", "Sensors", "United States", "Tactile sensing for robotics and prosthetics.", "commercial"],
@@ -138,16 +142,16 @@ GLOBAL = [
 ["SCHUNK", "Hand Units", "Germany", "SVH five-finger hand and grippers.", "commercial"],
 ["Wonik Robotics", "Hand Units", "South Korea", "Allegro Hand, the research standard.", "commercial"],
 ["qb robotics", "Hand Units", "Italy", "SoftHand underactuated gripping.", "commercial"],
-["Inspire Robots", "Hand Units", "",
- "Dexterous hand offered as an option on PAL's Kangaroo.",
- "integration", "Country disagrees across sources",
+["Inspire Robots", "Hand Units", "China",
+ "Dexterous hands, offered as an option on PAL's Kangaroo. Beijing Inspire-Robots Technology.",
+ "integration",
  ["PAL Robotics"]],
-["Seed Robotics", "Hand Units", "",
- "Dexterous hand offered as an option on PAL's Kangaroo.",
- "integration", "Country disagrees across sources",
+["Seed Robotics", "Hand Units", "Portugal",
+ "Dexterous hands, offered as an option on PAL's Kangaroo.",
+ "integration",
  ["PAL Robotics"]],
-["Tesollo", "Hand Units", "",
- "DG-5F five-finger hand.", "commercial", "Country disagrees across sources"],
+["Tesollo", "Hand Units", "South Korea",
+ "DG-5F five-finger hand, 20 degrees of freedom, exported to 16 countries.", "commercial"],
 ["Vibram", "Materials", "Italy", "Soles; partnership with Agility Robotics confirmed.", "partnership",
  ["Agility Robotics"]],
 # ---- Compute and power --------------------------------------------------------
@@ -215,6 +219,15 @@ GROUP = {
     "Other Components": "Structure", "Periphery": "Structure", "Data": "Structure",
 }
 
+# Cities are carried only where the company's own site or a first-party source
+# states one. Four rows had no country at all until the guides were checked
+# against the companies themselves; those are here.
+CITY = {
+    "XELA Robotics": "Tokyo",
+    "Inspire Robots": "Beijing",
+    "Seed Robotics": "Sintra",
+}
+
 EVIDENCE = {
     "integration": "Documented on a named platform",
     "partnership": "Partnership both sides have disclosed",
@@ -232,7 +245,8 @@ def rows():
         flag = next((x for x in rest if isinstance(x, str)), None)
         buyers = next((x for x in rest if isinstance(x, list)), [])
         out.append({
-            "en": name, "cn": "", "cat": cat, "co": country or "—", "city": "",
+            "en": name, "cn": "", "cat": cat, "co": country or "—",
+            "city": CITY.get(name, ""),
             "yr": "", "stk": "", "cu": buyers, "note": note, "ev": ev,
             **({"flag": flag} if flag else {}),
         })
