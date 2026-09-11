@@ -391,11 +391,6 @@ const BREAKDOWNS = [
      '~$55,000; the bar stops where they stop.'},
 ];
 const S = window.SUPPLIERS || [];
-const SRC = {
-  stub: 'ON ROBOLIST, NO MODEL INDEXED',
-  category: 'ON ROBOLIST, ANOTHER CATEGORY',
-  absent: 'NOT ON ROBOLIST',
-};
 const CORE_TAG = 'NAMED AS CORE';
 const EV = {
   integration: 'ON A NAMED PLATFORM',
@@ -1048,10 +1043,10 @@ $('mcsv').onclick = () => {
   const out = [['Maker', 'Country', 'HQ', 'Founded', 'Website', 'Price range',
     'Raised', 'Deployments on record', 'Named customers',
     'RoboScore (all categories)', 'Catalogue robots', 'Buyer in the index',
-    'Research platform', 'What they build', 'Models on file', 'Why it is not on the board']];
+    'Research platform', 'What they build', 'Models on file']];
   visibleM().forEach(r => out.push([r.n, r.c, r.hq || '', r.f || '', r.w || '', r.p || '',
     r.cap || '', r.dep || '', (r.dc || []).join(' / '), r.s, r.r, r.buy || '',
-    r.lab ? 'yes' : '', r.d || '', (r.rb || []).join(' / '), r.src ? SRC[r.src] : '']));
+    r.lab ? 'yes' : '', r.d || '', (r.rb || []).join(' / ')]));
   const blob = new Blob(['﻿' + out.map(r => r.map(esc).join(',')).join('\r\n')],
     {type: 'text/csv;charset=utf-8'});
   const a = document.createElement('a');
