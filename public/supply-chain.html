@@ -82,10 +82,19 @@ input[type=search]:focus{outline:none;border-color:#111}
 .more{margin-top:26px;border-top:1px solid #E6E6E2;padding-top:26px}
 
 /* Optimus reference — supporting the index, not leading it. */
-.ref{margin-top:36px;display:grid;grid-template-columns:1.15fr 1fr;gap:44px;align-items:start}
-.bom{display:flex;gap:3px;height:12px;border-radius:2px;overflow:hidden}
+.refwide{margin-top:38px;max-width:860px;columns:2;column-gap:44px}
+.refwide p{break-inside:avoid;margin-top:0;margin-bottom:14px}
+.model{position:relative;margin-top:36px}
+.model .grid{position:absolute;top:0;bottom:26px;left:0;right:0;pointer-events:none;
+  background:repeating-linear-gradient(to right,#E6E6E2 0 1px,transparent 1px 33.3333%)}
+.model .axis{display:flex;margin-top:14px;font-family:'Geist Mono',monospace;font-size:10.5px;
+  letter-spacing:1.2px;color:#8A8A85}
+.model .axis span{flex:1}
+.model .axis span:last-child{flex:0}
+.bom{display:flex;gap:2px;height:14px;border-radius:2px;overflow:hidden;position:relative}
 .bom i{display:block;min-width:2px}
-.bd + .bd{margin-top:30px;padding-top:26px;border-top:1px solid #E6E6E2}
+.bd + .bd{margin-top:26px;padding-top:22px;border-top:1px solid #EDEDE9}
+.bd{position:relative}
 .bdhead{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:space-between;
   align-items:baseline;margin-bottom:12px}
 .bdhead .mono{font-size:10.5px;letter-spacing:1.4px}
@@ -129,8 +138,8 @@ input[type=search]:focus{outline:none;border-color:#111}
 
 @media (max-width:1100px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:900px){
+  .refwide{columns:1}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .ref{grid-template-columns:1fr;gap:32px}
   .g3{grid-template-columns:1fr}
 }
 @media (max-width:760px){
@@ -188,34 +197,36 @@ input[type=search]:focus{outline:none;border-color:#111}
 </section></div>
 
 <div class="wrap"><section>
-  <div class="eyebrow">02 · REFERENCE · WHAT A HUMANOID NEEDS</div>
-  <h2>Three estimates of what a humanoid costs to build, and no two agree.</h2>
-  <p class="sub">Nobody outside the programmes has the real bill of materials, so what circulates
-    is estimates that do not agree — on the split, on the axis, on the total, and on which robot
-    they are describing in the first place. Each bar names its subject, because part of the spread
-    is that. They are printed side by side rather than averaged: the spread is the finding.</p>
+  <div class="eyebrow">02 · REFERENCE · WHAT A HUMANOID COSTS</div>
+  <h2>One robot's bill of materials, read three ways.</h2>
+  <p class="sub">Everything below is drawn against the same dollar axis, so a bar's length is the
+    cost and a block's width is what that part actually costs. The first two rows are the same
+    machine at two points on its cost curve; the third cuts the same money by where it sits on
+    the body instead of by what it is.</p>
 
-  <div class="ref">
+  <div class="model">
+    <div class="grid"></div>
     <div id="bds"></div>
-    <div class="refnote">
-      <p>The totals differ by more than a factor of two: about <strong>$20,000</strong> a unit is
-        Tesla's stated mass-production target, roughly <strong>$43,000</strong> was the small-batch
-        figure, and independent teardowns of a dexterous full-size unit land near
-        <strong>$55,000</strong>. Guidance has been 50,000–150,000 units in 2026.</p>
-      <p>Actuation is the largest line in every version, but by how much is unsettled —
-        <strong>35% to 56%</strong> depending on whether hands, screws and reducers are counted
-        inside it or beside it. Read the bars as three ways of drawing one boundary.</p>
-      <p>Counts hold up better than shares. A unit takes roughly <strong>28 actuators</strong>,
-        <strong>20 coreless motors</strong> in the hands and <strong>14 planetary roller
-        screws</strong> in the load-bearing joints.</p>
-      <p>Around <strong>70%</strong> of the chain is reported as Chinese for a specific reason:
-        harmonic reducers at 40–60% of the Japanese equivalent, roller screws at about half the
-        Swiss one. One estimate puts Optimus Gen 2 built without that base at
-        <strong>$131,000</strong> against roughly $46,000 with it.</p>
-      <p>What would unwind it: the schedule spans a factor of three, several suppliers now carry
-        Tesla at close to 40% of revenue, and rare-earth magnet processing — about 90% of it
-        Chinese — is the one link a cheque cannot shorten.</p>
-    </div>
+    <div class="axis"><span>$0</span><span>$20K</span><span>$40K</span><span>$60K</span></div>
+  </div>
+
+  <div class="refnote refwide">
+    <p><strong>The compression is the whole problem.</strong> Between the two structures, actuation
+      has to fall from about <strong>$25,000</strong> a unit to roughly <strong>$7,000</strong> —
+      the same organ, at 28% of the price. Nothing else on the robot is asked for a cut that deep,
+      which is why the reducer, screw and magnet rows in the index above are where the programme
+      lives or dies.</p>
+    <p><strong>The totals are not one series.</strong> Tesla has disclosed about $43,000 in small
+      batches against a target under $20,000 at volume; independent teardowns of a dexterous
+      full-size unit land near $55,000. Different estimators, different robots, one order of
+      magnitude — read the rows as three cuts, not as a trend line.</p>
+    <p><strong>Counts survive better than shares.</strong> A unit takes roughly 28 actuators,
+      20 coreless motors in the hands and 14 planetary roller screws in the load-bearing joints.
+      Those numbers hold across every version of the estimate.</p>
+    <p><strong>Why the base is Chinese.</strong> Harmonic reducers at 40–60% of the Japanese
+      equivalent, roller screws at about half the Swiss one, and roughly 90% of rare-earth magnet
+      processing. One estimate puts Optimus Gen 2 built without that base at <strong>$131,000</strong>
+      against roughly $46,000 with it.</p>
   </div>
 </section></div>
 
@@ -283,24 +294,32 @@ input[type=search]:focus{outline:none;border-color:#111}
 <script src="/_assets/supply-chain-data.js"></script>
 <script src="/_assets/humanoid-makers.js"></script>
 <script>
-/* One colour per concept, held across the bars, so the eye can follow a line
-   from one teardown to the next even where the labels differ. */
+/* One colour per concept, held across the rows, so the eye can follow a line
+   from one cut to the next even where the labels differ. */
 const C = {act:'#FF7A00', hand:'#B87A00', sens:'#8A8A85', screw:'#1E48D8', red:'#1F9D55',
            mot:'#7A5CD8', comp:'#0FA3A3', str:'#55554F', wire:'#C9C9C2', batt:'#111'};
+const AXIS = 60000;   /* every row is drawn against this, in dollars */
+/* Shares come from the sources; the dollars are those shares taken against the
+   total each source states, except the body-region row, which was published in
+   dollars and is used as published. */
 const BREAKDOWNS = [
-  {src:'36Kr', when:'April 2026', axis:'BY PART', total:'Tesla Optimus · $20K target at volume', items:[
-    ['Actuators', 35, C.act], ['Sensors and other', 20, C.sens], ['Lead screws', 18, C.screw],
-    ['Reducers', 15, C.red], ['Motors', 12, C.mot]]},
-  {src:'humanoid.guide', when:'2026', axis:'BY PART', total:'A full-size humanoid, unnamed · ~$50K', items:[
-    ['Actuators and precision motion', 50, C.act], ['Hands', 15, C.hand], ['Sensors', 10, C.sens],
-    ['AI compute', 8, C.comp], ['Structure', 7, C.str], ['Wiring', 5, C.wire],
-    ['Battery', 5, C.batt]]},
-  {src:'Morgan Stanley', when:'undated', axis:'BY BODY REGION', total:'A dexterous full-size unit, unnamed · ~$55K', items:[
-    ['Hands', 17.2, '#111'], ['Waist and pelvis', 14.2, '#2E2E2A'], ['Thigh', 13.2, '#45453F'],
-    ['Calf', 13.2, '#5C5C55'], ['Feet', 12.2, '#73736A'], ['Elbow', 4.7, '#8A8A80'],
-    ['Forearm', 3.9, '#A1A196'], ['Head', 3.8, '#B8B8AC'], ['Shoulder', 3.8, '#CFCFC2'],
-    ['Upper arm', 2.0, '#DEDED2'], ['Battery pack', 0.5, '#E8E8DC'], ['Other', 0.9, '#F0F0E6']],
-   foot:'Read via GrabaRobot, 2026, which does not date the underlying estimate. Line items account for 89.6% of the stated total; the rest is unallocated in the source.'},
+  {src:'humanoid.guide', when:'2026', axis:'AS BUILT NOW · BY PART', total:50000,
+   note:'~$50K a unit', items:[
+    ['Actuation and precision motion', 25000, C.act], ['Hands', 7500, C.hand],
+    ['Sensors', 5000, C.sens], ['AI compute', 4000, C.comp], ['Structure', 3500, C.str],
+    ['Wiring', 2500, C.wire], ['Battery', 2500, C.batt]]},
+  {src:'36Kr', when:'April 2026', axis:'AT VOLUME, TARGET · BY PART', total:20000,
+   note:'Tesla Optimus, $20K target', items:[
+    ['Actuators', 7000, C.act], ['Sensors and other', 4000, C.sens],
+    ['Lead screws', 3600, C.screw], ['Reducers', 3000, C.red], ['Motors', 2400, C.mot]]},
+  {src:'Morgan Stanley', when:'undated', axis:'AS BUILT NOW · BY BODY REGION', total:55000,
+   note:'A dexterous full-size unit, ~$55K', items:[
+    ['Hands', 9500, '#111'], ['Waist and pelvis', 7800, '#2E2E2A'], ['Thigh', 7300, '#45453F'],
+    ['Calf', 7300, '#5C5C55'], ['Feet', 6700, '#73736A'], ['Elbow', 2600, '#8A8A80'],
+    ['Forearm', 2200, '#A1A196'], ['Head', 2100, '#B8B8AC'], ['Shoulder', 2100, '#CFCFC2'],
+    ['Upper arm', 1100, '#DEDED2'], ['Battery pack', 300, '#E8E8DC'], ['Other', 500, '#F0F0E6']],
+   foot:'Read via GrabaRobot, 2026, which does not date the underlying estimate. The published ' +
+     'line items come to $49,400 of the stated ~$55,000; the bar stops where they stop.'},
 ];
 const S = window.SUPPLIERS || [];
 const SRC = {
@@ -336,14 +355,18 @@ $('sG').textContent = GRPS.length;
 $('sR').textContent = COS.filter(([c]) => c !== '—').length;
 $('sB').textContent = CUSTS.length;
 
+const money = v => v >= 1000 ? '$' + (v / 1000).toFixed(v % 1000 ? 1 : 0) + 'K' : '$' + v;
+const sumOf = b => b.items.reduce((n, i) => n + i[1], 0);
+
 $('bds').innerHTML = BREAKDOWNS.map(b =>
   '<div class="bd"><div class="bdhead"><span class="mono">' + b.axis + ' · ' + b.src.toUpperCase() +
-  ' · ' + b.when.toUpperCase() + '</span><span class="bdtot">' + b.total + '</span></div>' +
-  '<div class="bom">' + b.items.map(([label, pc, col]) =>
-    '<i style="flex:' + pc + ';background:' + col + '" title="' + label + ' · ' + pc + '%"></i>'
+  ' · ' + b.when.toUpperCase() + '</span><span class="bdtot">' + b.note + '</span></div>' +
+  '<div class="bom" style="width:' + (sumOf(b) / AXIS * 100) + '%">' +
+  b.items.map(([label, usd, col]) =>
+    '<i style="flex:' + usd + ';background:' + col + '" title="' + label + ' · ' + money(usd) + '"></i>'
   ).join('') + '</div>' +
-  '<div class="bdkey">' + b.items.map(([label, pc, col]) =>
-    '<span><i style="background:' + col + '"></i>' + label + '<b>' + pc + '%</b></span>'
+  '<div class="bdkey">' + b.items.map(([label, usd, col]) =>
+    '<span><i style="background:' + col + '"></i>' + label + '<b>' + money(usd) + '</b></span>'
   ).join('') + '</div>' +
   (b.foot ? '<p class="bdfoot">' + b.foot + '</p>' : '') + '</div>').join('');
 
