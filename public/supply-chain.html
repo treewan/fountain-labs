@@ -993,7 +993,7 @@ render();
 
 /* ---- Demand side ------------------------------------------------------- */
 const M = window.MAKERS || [];
-var geo = null, commercialOnly = false, shippedOnly = false, fundedOnly = false,
+var geo = null, labsOnly = false, shippedOnly = false, fundedOnly = false,
     allM = false;
 
 const geoTally = {};
@@ -1031,7 +1031,7 @@ chips($('fGeo'), GEOS.map(([c, n]) => [c, n]), () => geo, v => { geo = v; }, ren
   if (b.dataset.v === '—') b.innerHTML = 'Not on file<b>' + UNKNOWN + '</b>';
 });
 
-[['Commercial only', () => commercialOnly, v => { commercialOnly = v; }],
+[['Research platforms', () => labsOnly, v => { labsOnly = v; }],
  ['Shipped to someone', () => shippedOnly, v => { shippedOnly = v; }],
  ['Funding on file', () => fundedOnly, v => { fundedOnly = v; }],
 ].forEach(([label, get, set]) => {
@@ -1048,7 +1048,10 @@ function visibleM() {
   const t = $('mq').value.trim().toLowerCase();
   return M.filter(r => {
     if (geo && r.c !== geo) return false;
-    if (commercialOnly && r.lab) return false;
+    /* Shows the labs rather than hiding them: the universities, national labs
+       and agencies that built one platform, which is a different question from
+       who is buying parts. */
+    if (labsOnly && !r.lab) return false;
     if (shippedOnly && !r.dep) return false;
     if (fundedOnly && !r.cap) return false;
     if (!t) return true;
@@ -1061,7 +1064,7 @@ function visibleM() {
 function renderM() {
   [...$('fGeo').children].forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === geo)));
   const rows = visibleM();
-  const scope = [geo, commercialOnly ? 'commercial' : null, shippedOnly ? 'shipped' : null,
+  const scope = [geo, labsOnly ? 'research platforms' : null, shippedOnly ? 'shipped' : null,
     fundedOnly ? 'funded' : null]
     .filter(Boolean).join(' · ') || 'everything';
   const shown = allM ? rows : rows.slice(0, LIMIT);
@@ -1089,7 +1092,7 @@ function renderM() {
 
 $('mq').oninput = renderM;
 $('mreset').onclick = () => {
-  geo = null; commercialOnly = false; shippedOnly = false; fundedOnly = false;
+  geo = null; labsOnly = false; shippedOnly = false; fundedOnly = false;
   allM = false;
   $('mq').value = '';
   [...$('fView').children].forEach(b => b.setAttribute('aria-pressed', 'false'));
