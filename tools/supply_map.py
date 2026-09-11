@@ -166,11 +166,17 @@ def main():
                   for a in arcs) / len(arcs))
     for a in arcs:                                     # re-centre on where they came from
         a["bear"] += origin - shift
+    # North America comes the long way round and is given the opposite sweep, so
+    # it runs under the map and rises into China from the south-west instead of
+    # tracking the European arc across the top.
+    SOUTH = {"North America"}
     for i, a in enumerate(arcs):
-        b = math.radians(a["bear"])
+        south = a["n"] in SOUTH
+        bear = 150.0 if south else a["bear"]
+        b = math.radians(bear)
         a["to"] = [round(china["x"] + DOCK_R * math.cos(b), 1),
                    round(china["y"] + DOCK_R * math.sin(b), 1)]
-        a["k"] = round(0.08 + 0.12 * i, 3)
+        a["k"] = round(-0.30 if south else 0.08 + 0.12 * i, 3)
         a.pop("bear")
 
     covered = sum(a["c"] for a in arcs)
