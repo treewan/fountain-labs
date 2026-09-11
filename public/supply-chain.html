@@ -510,7 +510,7 @@ function render() {
     .filter(Boolean).join(' · ') || 'everything';
   const shown = allS ? rows : rows.slice(0, LIMIT);
   $('count').textContent = rows.length + ' of ' + S.length + ' · ' + scope +
-    (shown.length < rows.length ? ' · showing ' + shown.length : '');
+    (shown.length < rows.length ? ' · showing the ' + shown.length + ' best evidenced' : '');
   more($('moreS'), rows, allS, v => { allS = v; }, render);
   $('cards').innerHTML = rows.length ? shown.map(r =>
     '<div class="card"><h3>' + r.en + (r.cn ? '<span class="cn">' + r.cn + '</span>' : '') + '</h3>' +

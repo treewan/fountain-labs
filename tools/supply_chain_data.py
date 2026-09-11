@@ -244,7 +244,24 @@ def main():
     for r in rows:
         r["grp"] = GROUP.get(r["cat"], "Structure")
 
-    rows.sort(key=lambda r: r["en"].lower())
+    # Alphabetical put 3M at the head of a robotics supply chain index, which is
+    # a fact about spelling. Rows are ranked by how well the link to a humanoid
+    # programme is evidenced, so the first screen is the best-evidenced one, and
+    # sorted by name inside each band.
+    def rank(r):
+        ev = r.get("ev")
+        if ev == "integration":
+            return 4
+        if ev == "partnership" or (not ev and r["cu"]):
+            return 3
+        if ev in ("survey", "capacity"):
+            return 2
+        if not ev:
+            return 1
+        return 0                                   # commercial: sells into the category
+    for r in rows:
+        r["rk"] = rank(r)
+    rows.sort(key=lambda r: (-r["rk"], -len(r["cu"]), r["en"].lower()))
     cats = {}
     custs = {}
     cos = {}
@@ -263,6 +280,10 @@ def main():
     print("  countries: " + ", ".join(f"{k} {v}" for k, v in sorted(cos.items(), key=lambda x: -x[1])))
     print(f"  dropped {dupes} exact duplicate, {dropped} contradictory row")
     print(f"  {len(EXTRA)} added from the analysis, {len(NOTES)} index rows annotated")
+    bands = {}
+    for r in rows:
+        bands[r["rk"]] = bands.get(r["rk"], 0) + 1
+    print("  evidence bands: " + ", ".join("rank %d: %d" % kv for kv in sorted(bands.items(), reverse=True)))
     print("  categories: " + ", ".join(f"{k} {v}" for k, v in sorted(cats.items(), key=lambda x: -x[1])))
     print("  customers: " + ", ".join(f"{k} {v}" for k, v in sorted(custs.items(), key=lambda x: -x[1])))
     return 0
