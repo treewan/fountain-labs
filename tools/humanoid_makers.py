@@ -57,6 +57,30 @@ BUYER = {
     "leju-robotics": "Leju Robotics",
     "fourier": "Fourier",
 }
+# The board leaves the country blank on 26 rows. On most of them the
+# organisation's own name states it — Beijing Institute of Technology is in
+# Beijing, Istituto Italiano di Tecnologia in Italy — so the name is the source
+# and nothing is being inferred from elsewhere. Rows whose name does not say
+# are left blank rather than guessed.
+FROM_NAME = {
+    "Nenggou (Beijing) Technology Co., Ltd.": "China",
+    "Sichuan Tianlian Robotics Co., Ltd.": "China",
+    "Wuhan Glory Road Intelligent Technology Co., Ltd.": "China",
+    "Shanghai Innovation Center": "China",
+    "University of Science and Technology of China": "China",
+    "Beijing Institute of Technology": "China",
+    "Institute of Automation, Chinese Academy of Sciences": "China",
+    "BYD": "China",
+    "Istituto Italiano di Tecnologia": "Italy",
+    "German Research Center for Artificial Intelligence GmbH": "Germany",
+    "Monash University": "Australia",
+    "University of Western Australia": "Australia",
+    "Tokyo University": "Japan",
+    "Hiroshi Ishiguro Laboratories": "Japan",
+    "IIT Bombay": "India",
+    "Roscosmos": "Russia",
+}
+
 # Names carrying a legal suffix read badly in a card grid.
 TRIM = re.compile(
     r",?\s*(Co\.,? ?Ltd\.?|Corp Ltd\.?|Pte\.? Ltd\.?|S\.r\.l\.|SAS|AS|GmbH|Inc\.?|LTD)\.?$",
@@ -189,7 +213,7 @@ def build():
             d = ""
         row = {
             "n": TRIM.sub("", r["name"]).strip(),
-            "c": r["country"] or "—",
+            "c": r["country"] or FROM_NAME.get(r["name"], "—"),
             "s": int(r["score"]),
             "r": int(r["robots"] or 0),
         }
@@ -241,6 +265,8 @@ def build():
     print("  %d robots in their catalogues (all categories, not humanoid only)"
           % sum(r["r"] for r in out))
     print("  %d countries" % len({r["c"] for r in out if r["c"] != "—"}))
+    blank = [r["n"] for r in out if r["c"] == "—"]
+    print("  %d rows still carry no country: %s" % (len(blank), ", ".join(blank)))
     blank = [r["n"] for r in out if not r.get("d") and not r.get("rb")]
     print("  %d with a one-line description, %d falling back to their models, %d with neither%s"
           % (sum(1 for r in out if r.get("d")), sum(1 for r in out if r.get("rb")), len(blank),

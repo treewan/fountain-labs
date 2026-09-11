@@ -8,6 +8,7 @@ honest to put them.
 Emits public/_assets/maker-globe.js.
 """
 import json
+import os
 import pathlib
 import re
 import sys
@@ -25,6 +26,7 @@ AT = {
     "Poland": (52.0, 19.1), "Hong Kong": (22.3, 114.2), "Luxembourg": (49.8, 6.1),
     "Sweden": (62.2, 15.0), "Thailand": (15.9, 101.0), "Switzerland": (46.8, 8.2),
     "Israel": (31.4, 35.0), "Iran": (32.4, 53.7), "Netherlands": (52.2, 5.3),
+    "Australia": (-25.3, 133.8), "India": (22.6, 78.9), "Russia": (61.5, 105.3),
 }
 
 
@@ -40,6 +42,11 @@ def main():
         b = by.setdefault(co, {"n": co, "c": 0, "top": []})
         b["c"] += 1
         b["top"].append((r.get("s", 0), r["n"]))
+
+    missing = sorted({b["n"] for b in by.values() if b["n"] not in AT})
+    if missing:
+        raise SystemExit("no coordinate for: " + ", ".join(missing)
+                         + " — add it to AT in " + os.path.basename(__file__))
 
     out = []
     for b in sorted(by.values(), key=lambda b: -b["c"]):
