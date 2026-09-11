@@ -90,6 +90,7 @@ input[type=search]:focus{outline:none;border-color:#111}
   align-items:baseline;margin-bottom:12px}
 .bdhead .mono{font-size:10.5px;letter-spacing:1.4px}
 .bdtot{font-size:13.5px;color:#55554F}
+.bdhead{align-items:baseline}
 .bdkey{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:#3A3A38}
 .bdkey span{display:inline-flex;align-items:center;gap:6px}
 .bdkey i{width:8px;height:8px;border-radius:2px;flex-shrink:0}
@@ -188,10 +189,11 @@ input[type=search]:focus{outline:none;border-color:#111}
 
 <div class="wrap"><section>
   <div class="eyebrow">02 · REFERENCE · WHAT A HUMANOID NEEDS</div>
-  <h2>Three teardowns of the same robot, three different answers.</h2>
+  <h2>Three estimates of what a humanoid costs to build, and no two agree.</h2>
   <p class="sub">Nobody outside the programmes has the real bill of materials, so what circulates
-    is estimates that do not agree — on the split, on the axis, or even on the total. They are
-    printed side by side here rather than averaged, because the spread is the finding.</p>
+    is estimates that do not agree — on the split, on the axis, on the total, and on which robot
+    they are describing in the first place. Each bar names its subject, because part of the spread
+    is that. They are printed side by side rather than averaged: the spread is the finding.</p>
 
   <div class="ref">
     <div id="bds"></div>
@@ -285,19 +287,19 @@ input[type=search]:focus{outline:none;border-color:#111}
 const C = {act:'#FF7A00', hand:'#B87A00', sens:'#8A8A85', screw:'#1E48D8', red:'#1F9D55',
            mot:'#7A5CD8', comp:'#0FA3A3', str:'#55554F', wire:'#C9C9C2', batt:'#111'};
 const BREAKDOWNS = [
-  {src:'36Kr', when:'April 2026', axis:'BY PART', total:'$20K target at volume', items:[
+  {src:'36Kr', when:'April 2026', axis:'BY PART', total:'Tesla Optimus · $20K target at volume', items:[
     ['Actuators', 35, C.act], ['Sensors and other', 20, C.sens], ['Lead screws', 18, C.screw],
     ['Reducers', 15, C.red], ['Motors', 12, C.mot]]},
-  {src:'humanoid.guide', when:'2026', axis:'BY PART', total:'~$50K unit scale', items:[
+  {src:'humanoid.guide', when:'2026', axis:'BY PART', total:'A full-size humanoid, unnamed · ~$50K', items:[
     ['Actuators and precision motion', 50, C.act], ['Hands', 15, C.hand], ['Sensors', 10, C.sens],
     ['AI compute', 8, C.comp], ['Structure', 7, C.str], ['Wiring', 5, C.wire],
     ['Battery', 5, C.batt]]},
-  {src:'Morgan Stanley', when:'2026', axis:'BY BODY REGION', total:'~$55K', items:[
+  {src:'Morgan Stanley', when:'undated', axis:'BY BODY REGION', total:'A dexterous full-size unit, unnamed · ~$55K', items:[
     ['Hands', 17.2, '#111'], ['Waist and pelvis', 14.2, '#2E2E2A'], ['Thigh', 13.2, '#45453F'],
     ['Calf', 13.2, '#5C5C55'], ['Feet', 12.2, '#73736A'], ['Elbow', 4.7, '#8A8A80'],
     ['Forearm', 3.9, '#A1A196'], ['Head', 3.8, '#B8B8AC'], ['Shoulder', 3.8, '#CFCFC2'],
     ['Upper arm', 2.0, '#DEDED2'], ['Battery pack', 0.5, '#E8E8DC'], ['Other', 0.9, '#F0F0E6']],
-   foot:'Line items account for 89.6% of the stated total; the rest is unallocated in the source.'},
+   foot:'Read via GrabaRobot, 2026, which does not date the underlying estimate. Line items account for 89.6% of the stated total; the rest is unallocated in the source.'},
 ];
 const S = window.SUPPLIERS || [];
 const SRC = {
