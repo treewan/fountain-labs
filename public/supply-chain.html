@@ -74,6 +74,7 @@ input[type=search]:focus{outline:none;border-color:#111}
 .tag.commercial{border:1px solid #E6E6E2;background:none}
 .meta .ev2{grid-column:2/-1}
 .chip[hidden]{display:none}
+.caveat{margin-top:10px;font-size:12.5px;line-height:1.55;color:#8A8A85;max-width:620px}
 .card .note{margin-top:11px;padding-top:10px;border-top:1px dashed #E6E6E2;
   font-size:13px;line-height:1.55;color:#3A3A38}
 .card .note b{font-weight:400;color:#8A8A85}
@@ -188,7 +189,8 @@ input[type=search]:focus{outline:none;border-color:#111}
   <div class="facet"><span class="mono">Subsystem</span><div class="chips" id="fGrp"></div></div>
   <div class="facet"><span class="mono">Part</span><div class="chips" id="fCat"></div></div>
   <div class="facet"><span class="mono">Country</span><div class="chips" id="fCo"></div></div>
-  <div class="facet"><span class="mono">Buyer</span><div class="chips" id="fCust"></div></div>
+  <div class="facet"><span class="mono">Buyer</span><div class="chips" id="fCust"></div>
+    <p class="caveat">Only the listed-company rows carry a buyer, so this filter hides every maker whose source did not record one — absence here is missing data, not evidence that a maker is off a programme.</p></div>
 
   <div class="count" id="count"></div>
   <div class="cards" id="cards"></div>
