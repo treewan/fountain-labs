@@ -146,6 +146,13 @@ input[type=search]:focus{outline:none;border-color:#111}
 .bdfoot{margin-top:11px;font-size:12.5px;line-height:1.55;color:#8A8A85}
 
 /* Demand side — the makers, same card grammar as the index. */
+.globewrap{margin-top:34px;display:flex;flex-direction:column;align-items:center;gap:14px}
+#globe{width:100%;max-width:460px;aspect-ratio:1;display:block;cursor:grab;touch-action:pan-y}
+#globe:active{cursor:grabbing}
+.globefoot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center}
+.btn.sm{padding:6px 14px;font-size:12.5px}
+.readout{font-size:13px;color:#3A3A38;min-height:1.2em;text-align:center;
+  max-width:430px;line-height:1.4}
 .substats{margin-top:34px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;
   padding-top:20px;border-top:1px solid #111}
 .substat{font-size:26px;font-weight:500;letter-spacing:-.03em;line-height:1}
@@ -284,6 +291,15 @@ input[type=search]:focus{outline:none;border-color:#111}
     makers with a humanoid on file — most of them one platform and a plan, a few of them already
     placing volume orders against the index above.</p>
 
+  <div class="globewrap">
+    <canvas id="globe" role="img" aria-label="Rotating globe of humanoid makers by country"></canvas>
+    <div class="globefoot">
+      <span class="mono" id="globeNote"></span>
+      <span class="readout" id="globeRead"></span>
+      <button class="btn sm" id="globeSpin" type="button" aria-pressed="true">Pause</button>
+    </div>
+  </div>
+
   <div class="substats">
     <div><div class="substat" id="mN">—</div><div class="statcap">makers on file, in <span id="mG">—</span> countries; <span id="mT">—</span> also buy from the index above</div></div>
     <div><div class="substat" id="mD">—</div><div class="statcap">have shipped to a customer someone can name</div></div>
@@ -341,6 +357,8 @@ input[type=search]:focus{outline:none;border-color:#111}
 <script src="/_assets/supply-chain-data.js"></script>
 <script src="/_assets/supply-map.js"></script>
 <script src="/_assets/humanoid-makers.js"></script>
+<script src="/_assets/globe-land.js"></script>
+<script src="/_assets/maker-globe.js"></script>
 <script>
 /* One colour per concept, held across the rows, so the eye can follow a line
    from one cut to the next even where the labels differ. */
@@ -675,9 +693,158 @@ $('csv').onclick = () => {
 
 render();
 
+/* ---- The makers on a globe ----------------------------------------------
+   No library: the land rings are lon/lat, inverted from the flat map's own
+   projection, and re-projected orthographically every frame. Back-facing
+   points are culled by the sign of the cosine of the angular distance from
+   the point facing the viewer. */
+(function globe() {
+  const cv = document.getElementById('globe');
+  const LAND = window.GLOBE_LAND || [];
+  const MARKS = window.MAKER_GLOBE || [];
+  if (!cv || !LAND.length) return;
+  const ctx = cv.getContext('2d');
+  const readout = document.getElementById('globeRead');
+  const RAD = Math.PI / 180;
+  let lam = -100, phi = 18, spin = true, drag = null, moved = false, R = 0, cx = 0, cy = 0;
+
+  function size() {
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const w = cv.getBoundingClientRect().width || 460;
+    cv.width = w * dpr; cv.height = w * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    R = w / 2 - 6; cx = w / 2; cy = w / 2;
+  }
+
+  /* Returns null when the point is on the far side. */
+  function project(lon, lat) {
+    const dl = (lon - lam) * RAD, la = lat * RAD, p = phi * RAD;
+    const cosc = Math.sin(p) * Math.sin(la) + Math.cos(p) * Math.cos(la) * Math.cos(dl);
+    if (cosc < 0) return null;
+    return [cx + R * Math.cos(la) * Math.sin(dl),
+            cy - R * (Math.cos(p) * Math.sin(la) - Math.sin(p) * Math.cos(la) * Math.cos(dl))];
+  }
+
+  function draw() {
+    const w = cv.width / (cv.width / cv.getBoundingClientRect().width || 1);
+    ctx.clearRect(0, 0, cv.width, cv.height);
+
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.fillStyle = '#F0F0EA'; ctx.fill();
+
+    ctx.strokeStyle = '#E2E2DA'; ctx.lineWidth = 0.6;
+    for (let lat = -60; lat <= 60; lat += 30) {          /* parallels */
+      ctx.beginPath(); let on = false;
+      for (let lon = -180; lon <= 180; lon += 3) {
+        const q = project(lon, lat);
+        if (!q) { on = false; continue; }
+        on ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); on = true;
+      }
+      ctx.stroke();
+    }
+    for (let lon = -180; lon < 180; lon += 30) {         /* meridians */
+      ctx.beginPath(); let on = false;
+      for (let lat = -85; lat <= 85; lat += 3) {
+        const q = project(lon, lat);
+        if (!q) { on = false; continue; }
+        on ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); on = true;
+      }
+      ctx.stroke();
+    }
+
+    ctx.fillStyle = '#D3D3C9';
+    LAND.forEach(ring => {
+      ctx.beginPath(); let on = false;
+      for (let i = 0; i < ring.length; i += 2) {
+        const q = project(ring[i], ring[i + 1]);
+        if (!q) { on = false; continue; }
+        on ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); on = true;
+      }
+      ctx.fill();
+    });
+
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7);
+    ctx.strokeStyle = '#C9C9BE'; ctx.lineWidth = 1; ctx.stroke();
+
+    hits.length = 0;
+    MARKS.forEach(m => {
+      const q = project(m.lon, m.lat);
+      if (!q) return;
+      const r = Math.max(3, Math.sqrt(m.c) * (R / 62));
+      const on = geo && geo === m.n;
+      ctx.beginPath(); ctx.arc(q[0], q[1], r, 0, 7);
+      ctx.fillStyle = on ? 'rgba(255,122,0,.95)' : 'rgba(255,122,0,.55)';
+      ctx.fill();
+      ctx.strokeStyle = '#C25E00'; ctx.lineWidth = on ? 1.4 : 0.7; ctx.stroke();
+      hits.push({x: q[0], y: q[1], r: Math.max(r, 9), m: m});
+    });
+  }
+  const hits = [];
+
+  function frame() {
+    if (spin && !drag) lam = (lam + 0.16 + 540) % 360 - 180;
+    draw();
+    requestAnimationFrame(frame);
+  }
+
+  cv.addEventListener('pointerdown', e => {
+    drag = {x: e.clientX, y: e.clientY, lam: lam, phi: phi}; moved = false;
+    cv.setPointerCapture(e.pointerId);
+  });
+  cv.addEventListener('pointermove', e => {
+    if (!drag) {                                   /* hover: name what is under the cursor */
+      const b = cv.getBoundingClientRect();
+      const px = e.clientX - b.left, py = e.clientY - b.top;
+      const over = hits.find(h => (h.x - px) ** 2 + (h.y - py) ** 2 <= h.r * h.r);
+      cv.style.cursor = over ? 'pointer' : 'grab';
+      readout.textContent = over
+        ? over.m.n + ' — ' + over.m.c + (over.m.c === 1 ? ' maker · ' : ' makers · ') +
+          over.m.top.join(', ')
+        : '';
+      return;
+    }
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (Math.abs(dx) + Math.abs(dy) > 3) moved = true;
+    lam = ((drag.lam - dx * 0.35) + 540) % 360 - 180;
+    phi = Math.max(-80, Math.min(80, drag.phi + dy * 0.35));
+    draw();
+  });
+  const release = () => { drag = null; };
+  cv.addEventListener('pointerup', release);
+  cv.addEventListener('pointercancel', release);
+
+  cv.addEventListener('click', e => {
+    if (moved) return;
+    const b = cv.getBoundingClientRect();
+    const px = e.clientX - b.left, py = e.clientY - b.top;
+    const found = hits.find(h => (h.x - px) ** 2 + (h.y - py) ** 2 <= h.r * h.r);
+    if (!found) return;
+    geo = geo === found.m.n ? null : found.m.n;
+    renderM();
+  });
+  /* A click that arrives without a pointerdown — a keyboard or assistive one —
+     would otherwise stay blocked by the flag the last drag left set. */
+  cv.addEventListener('click', () => { moved = false; });
+
+  document.getElementById('globeSpin').onclick = function () {
+    spin = !spin;
+    this.textContent = spin ? 'Pause' : 'Spin';
+    this.setAttribute('aria-pressed', String(spin));
+  };
+
+  document.getElementById('globeNote').textContent =
+    MARKS.reduce((n, m) => n + m.c, 0) + ' OF ' + (window.MAKERS || []).length +
+    ' PLACED · DRAG TO TURN · CLICK A COUNTRY';
+
+  size();
+  addEventListener('resize', () => { size(); draw(); });
+  /* Draw once synchronously so a hidden tab still ships a rendered globe. */
+  draw();
+  frame();
+})();
+
 /* ---- Demand side ------------------------------------------------------- */
 const M = window.MAKERS || [];
-let geo = null, commercialOnly = false, shippedOnly = false, fundedOnly = false,
+var geo = null, commercialOnly = false, shippedOnly = false, fundedOnly = false,
     trailOnly = false, addedOnly = false, allM = false;
 
 const geoTally = {};
