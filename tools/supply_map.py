@@ -78,13 +78,12 @@ AT = {
     "Sweden": (62.2, 15.0), "Israel": (31.4, 35.0), "Netherlands": (52.2, 5.3),
     "Italy": (42.8, 12.6), "United Kingdom": (54.0, -2.0), "Austria": (47.6, 14.1),
     "Slovakia": (48.7, 19.7), "China": (35.9, 104.2),
-    "China · city not on file": (35.9, 104.2),
 }
 
 
 def main():
     rows = json.loads(re.search(r"(\[.*\])", SRC.read_text(), re.S).group(1))
-    places, unplaced, no_country = {}, {}, 0
+    places, unplaced, no_country, no_city = {}, {}, 0, 0
 
     # Two layers, not one. The world panel rolls everything up to its country,
     # so China reads as its whole total; the China panel splits that total by
@@ -103,7 +102,7 @@ def main():
             elif city and city != "—":
                 unplaced[city] = unplaced.get(city, 0) + 1
             else:
-                keys.append(("China · city not on file", "province"))
+                no_city += 1
         for key, level in keys:
             p = places.setdefault((key, level),
                                   {"n": key, "lv": level, "co": co, "c": 0, "cities": {}})
@@ -139,6 +138,7 @@ def main():
     if unplaced:
         print("  city not assigned to a province: "
               + ", ".join("%s (%d rows)" % (c, n) for c, n in unplaced.items()))
+    print("  %d Chinese rows carry no city and sit in the national count only" % no_city)
     print("  %d rows have no country in the source" % no_country)
     return 0
 

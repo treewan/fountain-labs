@@ -44,7 +44,18 @@ h2{margin:20px 0 0;font-size:36px;line-height:1.12;font-weight:500;letter-spacin
 .maps{margin-top:34px;display:grid;grid-template-columns:1.9fr 1fr;gap:28px;align-items:start}
 .map{margin:0}
 .map figcaption{display:block;margin-bottom:10px}
-.map svg{width:100%;height:auto;display:block;background:#F7F7F3;border-radius:4px}
+.map svg{width:100%;height:auto;display:block;background:#F7F7F3;border-radius:4px;
+  cursor:grab;
+  /* pan-y, not none: a finger dragged up the page has to scroll the page, or
+     the map becomes a trap on a phone. Two-finger pinch still reaches us. */
+  touch-action:pan-y}
+.map svg:active{cursor:grabbing}
+.zoom{position:absolute;right:8px;bottom:8px;display:flex;gap:4px}
+.zoom button{width:24px;height:24px;padding:0;font:inherit;font-size:13px;line-height:1;
+  border:1px solid #D8D8D2;background:rgba(252,252,251,.92);border-radius:4px;cursor:pointer;
+  color:#3A3A38}
+.zoom button:hover:not(:disabled){border-color:#111;color:#111}
+.zoom button:disabled{opacity:.35;cursor:default}
 .map .land{fill:#E3E3DD;stroke:none}
 .map .bub{fill:#FF7A00;fill-opacity:.5;stroke:#C25E00;stroke-width:.6;cursor:pointer;
   transition:fill-opacity .15s}
@@ -56,7 +67,10 @@ h2{margin:20px 0 0;font-size:36px;line-height:1.12;font-weight:500;letter-spacin
   font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.5px;color:#3A3A38;
   text-shadow:0 0 3px #F7F7F3,0 0 3px #F7F7F3,0 0 3px #F7F7F3}
 .lbls span b{font-weight:500;margin-left:4px}
-@media (max-width:520px){.lbls span{font-size:9.5px}}
+@media (max-width:520px){
+  .lbls span{font-size:9.5px}
+  .zoom button{width:30px;height:30px;font-size:15px}
+}
 @media (max-width:900px){.maps{grid-template-columns:1fr;gap:22px}}
 .tools{margin-top:38px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 input[type=search]{flex:1;min-width:240px;padding:11px 14px;font:inherit;font-size:15px;
@@ -202,13 +216,15 @@ input[type=search]:focus{outline:none;border-color:#111}
       <figcaption class="mono">BY COUNTRY · BUBBLE AREA IS SUPPLIER COUNT</figcaption>
       <div class="mapbox"><svg id="mapWorld" viewBox="120 95 880 300" role="img"
            aria-label="World map of supplier locations"></svg>
-        <div class="lbls" id="lblWorld"></div></div>
+        <div class="lbls" id="lblWorld"></div>
+        <div class="zoom" id="ctrlWorld"><button class="zin" type="button" aria-label="Zoom in">+</button><button class="zout" type="button" aria-label="Zoom out">−</button><button class="zres" type="button" aria-label="Reset the view">⟲</button></div></div>
     </figure>
     <figure class="map mapcn">
       <figcaption class="mono">EASTERN CHINA · BY PROVINCE</figcaption>
       <div class="mapbox"><svg id="mapCN" viewBox="700 158 182 116" role="img"
            aria-label="Map of Chinese provinces with supplier counts"></svg>
-        <div class="lbls" id="lblCN"></div></div>
+        <div class="lbls" id="lblCN"></div>
+        <div class="zoom" id="ctrlCN"><button class="zin" type="button" aria-label="Zoom in">+</button><button class="zout" type="button" aria-label="Zoom out">−</button><button class="zres" type="button" aria-label="Reset the view">⟲</button></div></div>
     </figure>
   </div>
   <p class="caveat" id="mapNote"></p>
@@ -435,9 +451,7 @@ function visible() {
   const t = $('q').value.trim().toLowerCase();
   return S.filter(r => {
     if (place && (place.lv === 'province'
-          ? (place.n === 'China · city not on file'
-              ? !(r.co === 'China' && !r.city)
-              : (place.cs || []).indexOf(r.city) < 0)
+          ? (place.cs || []).indexOf(r.city) < 0
           : r.co !== place.n)) return false;
     if (grp && r.grp !== grp) return false;
     if (cat && r.cat !== cat) return false;
@@ -485,74 +499,161 @@ function render() {
 /* ---- The index on a map -------------------------------------------------
    Chinese rows carry a city and are drawn by province; everything else has
    only a country. Two panels share one projection and one set of outlines —
-   the second is the same SVG at a tighter viewBox. */
+   the second is the same SVG at a tighter viewBox. Both pan and zoom. */
 const PLACES = window.SUPPLY_MAP || [];
 let place = null;
+const maps = [];
 
-function drawMap(svg, labels, rows, scale, minCount, labelTop) {
+function makeMap(svg, labels, ctrls, rows, baseR) {
   const ns = 'http://www.w3.org/2000/svg';
   const el = (t, a) => { const e = document.createElementNS(ns, t);
     for (const k in a) e.setAttribute(k, a[k]); return e; };
+  const b = svg.getAttribute('viewBox').split(/\s+/).map(Number);
+  const base = {x: b[0], y: b[1], w: b[2], h: b[3]};
+  const view = {...base};
+  const MAXZ = 12;
+
   (window.WORLD_PATHS || []).forEach(d => svg.appendChild(el('path', {class: 'land', d})));
 
   const sorted = [...rows].sort((a, b) => b.c - a.c);
-  sorted.slice().reverse().forEach(p => {          /* small ones first, under */
+  const bubbles = new Map();
+  sorted.slice().reverse().forEach(p => {
     const c = el('circle', {class: 'bub' + (p.co === 'China' ? ' cn' : ''),
-      cx: p.x, cy: p.y, r: (Math.sqrt(p.c) * scale).toFixed(2),
-      role: 'button', tabindex: '0', 'aria-pressed': 'false',
+      cx: p.x, cy: p.y, role: 'button', tabindex: '0', 'aria-pressed': 'false',
       'data-k': p.n + '|' + p.lv});
     c.appendChild(el('title', {})).textContent =
       p.n + ' — ' + p.c + (p.c === 1 ? ' maker' : ' makers') +
-      (p.top ? ' · ' + p.top.join(', ') : '') +
-      (p.lv === 'country' ? ' · click to filter' : '');
-    c.onclick = () => { place = (place && place.n === p.n) ? null : p; render(); };
+      (p.top ? ' · ' + p.top.join(', ') : '');
+    c.addEventListener('click', () => {
+      if (dragged) return;                       /* a pan is not a selection */
+      place = (place && place.n === p.n && place.lv === p.lv) ? null : p;
+      render();
+    });
     svg.appendChild(c);
+    bubbles.set(p, c);
   });
-  /* Labels live in HTML over the map, not in the SVG: font-size inside an SVG
-     is in user units, so a responsive viewBox shrank them to 5px on a phone. */
-  const vb = svg.viewBox.baseVal;
-  labels.innerHTML = sorted.filter(p => p.c >= minCount).slice(0, labelTop).map(p =>
-    '<span style="left:' + ((p.x - vb.x) / vb.width * 100).toFixed(2) + '%;top:' +
-    ((p.y - Math.sqrt(p.c) * scale - 2.5 - vb.y) / vb.height * 100).toFixed(2) + '%">' +
-    (p.n === 'China · city not on file' ? 'city not on file' : p.n) +
+
+  labels.innerHTML = sorted.map(p =>
+    '<span data-x="' + p.x + '" data-y="' + p.y + '" data-c="' + p.c + '">' + p.n +
     '<b>' + p.c + '</b></span>').join('');
 
-  /* Shanghai sits between Zhejiang and Jiangsu and its label lands on both.
-     Biggest count keeps its spot; the rest step aside in a fixed order so the
-     result is stable rather than dependent on paint timing. */
   const hit = (a, b) => !(a.right < b.left || b.right < a.left ||
                           a.bottom < b.top || b.bottom < a.top);
-  const settle = () => {
+
+  function apply() {
+    svg.setAttribute('viewBox', view.x + ' ' + view.y + ' ' + view.w + ' ' + view.h);
+    /* Radius is set in user units but held constant on screen, so zooming in
+       separates neighbours instead of inflating them. */
+    const k = view.w / base.w;
+    bubbles.forEach((c, p) => c.setAttribute('r', (Math.sqrt(p.c) * baseR * k).toFixed(2)));
+
+    const box = svg.getBoundingClientRect();
+    const px = box.width / view.w;
     const taken = [];
     [...labels.children].forEach(sp => {
+      const x = +sp.dataset.x, y = +sp.dataset.y, n = +sp.dataset.c;
+      const r = Math.sqrt(n) * baseR * k;
+      sp.style.display = '';
+      sp.style.left = ((x - view.x) / view.w * 100).toFixed(3) + '%';
+      sp.style.top = ((y - r - view.y) / view.h * 100).toFixed(3) + '%';
+      const rect0 = sp.getBoundingClientRect();
+      if (rect0.right < box.left || rect0.left > box.right ||
+          rect0.bottom < box.top || rect0.top > box.bottom) { sp.style.display = 'none'; return; }
       for (const [dx, dy] of [[0, 0], [0, 15], [0, -15], [30, 4], [-30, 4],
                               [0, 30], [0, -30], [38, 18], [-38, 18]]) {
         sp.style.margin = dy + 'px 0 0 ' + dx + 'px';
-        const r = sp.getBoundingClientRect();
-        if (!taken.some(q => hit(q, r))) { taken.push(r); return; }
+        const rect = sp.getBoundingClientRect();
+        if (!taken.some(q => hit(q, rect))) { taken.push(rect); return; }
       }
-      taken.push(sp.getBoundingClientRect());
+      sp.style.display = 'none';                 /* nowhere clear: say nothing */
     });
+    ctrls.querySelector('.zout').disabled = view.w >= base.w - 0.01;
+    ctrls.querySelector('.zin').disabled = view.w <= base.w / MAXZ + 0.01;
+  }
+
+  function zoomAt(cx, cy, factor) {
+    const w = Math.min(base.w, Math.max(base.w / MAXZ, view.w * factor));
+    const f = w / view.w;
+    view.x = cx - (cx - view.x) * f;
+    view.y = cy - (cy - view.y) * f;
+    view.w = w; view.h = base.h * (w / base.w);
+    view.x = Math.min(base.x + base.w - view.w, Math.max(base.x, view.x));
+    view.y = Math.min(base.y + base.h - view.h, Math.max(base.y, view.y));
+    apply();
+  }
+  const atEvent = e => {
+    const box = svg.getBoundingClientRect();
+    return [view.x + (e.clientX - box.left) / box.width * view.w,
+            view.y + (e.clientY - box.top) / box.height * view.h];
   };
+
+  svg.addEventListener('wheel', e => {
+    e.preventDefault();
+    const [cx, cy] = atEvent(e);
+    zoomAt(cx, cy, e.deltaY > 0 ? 1.18 : 1 / 1.18);
+  }, {passive: false});
+  svg.addEventListener('dblclick', e => { const [cx, cy] = atEvent(e); zoomAt(cx, cy, 1 / 2); });
+
+  let dragged = false, pointers = new Map(), last = null, pinch = 0;
+  svg.addEventListener('pointerdown', e => {
+    pointers.set(e.pointerId, e); svg.setPointerCapture(e.pointerId);
+    dragged = false; last = e; pinch = 0;
+  });
+  svg.addEventListener('pointermove', e => {
+    if (!pointers.has(e.pointerId)) return;
+    pointers.set(e.pointerId, e);
+    const pts = [...pointers.values()];
+    if (pts.length >= 2) {
+      const d = Math.hypot(pts[0].clientX - pts[1].clientX, pts[0].clientY - pts[1].clientY);
+      if (pinch) {
+        const box = svg.getBoundingClientRect();
+        const mx = (pts[0].clientX + pts[1].clientX) / 2, my = (pts[0].clientY + pts[1].clientY) / 2;
+        zoomAt(view.x + (mx - box.left) / box.width * view.w,
+               view.y + (my - box.top) / box.height * view.h, pinch / d);
+      }
+      pinch = d; dragged = true; return;
+    }
+    if (!last) return;
+    const box = svg.getBoundingClientRect();
+    const dx = (e.clientX - last.clientX) / box.width * view.w;
+    const dy = (e.clientY - last.clientY) / box.height * view.h;
+    if (Math.abs(e.clientX - last.clientX) + Math.abs(e.clientY - last.clientY) > 3) dragged = true;
+    view.x = Math.min(base.x + base.w - view.w, Math.max(base.x, view.x - dx));
+    view.y = Math.min(base.y + base.h - view.h, Math.max(base.y, view.y - dy));
+    last = e; apply();
+  });
+  const up = e => { pointers.delete(e.pointerId); last = pointers.size ? [...pointers.values()][0] : null;
+    pinch = 0; setTimeout(() => { dragged = false; }, 0); };
+  svg.addEventListener('pointerup', up);
+  svg.addEventListener('pointercancel', up);
+
+  ctrls.querySelector('.zin').onclick = () =>
+    zoomAt(view.x + view.w / 2, view.y + view.h / 2, 1 / 1.6);
+  ctrls.querySelector('.zout').onclick = () =>
+    zoomAt(view.x + view.w / 2, view.y + view.h / 2, 1.6);
+  ctrls.querySelector('.zres').onclick = () => { Object.assign(view, base); apply(); };
+
   /* Synchronously, not on a frame callback: requestAnimationFrame never fires
-     in a hidden tab, which would ship the page with its labels unresolved.
-     getBoundingClientRect forces the layout this needs. Once more when the
-     webfont lands, since that changes every width. */
-  settle();
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(settle);
-  addEventListener('resize', settle);
+     in a hidden tab, which would ship the labels unresolved. */
+  apply();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(apply);
+  addEventListener('resize', apply);
+  maps.push(apply);
 }
 
-drawMap($('mapWorld'), $('lblWorld'), PLACES.filter(p => p.lv === 'country'), 1.9, 14, 7);
-drawMap($('mapCN'), $('lblCN'), PLACES.filter(p => p.lv === 'province'), 0.62, 5, 7);
+makeMap($('mapWorld'), $('lblWorld'), $('ctrlWorld'),
+        PLACES.filter(p => p.lv === 'country'), 1.9);
+makeMap($('mapCN'), $('lblCN'), $('ctrlCN'),
+        PLACES.filter(p => p.lv === 'province'), 0.62);
 
 $('mapNote').textContent =
   PLACES.filter(p => p.lv === 'country').reduce((n, p) => n + p.c, 0) +
   ' of ' + S.length + ' rows carry a country and are on the world panel. The China panel splits ' +
   "that country's total by province, which only the listed-company rows support, because only " +
-  'they carry a city. Two of them say just "Taizhou", a city in Jiangsu and a different city in ' +
-  'Zhejiang 600km away, so they sit in the national count and in no province. Four rows name no ' +
-  'country at all and are on neither panel. Click a bubble to filter the index.';
+  'they carry a city. Eight Chinese rows name no city, two say just "Taizhou" — a city in Jiangsu ' +
+  'and a different city in Zhejiang 600km away — and four rows name no country at all. Those ' +
+  'sixteen are in the index and in the national count, not on a province. Scroll or pinch to ' +
+  'zoom, drag to pan, click a bubble to filter.';
 
 $('q').oninput = render;
 $('reset').onclick = () => {
