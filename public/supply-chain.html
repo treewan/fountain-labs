@@ -162,12 +162,16 @@ input[type=search]:focus{outline:none;border-color:#111}
 
 /* Demand side — the makers, same card grammar as the index. */
 .globewrap{margin-top:34px;display:flex;flex-direction:column;align-items:center;gap:14px}
-#globe{width:100%;max-width:460px;aspect-ratio:1;display:block;cursor:grab;touch-action:pan-y}
+.globebox{position:relative;width:100%;max-width:460px}
+#globe{width:100%;aspect-ratio:1;display:block;cursor:grab;touch-action:pan-y}
+.tip{position:absolute;pointer-events:none;z-index:2;transform:translate(-50%,-100%);
+  background:#111;color:#fff;border-radius:5px;padding:7px 10px;max-width:230px;
+  font-size:12.5px;line-height:1.45;box-shadow:0 3px 12px rgba(0,0,0,.16)}
+.tip b{display:block;font-weight:500;font-size:13px}
+.tip span{color:rgba(255,255,255,.66)}
 #globe:active{cursor:grabbing}
 .globefoot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center}
 .btn.sm{padding:6px 14px;font-size:12.5px}
-.readout{font-size:13px;color:#3A3A38;min-height:1.2em;text-align:center;
-  max-width:430px;line-height:1.4}
 .substats{margin-top:34px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;
   padding-top:20px;border-top:1px solid #111}
 .substat{font-size:26px;font-weight:500;letter-spacing:-.03em;line-height:1}
@@ -306,10 +310,11 @@ input[type=search]:focus{outline:none;border-color:#111}
     turn it, click a country to filter.</p>
 
   <div class="globewrap">
-    <canvas id="globe" role="img" aria-label="Rotating globe of humanoid makers by country"></canvas>
+    <div class="globebox"><canvas id="globe" role="img"
+         aria-label="Rotating globe of humanoid makers by country"></canvas>
+      <div class="tip" id="globeTip" hidden></div></div>
     <div class="globefoot">
       <span class="mono" id="globeNote"></span>
-      <span class="readout" id="globeRead"></span>
       <button class="btn sm" id="globeSpin" type="button" aria-pressed="true">Pause</button>
     </div>
   </div>
@@ -815,9 +820,10 @@ render();
   const MARKS = window.MAKER_GLOBE || [];
   if (!cv || !LAND.length) return;
   const ctx = cv.getContext('2d');
-  const readout = document.getElementById('globeRead');
+  const tip = document.getElementById('globeTip');
   const RAD = Math.PI / 180;
   let lam = -100, phi = 18, spin = true, drag = null, moved = false, R = 0, cx = 0, cy = 0;
+  let tick = 0;
 
   function size() {
     const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -877,13 +883,34 @@ render();
     ctx.strokeStyle = '#C9C9BE'; ctx.lineWidth = 1; ctx.stroke();
 
     hits.length = 0;
-    MARKS.forEach(m => {
+    const placed = [];
+    MARKS.forEach((m, i) => {
       const q = project(m.lon, m.lat);
       if (!q) return;
       const r = Math.max(3, Math.sqrt(m.c) * (R / 62));
-      const on = geo && geo === m.n;
+      placed.push({q, r, m, i, on: geo && geo === m.n});
+    });
+
+    /* Rings leaving each site and fading out, two per site half a cycle apart,
+       staggered so the globe reads as spreading rather than blinking in time.
+       A bigger base throws them further. */
+    placed.forEach(({q, r, m, i, on}) => {
+      const reach = 2.0 + Math.min(1.6, Math.sqrt(m.c) / 5);
+      for (let k = 0; k < 2; k++) {
+        const phase = (tick * 0.0055 + i * 0.137 + k * 0.5) % 1;
+        const rr = r * (1 + phase * reach);
+        const fade = (1 - phase) * (on ? 0.55 : 0.32);
+        if (fade <= 0.01) continue;
+        ctx.beginPath(); ctx.arc(q[0], q[1], rr, 0, 7);
+        ctx.strokeStyle = 'rgba(255,122,0,' + fade.toFixed(3) + ')';
+        ctx.lineWidth = 1.2 * (1 - phase * 0.5);
+        ctx.stroke();
+      }
+    });
+
+    placed.forEach(({q, r, m, on}) => {
       ctx.beginPath(); ctx.arc(q[0], q[1], r, 0, 7);
-      ctx.fillStyle = on ? 'rgba(255,122,0,.95)' : 'rgba(255,122,0,.55)';
+      ctx.fillStyle = on ? 'rgba(255,122,0,.95)' : 'rgba(255,122,0,.62)';
       ctx.fill();
       ctx.strokeStyle = on ? 'rgba(17,17,17,.8)' : 'rgba(247,247,243,.85)';
       ctx.lineWidth = on ? 1.2 : 0.8; ctx.stroke();
@@ -893,6 +920,7 @@ render();
   const hits = [];
 
   function frame() {
+    tick++;
     if (spin && !drag) lam = (lam + 0.16 + 540) % 360 - 180;
     draw();
     requestAnimationFrame(frame);
@@ -908,10 +936,12 @@ render();
       const px = e.clientX - b.left, py = e.clientY - b.top;
       const over = hits.find(h => (h.x - px) ** 2 + (h.y - py) ** 2 <= h.r * h.r);
       cv.style.cursor = over ? 'pointer' : 'grab';
-      readout.textContent = over
-        ? over.m.n + ' — ' + over.m.c + (over.m.c === 1 ? ' maker · ' : ' makers · ') +
-          over.m.top.join(', ')
-        : '';
+      if (!over) { tip.hidden = true; return; }
+      tip.hidden = false;
+      tip.innerHTML = '<b>' + over.m.n + ' · ' + over.m.c +
+        (over.m.c === 1 ? ' maker' : ' makers') + '</b><span>' + over.m.top.join(', ') + '</span>';
+      tip.style.left = over.x + 'px';
+      tip.style.top = (over.y - over.r - 8) + 'px';
       return;
     }
     const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
@@ -923,6 +953,8 @@ render();
   const release = () => { drag = null; };
   cv.addEventListener('pointerup', release);
   cv.addEventListener('pointercancel', release);
+  cv.addEventListener('pointerleave', () => { tip.hidden = true; });
+  cv.addEventListener('pointerdown', () => { tip.hidden = true; });
 
   cv.addEventListener('click', e => {
     if (moved) return;
@@ -945,7 +977,7 @@ render();
 
   document.getElementById('globeNote').textContent =
     MARKS.reduce((n, m) => n + m.c, 0) + ' OF ' + (window.MAKERS || []).length +
-    ' PLACED · DRAG TO TURN · CLICK A COUNTRY';
+    ' PLACED · DRAG TO TURN · HOVER FOR A COUNTRY · CLICK TO FILTER';
 
   size();
   addEventListener('resize', () => { size(); draw(); });
