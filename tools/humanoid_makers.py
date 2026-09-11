@@ -91,12 +91,20 @@ FROM_NAME = {
     "Mirax Robots": "Czech Republic",       # Mirax Robots s.r.o., Prague
     "Robros": "South Korea",                # Seoul
     "Weave Robotics": "United States",      # San Francisco
-    # Left blank on purpose:
-    #   Yoyodyne — its only model, TOPIO Dio, is TOSY's, a Vietnamese company.
-    #     The maker name looks mis-attributed upstream and assigning it a
-    #     country would tidy that away.
-    #   Kokoro, Ishiguro Lab, ATR, Aalborg University — Japan and Denmark; the
-    #     entry has no single country to carry.
+}
+
+# Dropped rather than left without a country, because neither is a company you
+# could place an order with.
+#
+# Yoyodyne's only model, TOPIO Dio, is TOSY's — a Vietnamese firm — and
+# "Yoyodyne" is a fictional company name. The row has no maker behind it.
+#
+# "Kokoro, Ishiguro Lab, ATR, Aalborg University" is the credit line on the
+# Geminoid DK project, spanning Japan and Denmark. Kokoro is already in the
+# list in its own right.
+DROP_MAKERS = {
+    "Yoyodyne",
+    "Kokoro, Ishiguro Lab, ATR, Aalborg University",
 }
 
 # Names carrying a legal suffix read badly in a card grid.
@@ -218,8 +226,12 @@ def build():
     raw = json.load(open(SNAP))
     facts_by_slug = json.load(open(FACTS)) if os.path.exists(FACTS) else {}
     out = []
+    dropped = 0
     for r in raw:
         if not r["name"] or not r["score"]:
+            continue
+        if r["name"] in DROP_MAKERS:
+            dropped += 1
             continue
         # A bare "null", or a description that is only the maker's name again,
         # adds nothing to a card. A real sentence that happens to open with the
@@ -283,8 +295,10 @@ def build():
     print("  %d robots in their catalogues (all categories, not humanoid only)"
           % sum(r["r"] for r in out))
     print("  %d countries" % len({r["c"] for r in out if r["c"] != "—"}))
+    print("  %d rows dropped: no company behind them" % dropped)
     blank = [r["n"] for r in out if r["c"] == "—"]
-    print("  %d rows still carry no country: %s" % (len(blank), ", ".join(blank)))
+    print("  %d rows carry no country%s"
+          % (len(blank), (": " + ", ".join(blank)) if blank else ""))
     blank = [r["n"] for r in out if not r.get("d") and not r.get("rb")]
     print("  %d with a one-line description, %d falling back to their models, %d with neither%s"
           % (sum(1 for r in out if r.get("d")), sum(1 for r in out if r.get("rb")), len(blank),
