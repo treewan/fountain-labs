@@ -59,11 +59,13 @@ h2{margin:20px 0 0;font-size:36px;line-height:1.12;font-weight:500;letter-spacin
 .zoom button:hover:not(:disabled){border-color:#111;color:#111}
 .zoom button:disabled{opacity:.35;cursor:default}
 .map .land{fill:#E3E3DD;stroke:none}
-/* A coloured outline over a translucent fill is what made the overlaps muddy.
-   The ring is the map's own ground, so bubbles separate without a second hue. */
-.map .bub{fill:#1E48D8;fill-opacity:.74;stroke:#F7F7F3;stroke-width:.7;stroke-opacity:1;
+/* No resting outline: measured at every zoom, no two marks on either map
+   overlap, so a ring of background separates nothing and eats half of a
+   three-pixel mark. The outline appears on hover and on the selected one,
+   where it has something to say. */
+.map .bub{fill:#1E48D8;fill-opacity:.8;stroke:none;
   cursor:pointer;transition:fill-opacity .15s}
-.map .bub:hover,.map .bub[aria-pressed="true"]{fill-opacity:.95;stroke:#111;stroke-width:.9}
+.map .bub:hover,.map .bub[aria-pressed="true"]{fill-opacity:1;stroke:#111;stroke-width:.9}
 .map .arc{fill:none;pointer-events:stroke;stroke:#55554F;stroke-opacity:.42;
   stroke-linecap:round}
 .map .ring{fill:none;stroke:#111;stroke-opacity:.3;pointer-events:none}
