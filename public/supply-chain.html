@@ -75,8 +75,13 @@ h2{margin:20px 0 0;font-size:36px;line-height:1.12;font-weight:500;letter-spacin
   font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.5px;color:#3A3A38;
   text-shadow:0 0 3px #F7F7F3,0 0 3px #F7F7F3,0 0 3px #F7F7F3}
 .lbls span b{font-weight:500;margin-left:4px}
+.lbls span.lead{font-size:12.5px;font-weight:600;color:#111;letter-spacing:.2px}
+.lbls span.lead b{font-weight:600;color:#C25E00}
+.lbls span.rest{color:#9A9A93}
+.lbls span.rest b{color:#B4B4AC}
 @media (max-width:520px){
   .lbls span{font-size:9.5px}
+  .lbls span.lead{font-size:11px}
   .zoom button{width:30px;height:30px;font-size:15px}
 }
 @media (max-width:900px){.maps{grid-template-columns:1fr;gap:22px}}
@@ -259,7 +264,7 @@ input[type=search]:focus{outline:none;border-color:#111}
     </figure>
     <figure class="map mapcn">
       <figcaption class="mono">EASTERN CHINA · BY PROVINCE</figcaption>
-      <div class="mapbox"><svg id="mapCN" viewBox="700 158 182 116" role="img"
+      <div class="mapbox"><svg id="mapCN" viewBox="740 176 137 87" role="img"
            aria-label="Map of Chinese provinces with supplier counts"></svg>
         <div class="lbls" id="lblCN"></div>
         <div class="zoom" id="ctrlCN"><button class="zin" type="button" aria-label="Zoom in">+</button><button class="zout" type="button" aria-label="Zoom out">−</button><button class="zres" type="button" aria-label="Reset the view">⟲</button></div></div>
@@ -621,8 +626,11 @@ function makeMap(svg, labels, ctrls, rows, baseR) {
     bubbles.set(p, c);
   });
 
+  /* The delta and the Pearl river base carry the map; the rest are context. */
+  const LEAD = ['Zhejiang', 'Jiangsu', 'Guangdong'];
   labels.innerHTML = sorted.map(p =>
-    '<span data-x="' + p.x + '" data-y="' + p.y + '" data-c="' + p.c + '">' + p.n +
+    '<span class="' + (LEAD.indexOf(p.n) >= 0 ? 'lead' : 'rest') + '" data-x="' + p.x +
+    '" data-y="' + p.y + '" data-c="' + p.c + '">' + p.n +
     '<b>' + p.c + '</b></span>').join('');
 
   const hit = (a, b) => !(a.right < b.left || b.right < a.left ||
