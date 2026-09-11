@@ -61,9 +61,9 @@ h2{margin:20px 0 0;font-size:36px;line-height:1.12;font-weight:500;letter-spacin
 .map .land{fill:#E3E3DD;stroke:none}
 /* A coloured outline over a translucent fill is what made the overlaps muddy.
    The ring is the map's own ground, so bubbles separate without a second hue. */
-.map .bub{stroke:#F7F7F3;stroke-width:.45;stroke-opacity:.9;cursor:pointer;
-  transition:opacity .15s}
-.map .bub:hover,.map .bub[aria-pressed="true"]{stroke:#111;stroke-opacity:.85;stroke-width:.9}
+.map .bub{fill:#1E48D8;fill-opacity:.74;stroke:#F7F7F3;stroke-width:.7;stroke-opacity:1;
+  cursor:pointer;transition:fill-opacity .15s}
+.map .bub:hover,.map .bub[aria-pressed="true"]{fill-opacity:.95;stroke:#111;stroke-width:.9}
 .map .arc{fill:none;pointer-events:stroke;stroke:#55554F;stroke-opacity:.42;
   stroke-linecap:round}
 .map .ring{fill:none;stroke:#111;stroke-opacity:.3;pointer-events:none}
@@ -578,13 +578,9 @@ function makeMap(svg, labels, ctrls, rows, baseR) {
   const view = {...base};
   const MAXZ = 12;
 
-  /* A flat disc at 50% opacity turns to mud where two overlap. A radial fade
-     reads as one mark with a centre, and stacks without muddying. */
-  const uid = svg.id;
-  const defs = svg.appendChild(el('defs', {}));
-  const grad = defs.appendChild(el('radialGradient', {id: uid + 'g'}));
-  [[0, .95], [.60, .76], [1, .12]].forEach(([off, op]) =>
-    grad.appendChild(el('stop', {offset: off, 'stop-color': BRAND, 'stop-opacity': op})));
+  /* The fade to 12% was tuned for orange, which is a neighbour of this beige.
+     Blue at that opacity over a warm ground goes grey. The mark is solid and
+     the ring of background around it does the separating instead. */
 
   (window.WORLD_PATHS || []).forEach(d => svg.appendChild(el('path', {class: 'land', d})));
 
@@ -621,7 +617,6 @@ function makeMap(svg, labels, ctrls, rows, baseR) {
     }
     const c = el('circle', {
       class: 'bub' + (china ? ' hub' : ''),
-      fill: 'url(#' + uid + 'g)',
       cx: p.x, cy: p.y, role: 'button', tabindex: '0', 'aria-pressed': 'false',
       'data-k': p.n + '|' + p.lv});
     c.appendChild(el('title', {})).textContent =
@@ -901,8 +896,9 @@ render();
       for (let k = 0; k < 2; k++) {
         const phase = (tick * 0.0055 + i * 0.137 + k * 0.5) % 1;
         const rr = r * (1 + phase * reach);
-        const fade = (1 - phase) * (on ? 0.55 : 0.32);
-        if (fade <= 0.01) continue;
+        /* A long tail of low-alpha blue on beige reads as smudge, not motion. */
+        const fade = Math.pow(1 - phase, 2.2) * (on ? 0.7 : 0.45);
+        if (fade <= 0.04) continue;
         ctx.beginPath(); ctx.arc(q[0], q[1], rr, 0, 7);
         ctx.strokeStyle = 'rgba(' + BRAND_RGB + ',' + fade.toFixed(3) + ')';
         ctx.lineWidth = 1.2 * (1 - phase * 0.5);
