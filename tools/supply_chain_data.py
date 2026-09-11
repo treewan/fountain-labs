@@ -7,11 +7,17 @@ on seven of those rows, and three companies the index does not carry, come
 from the April 2026 36Kr analysis of the Optimus chain.
 
 The index has defects that would become ours on republication, so they are
-handled rather than passed through: an exact duplicate row is dropped, one of
-two contradictory rows for the same company is dropped, and ticker formats
-are normalised. One row whose English name, Chinese name and ticker do not
-agree with each other is kept and flagged rather than silently rewritten —
-guessing which of the three fields is the wrong one is not our call.
+handled rather than passed through: an exact duplicate row is dropped and
+ticker formats are normalised.
+
+Three rows shared the ticker 300476.SZ and between them named three different
+PCB makers, which the listings separate cleanly. 世运电路 appears twice, once
+against 300476.SZ and once against its own 603920.SH; the wrong one is dropped.
+The remaining row carried the English name and city of 胜宏科技, Victory Giant
+Technology at 300476.SZ in Huizhou, with the Chinese name and founding year of
+崇达技术, Suntak at 002815.SZ. They are two companies and now two rows. Victory
+Giant's founding year is left blank: the 1995 belonged to Suntak, and published
+years for Victory Giant itself disagree.
 
 A third source is merged in from tools/field_survey.py: companies on the
 FOUNTAIN China survey itinerary of September 2026, almost all unlisted and so
@@ -141,7 +147,8 @@ INDEX = [
 ["Tuopu Group","拓普集团","Actuators","Ningbo","1983","601689.SH","Tesla"],
 ["Veichi Electric","伟创电气","Motors","Suzhou","2005","688698.SH","Tesla"],
 ["Veko Technology","富科科技","Screws","Xiamen","2005","301196.SZ","Tesla"],
-["Victory Giant Tech","崇达技术","PCBs & Logic","Huizhou","1995","300476.SZ","Tesla"],
+["Victory Giant Tech","胜宏科技","PCBs & Logic","Huizhou","","300476.SZ","Tesla"],
+["Suntak Technology","崇达技术","PCBs & Logic","","1995","002815.SZ","Tesla"],
 ["Wanma","万马股份","Other Components","Hangzhou","1989","002276.SZ","Unitree"],
 ["Wanxiang Qianchao","万向钱潮","Other Components","Hangzhou","1969","000559.SZ","Tesla"],
 ["Weiguang Electronic","微光股份","Motors","Hangzhou","1986","002801.SZ","Tesla"],
@@ -188,7 +195,7 @@ EXTRA = [
 
 # The English name, Chinese name and ticker on this row do not agree with each
 # other. Left as published and marked, rather than us picking which to rewrite.
-DISPUTED = {("Victory Giant Tech", "300476.SZ")}
+DISPUTED = set()
 
 # Of the two rows published for this company, only one ticker can be right.
 DROP = {("Shijie Technology", "300476.SZ")}
