@@ -158,7 +158,7 @@ input[type=search]:focus{outline:none;border-color:#111}
 .btn.sm{padding:6px 14px;font-size:12.5px}
 .readout{font-size:13px;color:#3A3A38;min-height:1.2em;text-align:center;
   max-width:430px;line-height:1.4}
-.substats{margin-top:34px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;
+.substats{margin-top:34px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;
   padding-top:20px;border-top:1px solid #111}
 .substat{font-size:26px;font-weight:500;letter-spacing:-.03em;line-height:1}
 .geo{margin-top:34px}
@@ -308,7 +308,6 @@ input[type=search]:focus{outline:none;border-color:#111}
     <div><div class="substat" id="mN">—</div><div class="statcap">makers on file, in <span id="mG">—</span> countries; <span id="mT">—</span> also buy from the index above</div></div>
     <div><div class="substat" id="mD">—</div><div class="statcap">have shipped to a customer someone can name</div></div>
     <div><div class="substat" id="mF">—</div><div class="statcap">have a funding round anyone has confirmed</div></div>
-    <div><div class="substat" id="mA">—</div><div class="statcap">added by hand, because the board cannot see them</div></div>
   </div>
 
   <div class="geo">
@@ -914,7 +913,7 @@ render();
 /* ---- Demand side ------------------------------------------------------- */
 const M = window.MAKERS || [];
 var geo = null, commercialOnly = false, shippedOnly = false, fundedOnly = false,
-    trailOnly = false, addedOnly = false, allM = false;
+    allM = false;
 
 const geoTally = {};
 M.forEach(r => { geoTally[r.c] = (geoTally[r.c] || 0) + 1; });
@@ -930,7 +929,6 @@ $('mG').textContent = KNOWN.length;
 $('mT').textContent = M.filter(r => r.buy).length;
 $('mD').textContent = M.filter(r => r.dep).length;
 $('mF').textContent = M.filter(r => r.cap).length;
-$('mA').textContent = M.filter(r => r.src).length;
 
 /* Five bands and a remainder: a bar with twenty slivers reads as noise. */
 KNOWN.slice(0, 5)
@@ -955,8 +953,6 @@ chips($('fGeo'), GEOS.map(([c, n]) => [c, n]), () => geo, v => { geo = v; }, ren
 [['Commercial only', () => commercialOnly, v => { commercialOnly = v; }],
  ['Shipped to someone', () => shippedOnly, v => { shippedOnly = v; }],
  ['Funding on file', () => fundedOnly, v => { fundedOnly = v; }],
- ['Named in the index above', () => trailOnly, v => { trailOnly = v; }],
- ['Missing from the board', () => addedOnly, v => { addedOnly = v; }]
 ].forEach(([label, get, set]) => {
   const b = document.createElement('button');
   b.className = 'chip';
@@ -974,8 +970,6 @@ function visibleM() {
     if (commercialOnly && r.lab) return false;
     if (shippedOnly && !r.dep) return false;
     if (fundedOnly && !r.cap) return false;
-    if (trailOnly && !r.buy) return false;
-    if (addedOnly && !r.src) return false;
     if (!t) return true;
     return [r.n, r.c, r.hq || '', r.d || '', r.buy || '', r.cap || '', r.src || '',
       (r.dc || []).join(' '), (r.rb || []).join(' ')]
@@ -987,8 +981,7 @@ function renderM() {
   [...$('fGeo').children].forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === geo)));
   const rows = visibleM();
   const scope = [geo, commercialOnly ? 'commercial' : null, shippedOnly ? 'shipped' : null,
-    fundedOnly ? 'funded' : null, trailOnly ? 'in the index' : null,
-    addedOnly ? 'off the board' : null]
+    fundedOnly ? 'funded' : null]
     .filter(Boolean).join(' · ') || 'everything';
   const shown = allM ? rows : rows.slice(0, LIMIT);
   $('mcount').textContent = rows.length + ' of ' + M.length + ' · ' + scope +
@@ -1016,7 +1009,7 @@ function renderM() {
 $('mq').oninput = renderM;
 $('mreset').onclick = () => {
   geo = null; commercialOnly = false; shippedOnly = false; fundedOnly = false;
-  trailOnly = false; addedOnly = false; allM = false;
+  allM = false;
   $('mq').value = '';
   [...$('fView').children].forEach(b => b.setAttribute('aria-pressed', 'false'));
   renderM();
