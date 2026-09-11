@@ -121,7 +121,7 @@ INDEX = [
 ["MOONS' Industries","鸣志电器","Motors","Shanghai","1994","603728.SH","Tesla/Figure AI/Unitree"],
 ["Ningbo Dongli","宁波东力","Reducers","Ningbo","1997","002164.SZ","Tesla"],
 ["Orbbec","奥比中光","Sensors","Shenzhen","2013","688322.SH","AGI Bot/Unitree"],
-["PaXiNi","帕西尼","Hand Units","Shenzhen","2021","Private","Figure AI/Unitree"],
+["PaXiNi","帕西尼","Sensors","Shenzhen","2021","Private","Figure AI/Unitree"],
 ["Power Transmission","全力传动","Reducers","Yinchuan","2003","300904.SZ","Tesla"],
 ["Prestige New Materials","普利特","Materials","Shanghai","1993","002324.SZ","Tesla"],
 ["Qinchuan Machine Tool","秦川机床","Reducers","Baoji","1965","000837.SZ","Tesla"],
@@ -174,6 +174,8 @@ INDEX = [
 # Rows in the index carrying a figure from the 36Kr analysis, keyed by Chinese
 # name because the English names differ between the two sources.
 NOTES = {
+    "帕西尼": "Multi-dimensional tactile sensors and robot joint modules. The source index "
+              "files it under hands.",
 "拓普集团": "Tier 0.5 for Optimus, assembling linear and rotary actuators. Tesla reported at 35–40% of revenue; Mexico plant in production, 300,000 sets targeted for Q2 2026.",
 "三花智控": "Joint module assemblies. $685M Tesla order in October 2025, deliveries from Mexico from 2026.",
 "绿的谐波": "Harmonic reducers: over 60% of the domestic market, over 35% globally. Passed Tesla verification and supplies its Mexico plant exclusively; humanoid revenue reached 30% in Q1 2025.",

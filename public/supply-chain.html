@@ -372,7 +372,7 @@ const AXIS = 60000;   /* every row is drawn against this, in dollars */
    total each source states, except the body-region row, which was published in
    dollars and is used as published. */
 const BREAKDOWNS = [
-  {src:'humanoid.guide', when:'2026', axis:'AS BUILT NOW · BY PART', total:50000,
+  {src:'', when:'2026', axis:'AS BUILT NOW · BY PART', total:50000,
    note:'~$50K a unit', items:[
     ['Actuation and precision motion', 25000, C.act], ['Hands', 7500, C.hand],
     ['Sensors', 5000, C.sens], ['AI compute', 4000, C.comp], ['Structure', 3500, C.str],
@@ -381,14 +381,14 @@ const BREAKDOWNS = [
    note:'Tesla Optimus, $20K target', items:[
     ['Actuators', 7000, C.act], ['Sensors and other', 4000, C.sens],
     ['Lead screws', 3600, C.screw], ['Reducers', 3000, C.red], ['Motors', 2400, C.mot]]},
-  {src:'Morgan Stanley', when:'undated', axis:'AS BUILT NOW · BY BODY REGION', total:55000,
+  {src:'', when:'', axis:'AS BUILT NOW · BY BODY REGION', total:55000,
    note:'A dexterous full-size unit, ~$55K', items:[
     ['Hands', 9500, '#111'], ['Waist and pelvis', 7800, '#2E2E2A'], ['Thigh', 7300, '#45453F'],
     ['Calf', 7300, '#5C5C55'], ['Feet', 6700, '#73736A'], ['Elbow', 2600, '#8A8A80'],
     ['Forearm', 2200, '#A1A196'], ['Head', 2100, '#B8B8AC'], ['Shoulder', 2100, '#CFCFC2'],
     ['Upper arm', 1100, '#DEDED2'], ['Battery pack', 300, '#E8E8DC'], ['Other', 500, '#F0F0E6']],
-   foot:'Read via GrabaRobot, 2026, which does not date the underlying estimate. The published ' +
-     'line items come to $49,400 of the stated ~$55,000; the bar stops where they stop.'},
+   foot:'The estimate carries no date. Its published line items come to $49,400 of the stated ' +
+     '~$55,000; the bar stops where they stop.'},
 ];
 const S = window.SUPPLIERS || [];
 const SRC = {
