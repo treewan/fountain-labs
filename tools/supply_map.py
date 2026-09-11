@@ -120,32 +120,64 @@ def main():
                     **({"cs": [c for c, _ in ranked]} if ranked else {}),
                     **({"top": [f"{c} {n}" for c, n in ranked[:3]]} if ranked else {})})
 
-    # The two links between the concentrations are not the same kind of link,
-    # and the map should not pretend they are. China to the United States is a
-    # demand link that the buyer field records directly. China to Europe is not
-    # a demand link at all — no row in the index names a European buyer — it
-    # joins the two halves of the supply base.
-    EUROPE = {"Germany", "Switzerland", "Sweden", "Netherlands", "Italy",
-              "United Kingdom", "Austria", "Slovakia"}
+    # Every region outside China, drawn converging on it. The regions are cut
+    # so they cover the non-Chinese rows exactly once — their counts sum to the
+    # whole remainder, so a thin arc means a thin region and not an omission.
+    REGIONS = [
+        ("North America", ["United States"]),
+        ("Europe", ["Germany", "Switzerland", "Sweden", "Netherlands", "Italy",
+                    "United Kingdom", "Austria", "Slovakia"]),
+        ("East Asia", ["Japan", "South Korea", "Taiwan"]),
+        ("Middle East", ["Israel"]),
+    ]
     US_BUYERS = {"Tesla", "Figure AI"}
     by_country = {p["n"]: p for p in out if p["lv"] == "country"}
-    eu = [by_country[c] for c in EUROPE if c in by_country]
-    eu_n = sum(p["c"] for p in eu)
-    eu_x = sum(p["x"] * p["c"] for p in eu) / eu_n
-    eu_y = sum(p["y"] * p["c"] for p in eu) / eu_n
+    china = by_country["China"]
+    arcs = []
+    for name, members in REGIONS:
+        ms = [by_country[c] for c in members if c in by_country]
+        n = sum(p["c"] for p in ms)
+        if not n:
+            continue
+        arcs.append({
+            "n": name, "c": n, "nc": len(ms),
+            "from": [round(sum(p["x"] * p["c"] for p in ms) / n, 1),
+                     round(sum(p["y"] * p["c"] for p in ms) / n, 1)],
+            "to": [china["x"], china["y"]],
+            "label": "%s — %d makers%s" % (name, n,
+                     " across %d countries" % len(ms) if len(ms) > 1 else ""),
+        })
+    # Four lines into one point arrive within 15 degrees of each other if they
+    # are all drawn the same way. Each docks on a ring outside China's bubble at
+    # its own bearing, pushed apart to a minimum separation, and each gets its
+    # own curvature — so the fan is deliberate rather than a tangle.
+    for a in arcs:
+        a["bear"] = math.degrees(math.atan2(a["from"][1] - china["y"],
+                                            a["from"][0] - china["x"])) % 360
+    arcs.sort(key=lambda a: a["bear"])
+    MIN_SEP, DOCK_R = 26.0, 30.0
+    for i in range(1, len(arcs)):                      # push apart in order
+        gap = arcs[i]["bear"] - arcs[i - 1]["bear"]
+        if gap < MIN_SEP:
+            arcs[i]["bear"] = arcs[i - 1]["bear"] + MIN_SEP
+    shift = (sum(a["bear"] for a in arcs) / len(arcs))
+    origin = (sum(math.degrees(math.atan2(a["from"][1] - china["y"],
+                                          a["from"][0] - china["x"])) % 360
+                  for a in arcs) / len(arcs))
+    for a in arcs:                                     # re-centre on where they came from
+        a["bear"] += origin - shift
+    for i, a in enumerate(arcs):
+        b = math.radians(a["bear"])
+        a["to"] = [round(china["x"] + DOCK_R * math.cos(b), 1),
+                   round(china["y"] + DOCK_R * math.sin(b), 1)]
+        a["k"] = round(0.08 + 0.12 * i, 3)
+        a.pop("bear")
+
+    covered = sum(a["c"] for a in arcs)
+    outside = sum(p["c"] for p in by_country.values()) - china["c"]
+    assert covered == outside, "regions cover %d of %d" % (covered, outside)
     feeds_us = sum(1 for r in rows
                    if r["co"] == "China" and any(b in US_BUYERS for b in r["cu"]))
-    arcs = [
-        {"from": [by_country["China"]["x"], by_country["China"]["y"]],
-         "to": [by_country["United States"]["x"], by_country["United States"]["y"]],
-         "kind": "demand", "n": feeds_us,
-         "label": "%d Chinese rows supply Tesla or Figure AI" % feeds_us},
-        {"from": [by_country["China"]["x"], by_country["China"]["y"]],
-         "to": [round(eu_x, 1), round(eu_y, 1)],
-         "kind": "peer", "n": eu_n,
-         "label": "%d component makers across %d European countries; no European buyer on file"
-                  % (eu_n, len(eu))},
-    ]
 
     # The world silhouette is reused from the map already in the repo; only the
     # outlines are taken, not its activity shading.
@@ -154,6 +186,7 @@ def main():
     OUT.write_text(
         "window.SUPPLY_MAP = " + json.dumps(out, ensure_ascii=False) + ";\n"
         "window.SUPPLY_ARCS = " + json.dumps(arcs, ensure_ascii=False) + ";\n"
+        "window.CN_FEEDS_US = " + str(feeds_us) + ";\n"
         "window.WORLD_PATHS = " + json.dumps(paths) + ";\n")
 
     placed = sum(p["c"] for p in out if p["lv"] == "country")
@@ -168,8 +201,9 @@ def main():
               + ", ".join("%s (%d rows)" % (c, n) for c, n in unplaced.items()))
     print("  %d Chinese rows carry no city and sit in the national count only" % no_city)
     print("  %d rows have no country in the source" % no_country)
-    for a in arcs:
-        print("  arc %-7s %s" % (a["kind"], a["label"]))
+    print("  arcs converge on China: " + ", ".join("%s %d" % (a["n"], a["c"]) for a in arcs)
+          + " (%d of %d rows outside China)" % (covered, outside))
+    print("  %d Chinese rows supply an American programme" % feeds_us)
     return 0
 
 
