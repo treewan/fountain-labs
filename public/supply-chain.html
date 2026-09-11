@@ -59,13 +59,14 @@ h2{margin:20px 0 0;font-size:36px;line-height:1.12;font-weight:500;letter-spacin
 .zoom button:hover:not(:disabled){border-color:#111;color:#111}
 .zoom button:disabled{opacity:.35;cursor:default}
 .map .land{fill:#E3E3DD;stroke:none}
-.map .bub{stroke:#C25E00;stroke-width:.5;stroke-opacity:.55;cursor:pointer;
+/* A coloured outline over a translucent fill is what made the overlaps muddy.
+   The ring is the map's own ground, so bubbles separate without a second hue. */
+.map .bub{stroke:#F7F7F3;stroke-width:.45;stroke-opacity:.9;cursor:pointer;
   transition:opacity .15s}
-.map .bub:hover,.map .bub[aria-pressed="true"]{stroke-opacity:1;stroke-width:1.1}
-.map .bub.cn{stroke:#16348F}
+.map .bub:hover,.map .bub[aria-pressed="true"]{stroke:#111;stroke-opacity:.85;stroke-width:.9}
 .map .arc{fill:none;pointer-events:stroke;stroke:#55554F;stroke-opacity:.42;
   stroke-linecap:round}
-.map .ring{fill:none;stroke:#16348F;stroke-opacity:.45;pointer-events:none}
+.map .ring{fill:none;stroke:#111;stroke-opacity:.3;pointer-events:none}
 .hublede{margin-top:12px;font-size:13px;line-height:1.55;color:#55554F;max-width:560px}
 .hublede b{font-weight:500;color:#111}
 
@@ -76,7 +77,7 @@ h2{margin:20px 0 0;font-size:36px;line-height:1.12;font-weight:500;letter-spacin
   text-shadow:0 0 3px #F7F7F3,0 0 3px #F7F7F3,0 0 3px #F7F7F3}
 .lbls span b{font-weight:500;margin-left:4px}
 .lbls span.lead{font-size:12.5px;font-weight:600;color:#111;letter-spacing:.2px}
-.lbls span.lead b{font-weight:600;color:#C25E00}
+.lbls span.lead b{font-weight:600;color:#111}
 .lbls span.rest{color:#9A9A93}
 .lbls span.rest b{color:#B4B4AC}
 @media (max-width:520px){
@@ -570,11 +571,9 @@ function makeMap(svg, labels, ctrls, rows, baseR) {
      reads as one mark with a centre, and stacks without muddying. */
   const uid = svg.id;
   const defs = svg.appendChild(el('defs', {}));
-  [['o', '#FF7A00'], ['b', '#1E48D8']].forEach(([k, col]) => {
-    const g = defs.appendChild(el('radialGradient', {id: uid + k}));
-    [[0, .95], [.60, .76], [1, .12]].forEach(([off, op]) =>
-      g.appendChild(el('stop', {offset: off, 'stop-color': col, 'stop-opacity': op})));
-  });
+  const grad = defs.appendChild(el('radialGradient', {id: uid + 'g'}));
+  [[0, .95], [.60, .76], [1, .12]].forEach(([off, op]) =>
+    grad.appendChild(el('stop', {offset: off, 'stop-color': '#FF7A00', 'stop-opacity': op})));
 
   (window.WORLD_PATHS || []).forEach(d => svg.appendChild(el('path', {class: 'land', d})));
 
@@ -610,8 +609,8 @@ function makeMap(svg, labels, ctrls, rows, baseR) {
       rings.set(p, ring);
     }
     const c = el('circle', {
-      class: 'bub' + (p.co === 'China' ? ' cn' : '') + (china ? ' hub' : ''),
-      fill: 'url(#' + uid + (p.co === 'China' ? 'b' : 'o') + ')',
+      class: 'bub' + (china ? ' hub' : ''),
+      fill: 'url(#' + uid + 'g)',
       cx: p.x, cy: p.y, role: 'button', tabindex: '0', 'aria-pressed': 'false',
       'data-k': p.n + '|' + p.lv});
     c.appendChild(el('title', {})).textContent =
@@ -880,7 +879,8 @@ render();
       ctx.beginPath(); ctx.arc(q[0], q[1], r, 0, 7);
       ctx.fillStyle = on ? 'rgba(255,122,0,.95)' : 'rgba(255,122,0,.55)';
       ctx.fill();
-      ctx.strokeStyle = '#C25E00'; ctx.lineWidth = on ? 1.4 : 0.7; ctx.stroke();
+      ctx.strokeStyle = on ? 'rgba(17,17,17,.8)' : 'rgba(247,247,243,.85)';
+      ctx.lineWidth = on ? 1.2 : 0.8; ctx.stroke();
       hits.push({x: q[0], y: q[1], r: Math.max(r, 9), m: m});
     });
   }
