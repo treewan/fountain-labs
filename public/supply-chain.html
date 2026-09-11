@@ -113,7 +113,6 @@ input[type=search]:focus{outline:none;border-color:#111}
 .tag.commercial{border:1px solid #E6E6E2;background:none}
 .tag.survey{background:#FF7A00;color:#fff}
 .tag.core{background:#111;color:#fff}
-.meta .ev2{grid-column:2/-1}
 .chip[hidden]{display:none}
 .caveat{margin-top:10px;font-size:12.5px;line-height:1.55;color:#8A8A85;max-width:620px}
 .card .note{margin-top:11px;padding-top:10px;border-top:1px dashed #E6E6E2;
@@ -399,6 +398,13 @@ const SRC = {
 };
 const CORE_TAG = 'NAMED AS CORE';
 const EV = {
+  integration: 'ON A NAMED PLATFORM',
+  partnership: 'DISCLOSED PARTNERSHIP',
+  commercial: 'SELLS INTO THE CATEGORY',
+  capacity: 'NAMED CAPACITY HOLDER',
+  survey: 'FOUNTAIN SITE SURVEY',
+};
+const EV_LONG = {
   integration: 'Documented on a named platform',
   partnership: 'Partnership both sides disclose',
   commercial: 'Sells for this use, no platform named',
@@ -519,15 +525,18 @@ function render() {
   more($('moreS'), rows, allS, v => { allS = v; }, render);
   $('cards').innerHTML = rows.length ? shown.map(r =>
     '<div class="card"><h3>' + r.en + (r.cn ? '<span class="cn">' + r.cn + '</span>' : '') + '</h3>' +
+    /* One grid for every card. The rows without a listing used to replace two
+       cells with an Evidence line spanning both, which made them read as a
+       different kind of object beside the rest. The evidence is on the tag. */
     '<div class="meta"><span><b>Part</b> ' + r.cat + '</span>' +
-    '<span><b>Where</b> ' + (r.city ? r.city + ', ' + r.co : r.co) + '</span>' +
-    (r.stk ? '<span><b>Founded</b> ' + (r.yr || '—') + '</span>' +
-             '<span><b>Listed</b> ' + r.stk + '</span>'
-           : '<span class="ev2"><b>Evidence</b> ' + (EV[r.ev] || '—') + '</span>') + '</div>' +
+    '<span><b>Where</b> ' + [r.city, r.co].filter(v => v && v !== '—').join(', ') + '</span>' +
+    '<span><b>Founded</b> ' + (r.yr || '—') + '</span>' +
+    '<span><b>Listed</b> ' + (r.stk || '—') + '</span></div>' +
     ((r.cu.length || r.ev || r.rk === 5) ? '<div class="tags">' +
       (r.rk === 5 ? '<span class="tag core">' + CORE_TAG + '</span>' : '') +
       r.cu.map(c => '<span class="tag">' + c + '</span>').join('') +
-      (r.ev ? '<span class="tag ' + r.ev + '">' + r.ev.toUpperCase() + '</span>' : '') +
+      (r.ev ? '<span class="tag ' + r.ev + '" title="' + EV_LONG[r.ev] + '">' +
+        EV[r.ev] + '</span>' : '') +
       '</div>' : '') +
     (r.note ? '<div class="note">' + r.note + '</div>' : '') +
     (r.flag ? '<div class="flag">⚠ ' + r.flag + '</div>' : '') + '</div>').join('')
@@ -769,7 +778,7 @@ $('csv').onclick = () => {
   const out = [['Company', 'Chinese name', 'Subsystem', 'Part', 'Country', 'City',
     'Founded', 'Listing', 'Buyers', 'Evidence', 'Note']];
   visible().forEach(r => out.push([r.en, r.cn, r.grp, r.cat, r.co, r.city, r.yr, r.stk,
-    r.cu.join(' / '), EV[r.ev] || '', r.note || '']));
+    r.cu.join(' / '), EV_LONG[r.ev] || '', r.note || '']));
   const blob = new Blob(['﻿' + out.map(r => r.map(esc).join(',')).join('\r\n')],
     {type: 'text/csv;charset=utf-8'});
   const a = document.createElement('a');
