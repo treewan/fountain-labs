@@ -68,7 +68,6 @@ h2{margin:20px 0 0;font-size:36px;line-height:1.12;font-weight:500;letter-spacin
 .map .ring{fill:none;stroke:#16348F;stroke-opacity:.45;pointer-events:none}
 .hublede{margin-top:12px;font-size:13px;line-height:1.55;color:#55554F;max-width:560px}
 .hublede b{font-weight:500;color:#111}
-.arcnote{display:block;margin-top:8px}
 
 .mapbox{position:relative}
 .lbls{position:absolute;inset:0;pointer-events:none}
@@ -267,7 +266,6 @@ input[type=search]:focus{outline:none;border-color:#111}
       <p class="hublede" id="ledeCN"></p>
     </figure>
   </div>
-  <p class="caveat" id="mapNote"></p>
 
   <div class="tools">
     <input type="search" id="q" placeholder="Search name, Chinese name, city, ticker…" aria-label="Search suppliers">
@@ -728,12 +726,6 @@ makeMap($('mapCN'), $('lblCN'), $('ctrlCN'),
       (cn.c > rest ? 'more than every other country on this map put together, and ' : '') +
       (cn.c / next.c).toFixed(1) + ' times the next one, ' + next.n + '.';
   }
-  const A = window.SUPPLY_ARCS || [];
-  if (A.length) $('ledeWorld').innerHTML += ' <span class="arcnote">Every other concentration ' +
-    'in the index — ' + A.map(a => a.n.toLowerCase() + ' ' + a.c).join(', ') +
-    ' — is drawn converging on it. Only one of those lines runs the other way as a customer: ' +
-    (window.CN_FEEDS_US || 0) + ' Chinese rows supply Tesla or Figure AI, and no row anywhere in ' +
-    'the index names a European, Japanese or Korean buyer.</span>';
 
   const YRD = ['Zhejiang', 'Jiangsu', 'Shanghai'];
   const delta = PLACES.filter(p => p.lv === 'province' && YRD.indexOf(p.n) >= 0)
@@ -744,14 +736,6 @@ makeMap($('mapCN'), $('lblCN'), $('ctrlCN'),
     Math.round(delta / S.length * 100) + '% of the whole index inside one river basin.';
 })();
 
-$('mapNote').textContent =
-  PLACES.filter(p => p.lv === 'country').reduce((n, p) => n + p.c, 0) +
-  ' of ' + S.length + ' rows carry a country and are on the world panel. The China panel splits ' +
-  "that country's total by province, which only the listed-company rows support, because only " +
-  'they carry a city. Eight Chinese rows name no city, two say just "Taizhou" — a city in Jiangsu ' +
-  'and a different city in Zhejiang 600km away — and four rows name no country at all. Those ' +
-  'sixteen are in the index and in the national count, not on a province. Scroll or pinch to ' +
-  'zoom, drag to pan, click a bubble to filter.';
 
 $('q').oninput = render;
 $('reset').onclick = () => {
