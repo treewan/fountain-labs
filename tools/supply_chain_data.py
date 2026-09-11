@@ -244,11 +244,22 @@ def main():
     for r in rows:
         r["grp"] = GROUP.get(r["cat"], "Structure")
 
+    # The ten companies the 36Kr teardown of the Optimus chain names as its core,
+    # in the order that analysis presents them: actuator assembly, then precision
+    # transmission, then motor and sensor. They lead the index, because they are
+    # the answer to the question it is built around.
+    CORE = ["拓普集团", "三花智控",
+            "绿的谐波", "五洲新春", "双环传动", "新剑传动",
+            "AMETEK", "兆威机电", "柯力传感", "汇川技术"]
+    core_at = {name: i for i, name in enumerate(CORE)}
+
     # Alphabetical put 3M at the head of a robotics supply chain index, which is
-    # a fact about spelling. Rows are ranked by how well the link to a humanoid
-    # programme is evidenced, so the first screen is the best-evidenced one, and
-    # sorted by name inside each band.
+    # a fact about spelling. Everything below the core is ranked by how well the
+    # link to a humanoid programme is evidenced, and sorted by name inside each
+    # band.
     def rank(r):
+        if r["cn"] in core_at or r["en"] in core_at:
+            return 5
         ev = r.get("ev")
         if ev == "integration":
             return 4
@@ -261,7 +272,14 @@ def main():
         return 0                                   # commercial: sells into the category
     for r in rows:
         r["rk"] = rank(r)
-    rows.sort(key=lambda r: (-r["rk"], -len(r["cu"]), r["en"].lower()))
+    def order(r):
+        if r["rk"] == 5:                           # the report's own sequence
+            return (-5, core_at.get(r["cn"], core_at.get(r["en"], 99)), "")
+        return (-r["rk"], -len(r["cu"]), r["en"].lower())
+    rows.sort(key=order)
+    missing = [c for c in CORE if not any(r["cn"] == c or r["en"] == c for r in rows)]
+    if missing:
+        raise SystemExit("core company not in the index: " + ", ".join(missing))
     cats = {}
     custs = {}
     cos = {}

@@ -112,6 +112,7 @@ input[type=search]:focus{outline:none;border-color:#111}
 .tag.capacity{background:#B87A00;color:#fff}
 .tag.commercial{border:1px solid #E6E6E2;background:none}
 .tag.survey{background:#FF7A00;color:#fff}
+.tag.core{background:#111;color:#fff}
 .meta .ev2{grid-column:2/-1}
 .chip[hidden]{display:none}
 .caveat{margin-top:10px;font-size:12.5px;line-height:1.55;color:#8A8A85;max-width:620px}
@@ -396,6 +397,7 @@ const SRC = {
   category: 'ON ROBOLIST, ANOTHER CATEGORY',
   absent: 'NOT ON ROBOLIST',
 };
+const CORE_TAG = 'NAMED AS CORE · 36KR';
 const EV = {
   integration: 'Documented on a named platform',
   partnership: 'Partnership both sides disclose',
@@ -510,7 +512,9 @@ function render() {
     .filter(Boolean).join(' · ') || 'everything';
   const shown = allS ? rows : rows.slice(0, LIMIT);
   $('count').textContent = rows.length + ' of ' + S.length + ' · ' + scope +
-    (shown.length < rows.length ? ' · showing the ' + shown.length + ' best evidenced' : '');
+    (shown.length < rows.length
+      ? ' · showing ' + shown.length + ', the Optimus chain core first'
+      : '');
   more($('moreS'), rows, allS, v => { allS = v; }, render);
   $('cards').innerHTML = rows.length ? shown.map(r =>
     '<div class="card"><h3>' + r.en + (r.cn ? '<span class="cn">' + r.cn + '</span>' : '') + '</h3>' +
@@ -519,7 +523,8 @@ function render() {
     (r.stk ? '<span><b>Founded</b> ' + (r.yr || '—') + '</span>' +
              '<span><b>Listed</b> ' + r.stk + '</span>'
            : '<span class="ev2"><b>Evidence</b> ' + (EV[r.ev] || '—') + '</span>') + '</div>' +
-    ((r.cu.length || r.ev) ? '<div class="tags">' +
+    ((r.cu.length || r.ev || r.rk === 5) ? '<div class="tags">' +
+      (r.rk === 5 ? '<span class="tag core">' + CORE_TAG + '</span>' : '') +
       r.cu.map(c => '<span class="tag">' + c + '</span>').join('') +
       (r.ev ? '<span class="tag ' + r.ev + '">' + r.ev.toUpperCase() + '</span>' : '') +
       '</div>' : '') +
