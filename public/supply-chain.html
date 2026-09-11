@@ -846,9 +846,14 @@ render();
     const w = cv.width / (cv.width / cv.getBoundingClientRect().width || 1);
     ctx.clearRect(0, 0, cv.width, cv.height);
 
-    ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.fillStyle = '#F0F0EA'; ctx.fill();
+    /* Ocean shaded from the upper left so the disc reads as a sphere. */
+    const sea = ctx.createRadialGradient(cx - R * .38, cy - R * .38, R * .08, cx, cy, R * 1.02);
+    sea.addColorStop(0, '#A6D0E8');
+    sea.addColorStop(.55, '#5E9AC4');
+    sea.addColorStop(1, '#2C6389');
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.fillStyle = sea; ctx.fill();
 
-    ctx.strokeStyle = '#E2E2DA'; ctx.lineWidth = 0.6;
+    ctx.strokeStyle = 'rgba(255,255,255,.20)'; ctx.lineWidth = 0.6;
     for (let lat = -60; lat <= 60; lat += 30) {          /* parallels */
       ctx.beginPath(); let on = false;
       for (let lon = -180; lon <= 180; lon += 3) {
@@ -868,7 +873,7 @@ render();
       ctx.stroke();
     }
 
-    ctx.fillStyle = '#D3D3C9';
+    ctx.fillStyle = '#5FA265';
     LAND.forEach(ring => {
       ctx.beginPath(); let on = false;
       for (let i = 0; i < ring.length; i += 2) {
@@ -879,8 +884,11 @@ render();
       ctx.fill();
     });
 
+    /* A thin bright rim, then a soft halo outside it: the limb of a lit sphere. */
     ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7);
-    ctx.strokeStyle = '#C9C9BE'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,.34)'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.beginPath(); ctx.arc(cx, cy, R + 2.5, 0, 7);
+    ctx.strokeStyle = 'rgba(94,154,196,.22)'; ctx.lineWidth = 4; ctx.stroke();
 
     hits.length = 0;
     const placed = [];
@@ -902,7 +910,7 @@ render();
         const fade = (1 - phase) * (on ? 0.55 : 0.32);
         if (fade <= 0.01) continue;
         ctx.beginPath(); ctx.arc(q[0], q[1], rr, 0, 7);
-        ctx.strokeStyle = 'rgba(255,122,0,' + fade.toFixed(3) + ')';
+        ctx.strokeStyle = 'rgba(255,150,40,' + fade.toFixed(3) + ')';
         ctx.lineWidth = 1.2 * (1 - phase * 0.5);
         ctx.stroke();
       }
@@ -912,8 +920,8 @@ render();
       ctx.beginPath(); ctx.arc(q[0], q[1], r, 0, 7);
       ctx.fillStyle = on ? 'rgba(255,122,0,.95)' : 'rgba(255,122,0,.62)';
       ctx.fill();
-      ctx.strokeStyle = on ? 'rgba(17,17,17,.8)' : 'rgba(247,247,243,.85)';
-      ctx.lineWidth = on ? 1.2 : 0.8; ctx.stroke();
+      ctx.strokeStyle = on ? 'rgba(255,255,255,.95)' : 'rgba(255,255,255,.7)';
+      ctx.lineWidth = on ? 1.4 : 0.9; ctx.stroke();
       hits.push({x: q[0], y: q[1], r: Math.max(r, 9), m: m});
     });
   }
