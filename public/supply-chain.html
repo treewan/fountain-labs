@@ -563,6 +563,8 @@ function render() {
    Chinese rows carry a city and are drawn by province; everything else has
    only a country. Two panels share one projection and one set of outlines —
    the second is the same SVG at a tighter viewBox. Both pan and zoom. */
+const BRAND = '#1E48D8';          /* the site's blue, as on the homepage */
+const BRAND_RGB = '30,72,216';
 const PLACES = window.SUPPLY_MAP || [];
 let place = null;
 const maps = [];
@@ -582,7 +584,7 @@ function makeMap(svg, labels, ctrls, rows, baseR) {
   const defs = svg.appendChild(el('defs', {}));
   const grad = defs.appendChild(el('radialGradient', {id: uid + 'g'}));
   [[0, .95], [.60, .76], [1, .12]].forEach(([off, op]) =>
-    grad.appendChild(el('stop', {offset: off, 'stop-color': '#FF7A00', 'stop-opacity': op})));
+    grad.appendChild(el('stop', {offset: off, 'stop-color': BRAND, 'stop-opacity': op})));
 
   (window.WORLD_PATHS || []).forEach(d => svg.appendChild(el('path', {class: 'land', d})));
 
@@ -902,7 +904,7 @@ render();
         const fade = (1 - phase) * (on ? 0.55 : 0.32);
         if (fade <= 0.01) continue;
         ctx.beginPath(); ctx.arc(q[0], q[1], rr, 0, 7);
-        ctx.strokeStyle = 'rgba(255,122,0,' + fade.toFixed(3) + ')';
+        ctx.strokeStyle = 'rgba(' + BRAND_RGB + ',' + fade.toFixed(3) + ')';
         ctx.lineWidth = 1.2 * (1 - phase * 0.5);
         ctx.stroke();
       }
@@ -910,7 +912,7 @@ render();
 
     placed.forEach(({q, r, m, on}) => {
       ctx.beginPath(); ctx.arc(q[0], q[1], r, 0, 7);
-      ctx.fillStyle = on ? 'rgba(255,122,0,.95)' : 'rgba(255,122,0,.62)';
+      ctx.fillStyle = 'rgba(' + BRAND_RGB + (on ? ',.95)' : ',.62)');
       ctx.fill();
       ctx.strokeStyle = on ? 'rgba(17,17,17,.8)' : 'rgba(247,247,243,.85)';
       ctx.lineWidth = on ? 1.2 : 0.8; ctx.stroke();
