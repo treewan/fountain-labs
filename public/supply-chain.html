@@ -78,8 +78,8 @@ h2{margin:20px 0 0;font-size:36px;line-height:1.12;font-weight:500;letter-spacin
 .lbls span b{font-weight:500;margin-left:4px}
 .lbls span.lead{font-size:12.5px;font-weight:600;color:#111;letter-spacing:.2px}
 .lbls span.lead b{font-weight:600;color:#111}
-.lbls span.rest{color:#9A9A93}
-.lbls span.rest b{color:#B4B4AC}
+.lbls span.rest{color:#6B6B63}
+.lbls span.rest b{color:#8A8A82}
 @media (max-width:520px){
   .lbls span{font-size:9.5px}
   .lbls span.lead{font-size:11px}
@@ -625,8 +625,10 @@ function makeMap(svg, labels, ctrls, rows, baseR) {
     bubbles.set(p, c);
   });
 
-  /* The delta and the Pearl river base carry the map; the rest are context. */
-  const LEAD = ['Zhejiang', 'Jiangsu', 'Guangdong'];
+  /* What carries each map, named on both: the two poles on the world panel,
+     the delta and the Pearl river base on the China one. Everything else is
+     context and steps back a shade — not out of reach. */
+  const LEAD = ['China', 'United States', 'Zhejiang', 'Jiangsu', 'Guangdong'];
   labels.innerHTML = sorted.map(p =>
     '<span class="' + (LEAD.indexOf(p.n) >= 0 ? 'lead' : 'rest') + '" data-x="' + p.x +
     '" data-y="' + p.y + '" data-c="' + p.c + '">' + p.n +
