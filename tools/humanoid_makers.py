@@ -79,6 +79,24 @@ FROM_NAME = {
     "Hiroshi Ishiguro Laboratories": "Japan",
     "IIT Bombay": "India",
     "Roscosmos": "Russia",
+    # These the name does not state; each was checked against a source.
+    # Kokoro is settled by this dataset itself: the joint entry's own
+    # description calls it a Japanese manufacturer of animatronics, and says
+    # ATR and Osaka University are Japanese too.
+    "Kokoro": "Japan",
+    "Kokoro, ATR, and Osaka University": "Japan",
+    "Tony Sale": "United Kingdom",          # George, at Bletchley Park
+    "The Robot Studio": "France",           # Divonne-les-Bains, per the ECCE1 paper
+    "Android Technologies": "Russia",       # Magnitogorsk and Moscow
+    "Mirax Robots": "Czech Republic",       # Mirax Robots s.r.o., Prague
+    "Robros": "South Korea",                # Seoul
+    "Weave Robotics": "United States",      # San Francisco
+    # Left blank on purpose:
+    #   Yoyodyne — its only model, TOPIO Dio, is TOSY's, a Vietnamese company.
+    #     The maker name looks mis-attributed upstream and assigning it a
+    #     country would tidy that away.
+    #   Kokoro, Ishiguro Lab, ATR, Aalborg University — Japan and Denmark; the
+    #     entry has no single country to carry.
 }
 
 # Names carrying a legal suffix read badly in a card grid.

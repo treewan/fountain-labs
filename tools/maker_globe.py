@@ -27,6 +27,7 @@ AT = {
     "Sweden": (62.2, 15.0), "Thailand": (15.9, 101.0), "Switzerland": (46.8, 8.2),
     "Israel": (31.4, 35.0), "Iran": (32.4, 53.7), "Netherlands": (52.2, 5.3),
     "Australia": (-25.3, 133.8), "India": (22.6, 78.9), "Russia": (61.5, 105.3),
+    "Czech Republic": (49.8, 15.5),
 }
 
 
