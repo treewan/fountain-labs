@@ -32,7 +32,10 @@ header{position:fixed;top:0;left:0;right:0;z-index:40;padding:22px 48px;display:
 .h1{margin:18px 0 0;font-size:52px;line-height:1.05;font-weight:500;letter-spacing:-.035em;
   max-width:900px;text-wrap:balance}
 .lead{margin:22px 0 0;font-size:17px;line-height:1.6;color:#3A3A38;max-width:700px;text-wrap:pretty}
-.stats{margin-top:44px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;
+.offer{margin-top:22px;padding-top:20px;border-top:1px solid #111;max-width:700px;
+  font-size:16px;line-height:1.6;color:#3A3A38;text-wrap:pretty}
+.offer b{font-weight:500;color:#111}
+.stats{margin-top:34px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;
   padding-top:24px;border-top:1px solid #111}
 .stat{font-size:30px;font-weight:500;letter-spacing:-.03em;line-height:1}
 .statcap{margin-top:10px;font-size:13.5px;line-height:1.45;color:#55554F}
@@ -225,8 +228,11 @@ input[type=search]:focus{outline:none;border-color:#111}
   <div class="mono">ROBOTICS SUPPLY CHAIN · COMPONENT MAKERS</div>
   <h1 class="h1">Who actually makes the parts inside a humanoid robot.</h1>
   <p class="lead">A searchable index of the component makers behind the humanoid programmes —
-    by subsystem, by part, by country, by buyer. Built for the question a hardware team arrives
-    with: I need this part, at this volume, from someone who has shipped it before.</p>
+    by subsystem, by part, by country, by buyer.</p>
+
+  <p class="offer"><b>FOUNTAIN builds the whole solution behind a robot</b> — body, joints and
+    supply chain, for model companies and robot makers. Sourced globally, integrated, delivered as
+    product. This index is the base we build from.</p>
 
   <div class="stats">
     <div><div class="stat" id="sN">—</div><div class="statcap">component makers indexed</div></div>
