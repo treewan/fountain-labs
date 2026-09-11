@@ -199,6 +199,17 @@ input[type=search]:focus{outline:none;border-color:#111}
 .g3 h4{margin-top:10px;font-size:16.5px;font-weight:500;letter-spacing:-.01em}
 .g3 p{margin-top:10px;font-size:14px;line-height:1.6;color:#3A3A38}
 
+.corridor{margin:34px 0 0;padding-top:26px;border-top:1px solid #E6E6E2}
+.corridor > div{max-width:560px}
+.corridor svg{width:100%;height:auto;display:block}
+.corridor figcaption{display:block;margin-top:12px}
+.corridor .fc{fill:#CACAC3}
+.corridor .ld{fill:#DDDDD7}
+.corridor .corr{stroke:#1E48D8;stroke-width:1.6;stroke-linecap:round;fill:none}
+.corridor .pin{fill:#1E48D8;stroke:#F4F4F2;stroke-width:1.1}
+.corridor .lead{stroke:#9A9A94;stroke-width:.5}
+.corridor .nm{font-family:Geist,sans-serif;font-size:6.4px;font-weight:500;fill:#111}
+.corridor .sub{font-family:'Geist Mono',monospace;font-size:4.6px;letter-spacing:.5px;fill:#8A8A85}
 .edenlede{margin-top:30px;max-width:720px;font-size:15px;line-height:1.65;color:#3A3A38}
 .edenlede b{font-weight:500;color:#111}
 .edenlink{display:inline-block;margin-top:14px;font-size:15px;font-weight:500;color:#1E48D8;
@@ -370,9 +381,8 @@ input[type=search]:focus{outline:none;border-color:#111}
         hours. That density is what a new site cannot stand up quickly.</p></div>
     <div><div class="mono">PRICE, PART BY PART</div>
       <h4>The target does not close without it</h4>
-      <p>Harmonic reducers at 40–60% of the Japanese equivalent, planetary roller screws at about
-        half the Swiss one, and close to 90% of rare-earth magnet processing. Built without this
-        base, one estimate puts the same robot at 2.8 times the cost.</p></div>
+      <p>Harmonic reducers at 40–60% of the Japanese price, roller screws at about half the Swiss
+        one. Without this base, one estimate puts the same robot at 2.8 times the cost.</p></div>
   </div>
 </section></div>
 
@@ -390,6 +400,11 @@ input[type=search]:focus{outline:none;border-color:#111}
     <div><b>6</b><span>companies already shipped on the line Eden extends</span></div>
     <div><b>100%</b><span>BOM traceability — origin recorded for every part</span></div>
   </div>
+
+  <figure class="corridor">
+    <div id="edenMap"></div>
+    <figcaption class="mono">SITE SELECTION · TEXAS AND NORTHERN MEXICO · ONE LOGISTICS CORRIDOR</figcaption>
+  </figure>
 
   <p class="edenlede"><b>Phase 1 is running today</b> — compliant BOM re-sourcing, FCC pathway
     review and certification support, delivered from Shenzhen and Singapore. Phase 2 opens the line
@@ -411,6 +426,7 @@ input[type=search]:focus{outline:none;border-color:#111}
 <script src="/_assets/humanoid-makers.js"></script>
 <script src="/_assets/globe-land.js"></script>
 <script src="/_assets/maker-globe.js"></script>
+<script src="/_assets/eden-corridor.js"></script>
 <script>
 /* One colour per concept, held across the rows, so the eye can follow a line
    from one cut to the next even where the labels differ. */
@@ -818,6 +834,9 @@ makeMap($('mapCN'), $('lblCN'), $('ctrlCN'),
     Math.round(delta / S.length * 100) + '% of the whole index inside one river basin.';
 })();
 
+
+/* The corridor map is the Eden page's own drawing, shared rather than redrawn. */
+if (window.EDEN_CORRIDOR) $('edenMap').innerHTML = window.EDEN_CORRIDOR;
 
 $('q').oninput = render;
 $('reset').onclick = () => {
