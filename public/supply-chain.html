@@ -41,6 +41,23 @@ h2{margin:20px 0 0;font-size:36px;line-height:1.12;font-weight:500;letter-spacin
   max-width:760px;text-wrap:balance}
 .sub{margin:18px 0 0;font-size:16px;line-height:1.65;color:#3A3A38;max-width:720px;text-wrap:pretty}
 
+.maps{margin-top:34px;display:grid;grid-template-columns:1.9fr 1fr;gap:28px;align-items:start}
+.map{margin:0}
+.map figcaption{display:block;margin-bottom:10px}
+.map svg{width:100%;height:auto;display:block;background:#F7F7F3;border-radius:4px}
+.map .land{fill:#E3E3DD;stroke:none}
+.map .bub{fill:#FF7A00;fill-opacity:.5;stroke:#C25E00;stroke-width:.6;cursor:pointer;
+  transition:fill-opacity .15s}
+.map .bub:hover,.map .bub[aria-pressed="true"]{fill-opacity:.92}
+.map .bub.cn{fill:#1E48D8;stroke:#16348F}
+.mapbox{position:relative}
+.lbls{position:absolute;inset:0;pointer-events:none}
+.lbls span{position:absolute;transform:translate(-50%,-100%);white-space:nowrap;
+  font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.5px;color:#3A3A38;
+  text-shadow:0 0 3px #F7F7F3,0 0 3px #F7F7F3,0 0 3px #F7F7F3}
+.lbls span b{font-weight:500;margin-left:4px}
+@media (max-width:520px){.lbls span{font-size:9.5px}}
+@media (max-width:900px){.maps{grid-template-columns:1fr;gap:22px}}
 .tools{margin-top:38px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 input[type=search]{flex:1;min-width:240px;padding:11px 14px;font:inherit;font-size:15px;
   border:1px solid #E6E6E2;border-radius:6px;background:#fff;color:#111}
@@ -180,6 +197,22 @@ input[type=search]:focus{outline:none;border-color:#111}
     robot there, or a part and a buyer to see who supplies it to that programme. Export gives you
     exactly what is on screen.</p>
 
+  <div class="maps">
+    <figure class="map">
+      <figcaption class="mono">BY COUNTRY · BUBBLE AREA IS SUPPLIER COUNT</figcaption>
+      <div class="mapbox"><svg id="mapWorld" viewBox="120 95 880 300" role="img"
+           aria-label="World map of supplier locations"></svg>
+        <div class="lbls" id="lblWorld"></div></div>
+    </figure>
+    <figure class="map mapcn">
+      <figcaption class="mono">EASTERN CHINA · BY PROVINCE</figcaption>
+      <div class="mapbox"><svg id="mapCN" viewBox="700 158 182 116" role="img"
+           aria-label="Map of Chinese provinces with supplier counts"></svg>
+        <div class="lbls" id="lblCN"></div></div>
+    </figure>
+  </div>
+  <p class="caveat" id="mapNote"></p>
+
   <div class="tools">
     <input type="search" id="q" placeholder="Search name, Chinese name, city, ticker…" aria-label="Search suppliers">
     <button class="btn" id="reset" type="button">Reset</button>
@@ -294,6 +327,7 @@ input[type=search]:focus{outline:none;border-color:#111}
 </div></div>
 
 <script src="/_assets/supply-chain-data.js"></script>
+<script src="/_assets/supply-map.js"></script>
 <script src="/_assets/humanoid-makers.js"></script>
 <script>
 /* One colour per concept, held across the rows, so the eye can follow a line
@@ -400,6 +434,11 @@ chips($('fCust'), CUSTS, () => cust, v => { cust = v; });
 function visible() {
   const t = $('q').value.trim().toLowerCase();
   return S.filter(r => {
+    if (place && (place.lv === 'province'
+          ? (place.n === 'China · city not on file'
+              ? !(r.co === 'China' && !r.city)
+              : (place.cs || []).indexOf(r.city) < 0)
+          : r.co !== place.n)) return false;
     if (grp && r.grp !== grp) return false;
     if (cat && r.cat !== cat) return false;
     if (co && r.co !== co) return false;
@@ -420,7 +459,9 @@ function render() {
     b.hidden = grp ? CATGRP[b.dataset.v] !== grp : false;
   });
   const rows = visible();
-  const scope = [grp, cat, co, cust].filter(Boolean).join(' · ') || 'everything';
+  [...document.querySelectorAll('.bub')].forEach(b => b.setAttribute('aria-pressed',
+    String(!!place && b.dataset.k === place.n + '|' + place.lv)));
+  const scope = [place && place.n, grp, cat, co, cust].filter(Boolean).join(' · ') || 'everything';
   const shown = allS ? rows : rows.slice(0, LIMIT);
   $('count').textContent = rows.length + ' of ' + S.length + ' · ' + scope +
     (shown.length < rows.length ? ' · showing ' + shown.length : '');
@@ -441,9 +482,81 @@ function render() {
     : '<div class="empty">Nothing matches. Clear the search or drop a filter.</div>';
 }
 
+/* ---- The index on a map -------------------------------------------------
+   Chinese rows carry a city and are drawn by province; everything else has
+   only a country. Two panels share one projection and one set of outlines —
+   the second is the same SVG at a tighter viewBox. */
+const PLACES = window.SUPPLY_MAP || [];
+let place = null;
+
+function drawMap(svg, labels, rows, scale, minCount, labelTop) {
+  const ns = 'http://www.w3.org/2000/svg';
+  const el = (t, a) => { const e = document.createElementNS(ns, t);
+    for (const k in a) e.setAttribute(k, a[k]); return e; };
+  (window.WORLD_PATHS || []).forEach(d => svg.appendChild(el('path', {class: 'land', d})));
+
+  const sorted = [...rows].sort((a, b) => b.c - a.c);
+  sorted.slice().reverse().forEach(p => {          /* small ones first, under */
+    const c = el('circle', {class: 'bub' + (p.co === 'China' ? ' cn' : ''),
+      cx: p.x, cy: p.y, r: (Math.sqrt(p.c) * scale).toFixed(2),
+      role: 'button', tabindex: '0', 'aria-pressed': 'false',
+      'data-k': p.n + '|' + p.lv});
+    c.appendChild(el('title', {})).textContent =
+      p.n + ' — ' + p.c + (p.c === 1 ? ' maker' : ' makers') +
+      (p.top ? ' · ' + p.top.join(', ') : '') +
+      (p.lv === 'country' ? ' · click to filter' : '');
+    c.onclick = () => { place = (place && place.n === p.n) ? null : p; render(); };
+    svg.appendChild(c);
+  });
+  /* Labels live in HTML over the map, not in the SVG: font-size inside an SVG
+     is in user units, so a responsive viewBox shrank them to 5px on a phone. */
+  const vb = svg.viewBox.baseVal;
+  labels.innerHTML = sorted.filter(p => p.c >= minCount).slice(0, labelTop).map(p =>
+    '<span style="left:' + ((p.x - vb.x) / vb.width * 100).toFixed(2) + '%;top:' +
+    ((p.y - Math.sqrt(p.c) * scale - 2.5 - vb.y) / vb.height * 100).toFixed(2) + '%">' +
+    (p.n === 'China · city not on file' ? 'city not on file' : p.n) +
+    '<b>' + p.c + '</b></span>').join('');
+
+  /* Shanghai sits between Zhejiang and Jiangsu and its label lands on both.
+     Biggest count keeps its spot; the rest step aside in a fixed order so the
+     result is stable rather than dependent on paint timing. */
+  const hit = (a, b) => !(a.right < b.left || b.right < a.left ||
+                          a.bottom < b.top || b.bottom < a.top);
+  const settle = () => {
+    const taken = [];
+    [...labels.children].forEach(sp => {
+      for (const [dx, dy] of [[0, 0], [0, 15], [0, -15], [30, 4], [-30, 4],
+                              [0, 30], [0, -30], [38, 18], [-38, 18]]) {
+        sp.style.margin = dy + 'px 0 0 ' + dx + 'px';
+        const r = sp.getBoundingClientRect();
+        if (!taken.some(q => hit(q, r))) { taken.push(r); return; }
+      }
+      taken.push(sp.getBoundingClientRect());
+    });
+  };
+  /* Synchronously, not on a frame callback: requestAnimationFrame never fires
+     in a hidden tab, which would ship the page with its labels unresolved.
+     getBoundingClientRect forces the layout this needs. Once more when the
+     webfont lands, since that changes every width. */
+  settle();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(settle);
+  addEventListener('resize', settle);
+}
+
+drawMap($('mapWorld'), $('lblWorld'), PLACES.filter(p => p.lv === 'country'), 1.9, 14, 7);
+drawMap($('mapCN'), $('lblCN'), PLACES.filter(p => p.lv === 'province'), 0.62, 5, 7);
+
+$('mapNote').textContent =
+  PLACES.filter(p => p.lv === 'country').reduce((n, p) => n + p.c, 0) +
+  ' of ' + S.length + ' rows carry a country and are on the world panel. The China panel splits ' +
+  "that country's total by province, which only the listed-company rows support, because only " +
+  'they carry a city. Two of them say just "Taizhou", a city in Jiangsu and a different city in ' +
+  'Zhejiang 600km away, so they sit in the national count and in no province. Four rows name no ' +
+  'country at all and are on neither panel. Click a bubble to filter the index.';
+
 $('q').oninput = render;
 $('reset').onclick = () => {
-  grp = null; cat = null; co = null; cust = null; allS = false;
+  place = null; grp = null; cat = null; co = null; cust = null; allS = false;
   $('q').value = '';
   render();
 };
