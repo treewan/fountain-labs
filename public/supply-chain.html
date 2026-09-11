@@ -80,7 +80,6 @@ input[type=search]:focus{outline:none;border-color:#111}
 .card .flag{margin-top:8px;font-size:12px;color:#B3261E}
 .empty{grid-column:1/-1;padding:40px 0;color:#8A8A85;font-size:15px}
 .more{margin-top:26px;border-top:1px solid #E6E6E2;padding-top:26px}
-.prov{margin-top:28px;font-size:12.5px;line-height:1.6;color:#8A8A85;max-width:760px}
 
 /* Optimus reference — supporting the index, not leading it. */
 .ref{margin-top:36px;display:grid;grid-template-columns:1.15fr 1fr;gap:44px;align-items:start}
@@ -185,18 +184,6 @@ input[type=search]:focus{outline:none;border-color:#111}
   <div class="cards" id="cards"></div>
   <div class="more"><button class="btn" id="moreS" type="button" hidden></button></div>
 
-  <p class="prov">Listed-company rows follow the Chinese humanoid supplier index published at
-    humanityslastmachine.com. Three makers it does not carry, and the figures shown on seven rows
-    that it does, come from a 36Kr analysis of the Optimus chain, April 2026. One exact duplicate
-    and one internally contradictory row were removed and ticker formats normalised; a row whose
-    name and ticker disagree in the source is marked rather than rewritten.
-    <br><br>The rows without a listing come from published component guides rather than filings —
-    Black Scarab's humanoid anatomy guide, the Humanoid Press supplier directory, and reporting on
-    the NdFeB magnet base. Those carry a country and an evidence grade instead of a ticker, because
-    that is what their sources give: whether a named platform is documented as using the part,
-    whether both parties disclosed a partnership, or only that the company sells into the category.
-    Where two guides give different countries for the same maker, the field is left empty and the
-    row flagged.</p>
 </section></div>
 
 <div class="wrap"><section>
@@ -261,22 +248,6 @@ input[type=search]:focus{outline:none;border-color:#111}
   <div class="cards" id="mcards"></div>
   <div class="more"><button class="btn" id="moreM" type="button" hidden></button></div>
 
-  <p class="prov">Makers, countries and scores follow the humanoid board published at
-    robolist.ai, scores as of 6 September 2026. Two columns there are wider than humanoids and are
-    labelled as such: RoboScore is a maker's score across every category it lists in, and the
-    catalogue count is its whole range, not its humanoids alone. Funding and deployments are
-    recorded there only against a public source, so most rows carry neither — including makers
-    that have plainly raised money. Read a blank as "not on file", never as "none". Legal suffixes are trimmed and
-    descriptions truncated; nothing else is rewritten. Universities, national labs and agencies are
-    kept but tagged, because a research platform is not a customer for parts at volume.
-    <br><br>That board lists a company only once one of its robots is indexed, and only under the
-    category that robot sits in, which loses the newest Western startups as a class rather than at
-    random. Twelve makers are therefore added by hand from funding coverage, September 2026, each
-    with the reason the board missed it recorded in the export and isolated by the last filter
-    above. Every one of their websites was fetched and checked against the company's own page;
-    three that could not be confirmed ship with no link rather than a guessed one. Two companies
-    that would otherwise belong are left out because they no longer exist: Cartwheel Robotics
-    closed in May 2026 and K-Scale Labs in November 2025.</p>
 </section></div>
 
 <div class="wrap"><section style="border:0">
