@@ -472,6 +472,10 @@ function chips(host, entries, get, set, redraw) {
 chips($('fGrp'), GRPS, () => grp, v => { grp = v; cat = null; });
 chips($('fCat'), CATS, () => cat, v => { cat = v; });
 chips($('fCo'), COS, () => co, v => { co = v; });
+[...$('fCo').children].forEach(b => {
+  if (b.dataset.v === '—')
+    b.innerHTML = 'Country disputed<b>' + b.querySelector('b').textContent + '</b>';
+});
 chips($('fCust'), CUSTS, () => cust, v => { cust = v; });
 
 function visible() {
@@ -502,7 +506,8 @@ function render() {
   const rows = visible();
   [...document.querySelectorAll('.bub')].forEach(b => b.setAttribute('aria-pressed',
     String(!!place && b.dataset.k === place.n + '|' + place.lv)));
-  const scope = [place && place.n, grp, cat, co, cust].filter(Boolean).join(' · ') || 'everything';
+  const scope = [place && place.n, grp, cat, co === '—' ? 'country disputed' : co, cust]
+    .filter(Boolean).join(' · ') || 'everything';
   const shown = allS ? rows : rows.slice(0, LIMIT);
   $('count').textContent = rows.length + ' of ' + S.length + ' · ' + scope +
     (shown.length < rows.length ? ' · showing ' + shown.length : '');
