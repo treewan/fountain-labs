@@ -277,7 +277,7 @@ input[type=search]:focus{outline:none;border-color:#111}
   <div class="facet"><span class="mono">Part</span><div class="chips" id="fCat"></div></div>
   <div class="facet"><span class="mono">Country</span><div class="chips" id="fCo"></div></div>
   <div class="facet"><span class="mono">Buyer</span><div class="chips" id="fCust"></div>
-    <p class="caveat">Only the listed-company rows carry a buyer, so this filter hides every maker whose source did not record one — absence here is missing data, not evidence that a maker is off a programme.</p></div>
+    <p class="caveat" id="buyerNote"></p></div>
 
   <div class="count" id="count"></div>
   <div class="cards" id="cards"></div>
@@ -305,7 +305,7 @@ input[type=search]:focus{outline:none;border-color:#111}
   </div>
 
   <div class="substats">
-    <div><div class="substat" id="mN">—</div><div class="statcap">makers on file, in <span id="mG">—</span> countries; <span id="mT">—</span> also buy from the index above</div></div>
+    <div><div class="substat" id="mN">—</div><div class="statcap">makers on file, in <span id="mG">—</span> countries; <span id="mT">—</span> with a supplier trail in the index above</div></div>
     <div><div class="substat" id="mD">—</div><div class="statcap">have shipped to a customer someone can name</div></div>
     <div><div class="substat" id="mF">—</div><div class="statcap">have a funding round anyone has confirmed</div></div>
   </div>
@@ -419,6 +419,15 @@ function tally(key) {
 const GRPS = tally('grp'), CATS = tally('cat'), COS = tally('co'), CUSTS = tally('cu');
 const CATGRP = {};
 S.forEach(r => { CATGRP[r.cat] = r.grp; });
+/* Written from the data: the share of rows carrying a buyer moved the moment
+   the global rows' own notes were lifted into the field. */
+(function buyerNote() {
+  const withBuyer = S.filter(r => r.cu.length).length;
+  $('buyerNote').textContent =
+    withBuyer + ' of ' + S.length + ' rows name a buyer, so this filter hides every maker whose ' +
+    'source recorded none — absence here is missing data, not evidence that a maker is off a ' +
+    'programme.';
+})();
 $('sN').textContent = S.length;
 $('sP').textContent = CATS.length;
 $('sG').textContent = GRPS.length;

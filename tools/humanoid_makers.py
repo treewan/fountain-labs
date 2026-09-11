@@ -39,13 +39,23 @@ RESEARCH = re.compile(
     r"Innovation Center|Willow Garage|Imagineering",
     re.I,
 )
-# The four buyers already named on supplier rows in the index, so the two
-# halves of the page can be joined.
+# Makers that supplier rows in the index name as a buyer, so the two halves of
+# the page can be joined. Every one of these is claimed by a row's own note.
 BUYER = {
     "tesla": "Tesla",
     "agibot": "AGI Bot",
     "unitree": "Unitree",
     "figure": "Figure AI",
+    "boston-dynamics": "Boston Dynamics",
+    "agility-robotics": "Agility Robotics",
+    "1x-technologies": "1X Technologies",
+    "apptronik": "Apptronik",
+    "pal-robotics": "PAL Robotics",
+    "pollen-robotics": "Pollen Robotics",
+    "neura-robotics": "NEURA Robotics",
+    "humanoid": "Humanoid",
+    "leju-robotics": "Leju Robotics",
+    "fourier": "Fourier",
 }
 # Names carrying a legal suffix read badly in a card grid.
 TRIM = re.compile(

@@ -25,7 +25,12 @@ Country is taken from the source. Where two sources disagree, the field is left
 empty and the row is flagged, the same way the Chinese index rows are handled.
 """
 
-# name, category, country, note, evidence
+# name, category, country, note, evidence, [flag], [makers the note names]
+#
+# The buyer list is not new research: it is what each row's own note already
+# says, lifted into a field so the index can be filtered by it and the two
+# halves of the page can be joined. A row whose note names no platform gets
+# none.
 GLOBAL = [
 # ---- Transmission: reducers -------------------------------------------------
 ["Harmonic Drive Systems", "Reducers", "Japan",
@@ -40,7 +45,8 @@ GLOBAL = [
 ["Wittenstein", "Reducers", "Germany", "Planetary gearheads and servo actuators.", "commercial"],
 ["Nidec", "Reducers", "Japan", "Planetary gearheads, motors and fans across the same bill of materials.", "commercial"],
 ["Schaeffler", "Reducers", "Germany",
- "Strain wave actuators codeveloped with NEURA Robotics, UK-based Humanoid and Leju Robotics — three humanoid partnerships in five months. Also supplies bearings and force/torque sensing.", "partnership"],
+ "Strain wave actuators codeveloped with NEURA Robotics, UK-based Humanoid and Leju Robotics — three humanoid partnerships in five months. Also supplies bearings and force/torque sensing.", "partnership",
+ ["NEURA Robotics", "Humanoid", "Leju Robotics"]],
 # ---- Transmission: bearings, screws, brakes ---------------------------------
 ["THK", "Bearings", "Japan", "Crossed roller bearings and linear motion; Unitree confirms the type but not the vendor.", "commercial"],
 ["SKF", "Bearings", "Sweden", "Crossed roller and precision bearings.", "commercial"],
@@ -56,7 +62,8 @@ GLOBAL = [
 ["Miki Pulley", "Brakes", "Japan", "Holding brakes and couplings.", "commercial"],
 # ---- Actuation: modules, motors, drives -------------------------------------
 ["maxon", "Actuators", "Switzerland",
- "Frameless and brushless motors with matched gearheads; documented in Pollen's Reachy 2.", "integration"],
+ "Frameless and brushless motors with matched gearheads; documented in Pollen's Reachy 2.", "integration",
+ ["Pollen Robotics"]],
 ["FAULHABER", "Motors", "Germany",
  "DC, BLDC, linear and stepper motors; the SXR family is built for robotic hands.", "commercial"],
 ["Kollmorgen", "Motors", "United States", "Frameless torque motors and integrated actuators.", "commercial"],
@@ -76,7 +83,8 @@ GLOBAL = [
 ["JL MAG Rare-Earth", "Magnets", "China",
  "Sintered NdFeB. Set up a humanoid magnetic component business unit in early 2025.", "commercial"],
 ["Ningbo Yunsheng", "Magnets", "China",
- "Sintered NdFeB. Supply to AGI Bot has entered mass production.", "integration"],
+ "Sintered NdFeB. Supply to AGI Bot has entered mass production.", "integration",
+ ["AGI Bot"]],
 ["Zhenghai Magnetic Material", "Magnets", "China", "High-performance sintered NdFeB.", "commercial"],
 ["Zhong Ke San Huan", "Magnets", "China",
  "One of the three highest-volume sintered NdFeB producers.", "capacity"],
@@ -89,7 +97,8 @@ GLOBAL = [
 ["HEIDENHAIN", "Encoders", "Germany",
  "Rotary and inductive encoders built into joints — KCI 120, ECI 119, ECA 4000.", "commercial"],
 ["Renishaw / RLS", "Encoders", "United Kingdom",
- "AksIM absolute magnetic and Orbis rotary encoders; documented in PAL's REEM-C.", "integration"],
+ "AksIM absolute magnetic and Orbis rotary encoders; documented in PAL's REEM-C.", "integration",
+ ["PAL Robotics"]],
 ["Balluff", "Encoders", "Germany", "Incremental and absolute encoders.", "commercial"],
 ["ams OSRAM", "Encoders", "Austria", "Magnetic position sensor ICs.", "commercial"],
 ["Celera Motion", "Encoders", "United States", "Optical encoders for compact joints.", "commercial"],
@@ -108,13 +117,15 @@ GLOBAL = [
 ["onsemi", "Sensors", "United States", "Image sensors.", "commercial"],
 ["OmniVision", "Sensors", "United States", "Image sensors.", "commercial"],
 ["Intel RealSense", "Sensors", "United States",
- "Depth cameras; D435i in the head and D405 at the wrist are documented on Unitree G1.", "integration"],
+ "Depth cameras; D435i in the head and D405 at the wrist are documented on Unitree G1.", "integration",
+ ["Unitree"]],
 ["Stereolabs", "Sensors", "United States", "Stereo depth cameras.", "commercial"],
 ["Luxonis", "Sensors", "United States", "Embedded depth and vision modules.", "commercial"],
 ["Basler", "Sensors", "Germany", "Industrial cameras.", "commercial"],
 ["IDS Imaging", "Sensors", "Germany", "Industrial cameras.", "commercial"],
 ["Ouster", "Sensors", "United States", "Lidar; relationship with Field AI confirmed.", "partnership"],
-["Livox", "Sensors", "China", "Lidar; MID-360 documented on Unitree G1.", "integration"],
+["Livox", "Sensors", "China", "Lidar; MID-360 documented on Unitree G1.", "integration",
+ ["Unitree"]],
 ["Hesai", "Sensors", "China", "Lidar.", "commercial"],
 ["RoboSense", "Sensors", "China", "Lidar.", "commercial"],
 ["Bosch Sensortec", "Sensors", "Germany", "IMUs.", "commercial"],
@@ -129,16 +140,20 @@ GLOBAL = [
 ["qb robotics", "Hand Units", "Italy", "SoftHand underactuated gripping.", "commercial"],
 ["Inspire Robots", "Hand Units", "",
  "Dexterous hand offered as an option on PAL's Kangaroo.",
- "integration", "Country disagrees across sources"],
+ "integration", "Country disagrees across sources",
+ ["PAL Robotics"]],
 ["Seed Robotics", "Hand Units", "",
  "Dexterous hand offered as an option on PAL's Kangaroo.",
- "integration", "Country disagrees across sources"],
+ "integration", "Country disagrees across sources",
+ ["PAL Robotics"]],
 ["Tesollo", "Hand Units", "",
  "DG-5F five-finger hand.", "commercial", "Country disagrees across sources"],
-["Vibram", "Materials", "Italy", "Soles; partnership with Agility Robotics confirmed.", "partnership"],
+["Vibram", "Materials", "Italy", "Soles; partnership with Agility Robotics confirmed.", "partnership",
+ ["Agility Robotics"]],
 # ---- Compute and power --------------------------------------------------------
 ["NVIDIA", "Compute", "United States",
- "Jetson Thor, up to 2,070 sparse FP4 TFLOPS and 128 GB. Confirmed on Boston Dynamics, Agility, Figure, 1X and Unitree H2.", "integration"],
+ "Jetson Thor, up to 2,070 sparse FP4 TFLOPS and 128 GB. Confirmed on Boston Dynamics, Agility, Figure, 1X and Unitree H2.", "integration",
+ ["Boston Dynamics", "Agility Robotics", "Figure AI", "1X Technologies", "Unitree"]],
 ["Qualcomm", "Compute", "United States", "Edge AI compute.", "commercial"],
 ["AMD", "Compute", "United States", "Edge AI compute.", "commercial"],
 ["Intel", "Compute", "United States", "Compute; an option on Unitree and Fourier platforms.", "commercial"],
@@ -153,7 +168,8 @@ GLOBAL = [
 ["Littelfuse", "Power & Battery", "United States", "Fusing and circuit protection.", "commercial"],
 # ---- Structure, interconnect, thermal, safety, assembly -----------------------
 ["BASF", "Materials", "Germany",
- "Engineering polymers and elastomers; partnership on Fourier's GR-2 confirmed.", "partnership"],
+ "Engineering polymers and elastomers; partnership on Fourier's GR-2 confirmed.", "partnership",
+ ["Fourier"]],
 ["Covestro", "Materials", "Germany", "Polycarbonate blends, TPU, thermally conductive polymers.", "commercial"],
 ["Celanese", "Materials", "United States", "Engineering polymers.", "commercial"],
 ["Henkel", "Materials", "Germany", "Structural adhesives and thermal interface materials.", "commercial"],
@@ -179,7 +195,8 @@ GLOBAL = [
 ["Beckhoff", "Drives & Control", "Germany", "TwinSAFE functional safety and EtherCAT control.", "commercial"],
 ["SICK", "Sensors", "Germany", "Safety sensing.", "commercial"],
 ["Jabil", "Assemblies", "United States",
- "Contract manufacturing for Figure and Apptronik.", "integration"],
+ "Contract manufacturing for Figure and Apptronik.", "integration",
+ ["Figure AI", "Apptronik"]],
 ]
 
 # Which subsystem each part category belongs to, so the index can be read as a
@@ -211,10 +228,12 @@ def rows():
     out = []
     for r in GLOBAL:
         name, cat, country, note, ev = r[:5]
-        flag = r[5] if len(r) > 5 else None
+        rest = list(r[5:])
+        flag = next((x for x in rest if isinstance(x, str)), None)
+        buyers = next((x for x in rest if isinstance(x, list)), [])
         out.append({
             "en": name, "cn": "", "cat": cat, "co": country or "—", "city": "",
-            "yr": "", "stk": "", "cu": [], "note": note, "ev": ev,
+            "yr": "", "stk": "", "cu": buyers, "note": note, "ev": ev,
             **({"flag": flag} if flag else {}),
         })
     return out
