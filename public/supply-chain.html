@@ -378,7 +378,7 @@ const BREAKDOWNS = [
     ['Actuation and precision motion', 25000, C.act], ['Hands', 7500, C.hand],
     ['Sensors', 5000, C.sens], ['AI compute', 4000, C.comp], ['Structure', 3500, C.str],
     ['Wiring', 2500, C.wire], ['Battery', 2500, C.batt]]},
-  {src:'36Kr', when:'April 2026', axis:'AT VOLUME, TARGET · BY PART', total:20000,
+  {src:'', when:'April 2026', axis:'AT VOLUME, TARGET · BY PART', total:20000,
    note:'Tesla Optimus, $20K target', items:[
     ['Actuators', 7000, C.act], ['Sensors and other', 4000, C.sens],
     ['Lead screws', 3600, C.screw], ['Reducers', 3000, C.red], ['Motors', 2400, C.mot]]},
@@ -397,7 +397,7 @@ const SRC = {
   category: 'ON ROBOLIST, ANOTHER CATEGORY',
   absent: 'NOT ON ROBOLIST',
 };
-const CORE_TAG = 'NAMED AS CORE · 36KR';
+const CORE_TAG = 'NAMED AS CORE';
 const EV = {
   integration: 'Documented on a named platform',
   partnership: 'Partnership both sides disclose',
@@ -440,8 +440,9 @@ const money = v => v >= 1000 ? '$' + (v / 1000).toFixed(v % 1000 ? 1 : 0) + 'K' 
 const sumOf = b => b.items.reduce((n, i) => n + i[1], 0);
 
 $('bds').innerHTML = BREAKDOWNS.map(b =>
-  '<div class="bd"><div class="bdhead"><span class="mono">' + b.axis + ' · ' + b.src.toUpperCase() +
-  ' · ' + b.when.toUpperCase() + '</span><span class="bdtot">' + b.note + '</span></div>' +
+  '<div class="bd"><div class="bdhead"><span class="mono">' +
+  [b.axis, b.src.toUpperCase(), b.when.toUpperCase()].filter(Boolean).join(' · ') +
+  '</span><span class="bdtot">' + b.note + '</span></div>' +
   '<div class="bom" style="width:' + (sumOf(b) / AXIS * 100) + '%">' +
   b.items.map(([label, usd, col]) =>
     '<i style="flex:' + usd + ';background:' + col + '" title="' + label + ' · ' + money(usd) + '"></i>'
