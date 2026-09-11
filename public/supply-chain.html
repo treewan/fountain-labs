@@ -897,18 +897,20 @@ render();
         const phase = (tick * 0.0055 + i * 0.137 + k * 0.5) % 1;
         const rr = r * (1 + phase * reach);
         /* A long tail of low-alpha blue on beige reads as smudge, not motion. */
-        const fade = Math.pow(1 - phase, 2.2) * (on ? 0.7 : 0.45);
+        const fade = Math.pow(1 - phase, 2.2) * (on ? 0.85 : 0.6);
         if (fade <= 0.04) continue;
         ctx.beginPath(); ctx.arc(q[0], q[1], rr, 0, 7);
         ctx.strokeStyle = 'rgba(' + BRAND_RGB + ',' + fade.toFixed(3) + ')';
-        ctx.lineWidth = 1.2 * (1 - phase * 0.5);
+        ctx.lineWidth = 1.4 * (1 - phase * 0.45);
         ctx.stroke();
       }
     });
 
     placed.forEach(({q, r, m, on}) => {
       ctx.beginPath(); ctx.arc(q[0], q[1], r, 0, 7);
-      ctx.fillStyle = 'rgba(' + BRAND_RGB + (on ? ',.95)' : ',.62)');
+      /* Alpha over a warm ground is what drains the colour, so the dots run
+         close to opaque and read at the hue's full strength. */
+      ctx.fillStyle = 'rgba(' + BRAND_RGB + (on ? ',1)' : ',.9)');
       ctx.fill();
       ctx.strokeStyle = on ? 'rgba(17,17,17,.8)' : 'rgba(247,247,243,.85)';
       ctx.lineWidth = on ? 1.2 : 0.8; ctx.stroke();
