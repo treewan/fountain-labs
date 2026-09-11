@@ -26,7 +26,9 @@ header{position:fixed;top:0;left:0;right:0;z-index:40;padding:22px 48px;display:
 .dia{width:13px;height:13px;background:#111;transform:rotate(45deg);display:block}
 .name{font-family:'Bebas Neue',Geist,sans-serif;font-size:22px;letter-spacing:.04em;line-height:1}
 
-.hero{padding-top:142px}
+.hero{padding-top:142px;padding-bottom:88px;border-bottom:1px solid #E6E6E2}
+.modelhead{display:block;margin-top:54px;font-size:14px;letter-spacing:2px;color:#55554F}
+.modelsub{margin-top:14px;font-size:16px;max-width:720px}
 .h1{margin:18px 0 0;font-size:52px;line-height:1.05;font-weight:500;letter-spacing:-.035em;
   max-width:900px;text-wrap:balance}
 .lead{margin:22px 0 0;font-size:17px;line-height:1.6;color:#3A3A38;max-width:700px;text-wrap:pretty}
@@ -176,7 +178,7 @@ input[type=search]:focus{outline:none;border-color:#111}
 }
 @media (max-width:760px){
   .wrap{padding:0 20px}header{padding:16px 20px}
-  .hero{padding-top:112px}.h1{font-size:32px}h2{font-size:26px}
+  .hero{padding-top:112px;padding-bottom:60px}.h1{font-size:32px}h2{font-size:26px}
   section{padding:60px 0}.cards{grid-template-columns:1fr}
   .stat{font-size:26px}
 }
@@ -201,6 +203,37 @@ input[type=search]:focus{outline:none;border-color:#111}
     <div><div class="stat" id="sP">—</div><div class="statcap">part categories across <span id="sG">—</span> subsystems, magnets to cold plates</div></div>
     <div><div class="stat" id="sR">—</div><div class="statcap">countries, though one holds more than half</div></div>
     <div><div class="stat" id="sB">—</div><div class="statcap">buyers tracked: Tesla, Figure AI, AGI Bot, Unitree</div></div>
+  </div>
+
+  <div class="mono modelhead">BILL OF MATERIALS · READ THREE WAYS</div>
+<p class="sub">Everything below is drawn against the same dollar axis, so a bar's length is the
+    cost and a block's width is what that part actually costs. The first two rows are the same
+    machine at two points on its cost curve; the third cuts the same money by where it sits on
+    the body instead of by what it is.</p>
+
+  <div class="model">
+    <div class="grid"></div>
+    <div id="bds"></div>
+    <div class="axis"><span>$0</span><span>$20K</span><span>$40K</span><span>$60K</span></div>
+  </div>
+
+  <div class="refnote refwide">
+    <p><strong>The compression is the whole problem.</strong> Between the two structures, actuation
+      has to fall from about <strong>$25,000</strong> a unit to roughly <strong>$7,000</strong> —
+      the same organ, at 28% of the price. Nothing else on the robot is asked for a cut that deep,
+      which is why the reducer, screw and magnet rows in the index above are where the programme
+      lives or dies.</p>
+    <p><strong>The totals are not one series.</strong> Tesla has disclosed about $43,000 in small
+      batches against a target under $20,000 at volume; independent teardowns of a dexterous
+      full-size unit land near $55,000. Different estimators, different robots, one order of
+      magnitude — read the rows as three cuts, not as a trend line.</p>
+    <p><strong>Counts survive better than shares.</strong> A unit takes roughly 28 actuators,
+      20 coreless motors in the hands and 14 planetary roller screws in the load-bearing joints.
+      Those numbers hold across every version of the estimate.</p>
+    <p><strong>Why the base is Chinese.</strong> Harmonic reducers at 40–60% of the Japanese
+      equivalent, roller screws at about half the Swiss one, and roughly 90% of rare-earth magnet
+      processing. One estimate puts Optimus Gen 2 built without that base at <strong>$131,000</strong>
+      against roughly $46,000 with it.</p>
   </div>
 </div>
 
@@ -247,42 +280,10 @@ input[type=search]:focus{outline:none;border-color:#111}
 
 </section></div>
 
-<div class="wrap"><section>
-  <div class="eyebrow">02 · REFERENCE · WHAT A HUMANOID COSTS</div>
-  <h2>One robot's bill of materials, read three ways.</h2>
-  <p class="sub">Everything below is drawn against the same dollar axis, so a bar's length is the
-    cost and a block's width is what that part actually costs. The first two rows are the same
-    machine at two points on its cost curve; the third cuts the same money by where it sits on
-    the body instead of by what it is.</p>
 
-  <div class="model">
-    <div class="grid"></div>
-    <div id="bds"></div>
-    <div class="axis"><span>$0</span><span>$20K</span><span>$40K</span><span>$60K</span></div>
-  </div>
-
-  <div class="refnote refwide">
-    <p><strong>The compression is the whole problem.</strong> Between the two structures, actuation
-      has to fall from about <strong>$25,000</strong> a unit to roughly <strong>$7,000</strong> —
-      the same organ, at 28% of the price. Nothing else on the robot is asked for a cut that deep,
-      which is why the reducer, screw and magnet rows in the index above are where the programme
-      lives or dies.</p>
-    <p><strong>The totals are not one series.</strong> Tesla has disclosed about $43,000 in small
-      batches against a target under $20,000 at volume; independent teardowns of a dexterous
-      full-size unit land near $55,000. Different estimators, different robots, one order of
-      magnitude — read the rows as three cuts, not as a trend line.</p>
-    <p><strong>Counts survive better than shares.</strong> A unit takes roughly 28 actuators,
-      20 coreless motors in the hands and 14 planetary roller screws in the load-bearing joints.
-      Those numbers hold across every version of the estimate.</p>
-    <p><strong>Why the base is Chinese.</strong> Harmonic reducers at 40–60% of the Japanese
-      equivalent, roller screws at about half the Swiss one, and roughly 90% of rare-earth magnet
-      processing. One estimate puts Optimus Gen 2 built without that base at <strong>$131,000</strong>
-      against roughly $46,000 with it.</p>
-  </div>
-</section></div>
 
 <div class="wrap"><section id="makers">
-  <div class="eyebrow">03 · WHO BUYS</div>
+  <div class="eyebrow">02 · WHO BUYS</div>
   <h2>The other end of the same table: who is building the robots.</h2>
   <p class="sub">A supply base is only worth what the demand behind it is worth. These are the
     makers with a humanoid on file — most of them one platform and a plan, a few of them already
@@ -316,7 +317,7 @@ input[type=search]:focus{outline:none;border-color:#111}
 </section></div>
 
 <div class="wrap"><section style="border:0">
-  <div class="eyebrow">04 · WHY THIS SUPPLY BASE</div>
+  <div class="eyebrow">03 · WHY THIS SUPPLY BASE</div>
   <h2>Three reasons the parts come from where they come from.</h2>
   <div class="g3">
     <div><div class="mono">CARRIED OVER FROM CARS</div>
