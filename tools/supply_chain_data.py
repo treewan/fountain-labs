@@ -13,7 +13,11 @@ are normalised. One row whose English name, Chinese name and ticker do not
 agree with each other is kept and flagged rather than silently rewritten —
 guessing which of the three fields is the wrong one is not our call.
 
-A third source is merged in from tools/global_suppliers.py: the component
+A third source is merged in from tools/field_survey.py: companies on the
+FOUNTAIN China survey itinerary of September 2026, almost all unlisted and so
+invisible to a list of listed companies however central they are.
+
+A second source is merged in from tools/global_suppliers.py: the component
 makers outside the Chinese listed index, without which the page maps one
 supply base rather than the part. Those rows carry a country and an evidence
 grade instead of a ticker, because that is what their sources actually give.
@@ -28,6 +32,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from global_suppliers import GLOBAL, GROUP, rows as global_rows  # noqa: E402
+from field_survey import rows as survey_rows  # noqa: E402
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "public" / "_assets" / "supply-chain-data.js"
 
@@ -227,6 +232,8 @@ def main():
 
     index_rows = len(rows)
     rows.extend(global_rows())
+    survey = survey_rows()
+    rows.extend(survey)
     for r in rows:
         r["grp"] = GROUP.get(r["cat"], "Structure")
 
@@ -243,8 +250,9 @@ def main():
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text("window.SUPPLIERS = " + json.dumps(rows, ensure_ascii=False) + ";\n")
 
-    print(f"wrote {OUT.name}: {len(rows)} suppliers "
-          f"({index_rows} from the listed index, {len(rows) - index_rows} from the component guides)")
+    print(f"wrote {OUT.name}: {len(rows)} suppliers ({index_rows} from the listed index, "
+          f"{len(rows) - index_rows - len(survey)} from the component guides, "
+          f"{len(survey)} from the September 2026 site survey)")
     print("  countries: " + ", ".join(f"{k} {v}" for k, v in sorted(cos.items(), key=lambda x: -x[1])))
     print(f"  dropped {dupes} exact duplicate, {dropped} contradictory row")
     print(f"  {len(EXTRA)} added from the analysis, {len(NOTES)} index rows annotated")

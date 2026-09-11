@@ -108,6 +108,7 @@ input[type=search]:focus{outline:none;border-color:#111}
 .tag.partnership{background:#1E48D8;color:#fff}
 .tag.capacity{background:#B87A00;color:#fff}
 .tag.commercial{border:1px solid #E6E6E2;background:none}
+.tag.survey{background:#FF7A00;color:#fff}
 .meta .ev2{grid-column:2/-1}
 .chip[hidden]{display:none}
 .caveat{margin-top:10px;font-size:12.5px;line-height:1.55;color:#8A8A85;max-width:620px}
@@ -251,8 +252,7 @@ input[type=search]:focus{outline:none;border-color:#111}
            aria-label="World map of supplier locations"></svg>
         <div class="lbls" id="lblWorld"></div>
         <div class="zoom" id="ctrlWorld"><button class="zin" type="button" aria-label="Zoom in">+</button><button class="zout" type="button" aria-label="Zoom out">−</button><button class="zres" type="button" aria-label="Reset the view">⟲</button></div></div>
-      <p class="hublede"><b>China holds 132 of the 239 rows that name a country</b> — more than
-        every other country on this map put together, and close to four times the next one.</p>
+      <p class="hublede" id="ledeWorld"></p>
     </figure>
     <figure class="map mapcn">
       <figcaption class="mono">EASTERN CHINA · BY PROVINCE</figcaption>
@@ -260,9 +260,7 @@ input[type=search]:focus{outline:none;border-color:#111}
            aria-label="Map of Chinese provinces with supplier counts"></svg>
         <div class="lbls" id="lblCN"></div>
         <div class="zoom" id="ctrlCN"><button class="zin" type="button" aria-label="Zoom in">+</button><button class="zout" type="button" aria-label="Zoom out">−</button><button class="zres" type="button" aria-label="Reset the view">⟲</button></div></div>
-      <p class="hublede"><b>69 of them sit in the Yangtze delta</b> — Zhejiang, Jiangsu and
-        Shanghai — which is half of China's total and 28% of the whole index inside one
-        river basin.</p>
+      <p class="hublede" id="ledeCN"></p>
     </figure>
   </div>
   <p class="caveat" id="mapNote"></p>
@@ -401,6 +399,7 @@ const EV = {
   partnership: 'Partnership both sides disclose',
   commercial: 'Sells for this use, no platform named',
   capacity: 'Named as a capacity holder',
+  survey: 'On the FOUNTAIN site survey, September 2026',
 };
 const $ = id => document.getElementById(id);
 let grp = null, cat = null, co = null, cust = null, allS = false;
@@ -689,6 +688,29 @@ makeMap($('mapWorld'), $('lblWorld'), $('ctrlWorld'),
         PLACES.filter(p => p.lv === 'country'), 1.9);
 makeMap($('mapCN'), $('lblCN'), $('ctrlCN'),
         PLACES.filter(p => p.lv === 'province'), 0.62);
+
+/* Written from the data, not typed: both of these went stale the first time a
+   source was added underneath them. */
+(function ledes() {
+  const cty = PLACES.filter(p => p.lv === 'country');
+  const placed = cty.reduce((n, p) => n + p.c, 0);
+  const cn = cty.find(p => p.n === 'China');
+  const rest = placed - (cn ? cn.c : 0);
+  const next = cty.filter(p => p.n !== 'China').sort((a, b) => b.c - a.c)[0];
+  if (cn) {
+    $('ledeWorld').innerHTML =
+      '<b>China holds ' + cn.c + ' of the ' + placed + ' rows that name a country</b> — ' +
+      (cn.c > rest ? 'more than every other country on this map put together, and ' : '') +
+      (cn.c / next.c).toFixed(1) + ' times the next one, ' + next.n + '.';
+  }
+  const YRD = ['Zhejiang', 'Jiangsu', 'Shanghai'];
+  const delta = PLACES.filter(p => p.lv === 'province' && YRD.indexOf(p.n) >= 0)
+    .reduce((n, p) => n + p.c, 0);
+  $('ledeCN').innerHTML =
+    '<b>' + delta + ' of them sit in the Yangtze delta</b> — Zhejiang, Jiangsu and Shanghai — ' +
+    Math.round(delta / (cn ? cn.c : delta) * 100) + '% of China\'s total and ' +
+    Math.round(delta / S.length * 100) + '% of the whole index inside one river basin.';
+})();
 
 $('mapNote').textContent =
   PLACES.filter(p => p.lv === 'country').reduce((n, p) => n + p.c, 0) +

@@ -72,15 +72,23 @@ EXTRA = [
  "absent"],
 ]
 
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from field_survey import SURVEY_MAKERS  # noqa: E402
+
 WHY = {
     "stub": "On robolist with no model indexed",
     "category": "On robolist under another category",
     "absent": "Not on robolist",
+    "survey": "On the September 2026 survey itinerary",
 }
 
 
 def rows():
     out = []
+    for name, country, hq, desc, when in SURVEY_MAKERS:
+        out.append({"n": name, "c": country, "hq": hq, "s": 0, "r": 0,
+                    "d": desc, "src": "survey", "seen": when})
     for name, country, hq, founded, web, raised, desc, why in EXTRA:
         row = {"n": name, "c": country, "s": 0, "r": 0, "d": desc, "src": why}
         if hq:
