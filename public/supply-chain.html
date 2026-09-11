@@ -456,8 +456,13 @@ $('bds').innerHTML = BREAKDOWNS.map(b =>
 /* A full index is a reference, not a page. Both lists open on a screenful and
    the reader asks for the rest. */
 const LIMIT = 12;
-function more(btn, rows, expanded, set, redraw) {
-  btn.hidden = rows.length <= LIMIT;
+/* The index opens on its top band exactly — the ten the teardown names as the
+   core — rather than on twelve, which spilled two rows of a different kind
+   into the first screen. */
+const LIMIT_INDEX = 10;
+function more(btn, rows, expanded, set, redraw, limit) {
+  limit = limit || LIMIT;
+  btn.hidden = rows.length <= limit;
   btn.textContent = expanded ? 'Show fewer' : 'Show all ' + rows.length + ' →';
   btn.onclick = () => { set(!expanded); redraw(); };
 }
@@ -512,12 +517,13 @@ function render() {
     String(!!place && b.dataset.k === place.n + '|' + place.lv)));
   const scope = [place && place.n, grp, cat, co === '—' ? 'country disputed' : co, cust]
     .filter(Boolean).join(' · ') || 'everything';
-  const shown = allS ? rows : rows.slice(0, LIMIT);
+  const shown = allS ? rows : rows.slice(0, LIMIT_INDEX);
   $('count').textContent = rows.length + ' of ' + S.length + ' · ' + scope +
     (shown.length < rows.length
-      ? ' · showing ' + shown.length + ', the Optimus chain core first'
+      ? ' · showing ' + shown.length +
+        (shown[0] && shown[0].rk === 5 ? ', the Optimus chain core first' : ', best evidenced first')
       : '');
-  more($('moreS'), rows, allS, v => { allS = v; }, render);
+  more($('moreS'), rows, allS, v => { allS = v; }, render, LIMIT_INDEX);
   $('cards').innerHTML = rows.length ? shown.map(r =>
     '<div class="card"><h3>' + r.en + (r.cn ? '<span class="cn">' + r.cn + '</span>' : '') + '</h3>' +
     /* One grid for every card. The rows without a listing used to replace two
