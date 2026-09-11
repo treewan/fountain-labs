@@ -120,12 +120,40 @@ def main():
                     **({"cs": [c for c, _ in ranked]} if ranked else {}),
                     **({"top": [f"{c} {n}" for c, n in ranked[:3]]} if ranked else {})})
 
+    # The two links between the concentrations are not the same kind of link,
+    # and the map should not pretend they are. China to the United States is a
+    # demand link that the buyer field records directly. China to Europe is not
+    # a demand link at all — no row in the index names a European buyer — it
+    # joins the two halves of the supply base.
+    EUROPE = {"Germany", "Switzerland", "Sweden", "Netherlands", "Italy",
+              "United Kingdom", "Austria", "Slovakia"}
+    US_BUYERS = {"Tesla", "Figure AI"}
+    by_country = {p["n"]: p for p in out if p["lv"] == "country"}
+    eu = [by_country[c] for c in EUROPE if c in by_country]
+    eu_n = sum(p["c"] for p in eu)
+    eu_x = sum(p["x"] * p["c"] for p in eu) / eu_n
+    eu_y = sum(p["y"] * p["c"] for p in eu) / eu_n
+    feeds_us = sum(1 for r in rows
+                   if r["co"] == "China" and any(b in US_BUYERS for b in r["cu"]))
+    arcs = [
+        {"from": [by_country["China"]["x"], by_country["China"]["y"]],
+         "to": [by_country["United States"]["x"], by_country["United States"]["y"]],
+         "kind": "demand", "n": feeds_us,
+         "label": "%d Chinese rows supply Tesla or Figure AI" % feeds_us},
+        {"from": [by_country["China"]["x"], by_country["China"]["y"]],
+         "to": [round(eu_x, 1), round(eu_y, 1)],
+         "kind": "peer", "n": eu_n,
+         "label": "%d component makers across %d European countries; no European buyer on file"
+                  % (eu_n, len(eu))},
+    ]
+
     # The world silhouette is reused from the map already in the repo; only the
     # outlines are taken, not its activity shading.
     paths = re.findall(r'<path class="l[0-9]" d="([^"]+)"', WORLD.read_text())
 
     OUT.write_text(
         "window.SUPPLY_MAP = " + json.dumps(out, ensure_ascii=False) + ";\n"
+        "window.SUPPLY_ARCS = " + json.dumps(arcs, ensure_ascii=False) + ";\n"
         "window.WORLD_PATHS = " + json.dumps(paths) + ";\n")
 
     placed = sum(p["c"] for p in out if p["lv"] == "country")
@@ -140,6 +168,8 @@ def main():
               + ", ".join("%s (%d rows)" % (c, n) for c, n in unplaced.items()))
     print("  %d Chinese rows carry no city and sit in the national count only" % no_city)
     print("  %d rows have no country in the source" % no_country)
+    for a in arcs:
+        print("  arc %-7s %s" % (a["kind"], a["label"]))
     return 0
 
 

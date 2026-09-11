@@ -63,9 +63,16 @@ h2{margin:20px 0 0;font-size:36px;line-height:1.12;font-weight:500;letter-spacin
   transition:opacity .15s}
 .map .bub:hover,.map .bub[aria-pressed="true"]{stroke-opacity:1;stroke-width:1.1}
 .map .bub.cn{stroke:#16348F}
+.map .arc{fill:none;pointer-events:stroke}
+.map .arc.demand{stroke:#FF7A00;stroke-opacity:.75}
+.map .arc.peer{stroke:#8A8A85;stroke-opacity:.7}
 .map .ring{fill:none;stroke:#16348F;stroke-opacity:.45;pointer-events:none}
 .hublede{margin-top:12px;font-size:13px;line-height:1.55;color:#55554F;max-width:560px}
 .hublede b{font-weight:500;color:#111}
+.arcnote{display:block;margin-top:8px}
+.arcnote b{font-family:'Geist Mono',monospace;letter-spacing:-1px}
+.arcnote b.dem{color:#C25E00}
+.arcnote b.pr{color:#8A8A85}
 .mapbox{position:relative}
 .lbls{position:absolute;inset:0;pointer-events:none}
 .lbls span{position:absolute;transform:translate(-50%,-100%);white-space:nowrap;
@@ -541,6 +548,23 @@ function makeMap(svg, labels, ctrls, rows, baseR) {
 
   (window.WORLD_PATHS || []).forEach(d => svg.appendChild(el('path', {class: 'land', d})));
 
+  /* Two links out of China, and they are not the same kind of link. The one to
+     the United States is demand — the buyer field records it row by row. The
+     one to Europe is not: no row names a European buyer, so it joins the two
+     halves of the supply base instead, and is drawn as such. */
+  const arcs = [];
+  if (svg.id === 'mapWorld') (window.SUPPLY_ARCS || []).forEach(a => {
+    const [x1, y1] = a.from, [x2, y2] = a.to;
+    const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+    const lift = Math.abs(x2 - x1) * (a.kind === 'demand' ? 0.30 : 0.42);
+    const p = el('path', {class: 'arc ' + a.kind,
+      d: 'M' + x1 + ' ' + y1 + ' Q' + mx.toFixed(1) + ' ' + (my - lift).toFixed(1) +
+         ' ' + x2 + ' ' + y2});
+    p.appendChild(el('title', {})).textContent = a.label;
+    svg.appendChild(p);
+    arcs.push(p);
+  });
+
   const sorted = [...rows].sort((a, b) => b.c - a.c);
   const bubbles = new Map();
   const rings = new Map();
@@ -584,6 +608,11 @@ function makeMap(svg, labels, ctrls, rows, baseR) {
     const k = view.w / base.w;
     bubbles.forEach((c, p) =>
       c.setAttribute('r', (Math.max(baseR * 2, Math.sqrt(p.c) * baseR) * k).toFixed(2)));
+    arcs.forEach(p => {
+      p.setAttribute('stroke-width', (1.1 * k).toFixed(2));
+      if (p.classList.contains('peer'))
+        p.setAttribute('stroke-dasharray', (3.2 * k).toFixed(2) + ' ' + (2.8 * k).toFixed(2));
+    });
     rings.forEach((ring, p) => {
       ring.setAttribute('r', (Math.sqrt(p.c) * baseR * k * 1.42).toFixed(2));
       ring.setAttribute('stroke-width', (0.9 * k).toFixed(2));
@@ -703,6 +732,13 @@ makeMap($('mapCN'), $('lblCN'), $('ctrlCN'),
       (cn.c > rest ? 'more than every other country on this map put together, and ' : '') +
       (cn.c / next.c).toFixed(1) + ' times the next one, ' + next.n + '.';
   }
+  const A = window.SUPPLY_ARCS || [];
+  const dem = A.find(a => a.kind === 'demand'), peer = A.find(a => a.kind === 'peer');
+  if (dem && peer) $('ledeWorld').innerHTML += ' <span class="arcnote"><b class="dem">—</b> ' +
+    dem.n + ' of those Chinese rows supply Tesla or Figure AI. <b class="pr">- -</b> ' +
+    peer.n + ' more makers sit in Europe, but no row in the index names a European buyer: ' +
+    'that line joins two halves of a supply base, not a customer.</span>';
+
   const YRD = ['Zhejiang', 'Jiangsu', 'Shanghai'];
   const delta = PLACES.filter(p => p.lv === 'province' && YRD.indexOf(p.n) >= 0)
     .reduce((n, p) => n + p.c, 0);
