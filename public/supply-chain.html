@@ -59,10 +59,13 @@ h2{margin:20px 0 0;font-size:36px;line-height:1.12;font-weight:500;letter-spacin
 .zoom button:hover:not(:disabled){border-color:#111;color:#111}
 .zoom button:disabled{opacity:.35;cursor:default}
 .map .land{fill:#E3E3DD;stroke:none}
-.map .bub{fill:#FF7A00;fill-opacity:.5;stroke:#C25E00;stroke-width:.6;cursor:pointer;
-  transition:fill-opacity .15s}
-.map .bub:hover,.map .bub[aria-pressed="true"]{fill-opacity:.92}
-.map .bub.cn{fill:#1E48D8;stroke:#16348F}
+.map .bub{stroke:#C25E00;stroke-width:.5;stroke-opacity:.55;cursor:pointer;
+  transition:opacity .15s}
+.map .bub:hover,.map .bub[aria-pressed="true"]{stroke-opacity:1;stroke-width:1.1}
+.map .bub.cn{stroke:#16348F}
+.map .ring{fill:none;stroke:#16348F;stroke-opacity:.45;pointer-events:none}
+.hublede{margin-top:12px;font-size:13px;line-height:1.55;color:#55554F;max-width:560px}
+.hublede b{font-weight:500;color:#111}
 .mapbox{position:relative}
 .lbls{position:absolute;inset:0;pointer-events:none}
 .lbls span{position:absolute;transform:translate(-50%,-100%);white-space:nowrap;
@@ -248,6 +251,8 @@ input[type=search]:focus{outline:none;border-color:#111}
            aria-label="World map of supplier locations"></svg>
         <div class="lbls" id="lblWorld"></div>
         <div class="zoom" id="ctrlWorld"><button class="zin" type="button" aria-label="Zoom in">+</button><button class="zout" type="button" aria-label="Zoom out">−</button><button class="zres" type="button" aria-label="Reset the view">⟲</button></div></div>
+      <p class="hublede"><b>China holds 132 of the 239 rows that name a country</b> — more than
+        every other country on this map put together, and close to four times the next one.</p>
     </figure>
     <figure class="map mapcn">
       <figcaption class="mono">EASTERN CHINA · BY PROVINCE</figcaption>
@@ -255,6 +260,9 @@ input[type=search]:focus{outline:none;border-color:#111}
            aria-label="Map of Chinese provinces with supplier counts"></svg>
         <div class="lbls" id="lblCN"></div>
         <div class="zoom" id="ctrlCN"><button class="zin" type="button" aria-label="Zoom in">+</button><button class="zout" type="button" aria-label="Zoom out">−</button><button class="zres" type="button" aria-label="Reset the view">⟲</button></div></div>
+      <p class="hublede"><b>69 of them sit in the Yangtze delta</b> — Zhejiang, Jiangsu and
+        Shanghai — which is half of China's total and 28% of the whole index inside one
+        river basin.</p>
     </figure>
   </div>
   <p class="caveat" id="mapNote"></p>
@@ -522,12 +530,33 @@ function makeMap(svg, labels, ctrls, rows, baseR) {
   const view = {...base};
   const MAXZ = 12;
 
+  /* A flat disc at 50% opacity turns to mud where two overlap. A radial fade
+     reads as one mark with a centre, and stacks without muddying. */
+  const uid = svg.id;
+  const defs = svg.appendChild(el('defs', {}));
+  [['o', '#FF7A00'], ['b', '#1E48D8']].forEach(([k, col]) => {
+    const g = defs.appendChild(el('radialGradient', {id: uid + k}));
+    [[0, .95], [.60, .76], [1, .12]].forEach(([off, op]) =>
+      g.appendChild(el('stop', {offset: off, 'stop-color': col, 'stop-opacity': op})));
+  });
+
   (window.WORLD_PATHS || []).forEach(d => svg.appendChild(el('path', {class: 'land', d})));
 
   const sorted = [...rows].sort((a, b) => b.c - a.c);
   const bubbles = new Map();
+  const rings = new Map();
   sorted.slice().reverse().forEach(p => {
-    const c = el('circle', {class: 'bub' + (p.co === 'China' ? ' cn' : ''),
+    const china = p.lv === 'country' && p.n === 'China';
+    /* China is the centre of this industry and the map should say so before
+       the caption does: a second ring, held outside the disc. */
+    if (china) {
+      const ring = el('circle', {class: 'ring', cx: p.x, cy: p.y});
+      svg.appendChild(ring);
+      rings.set(p, ring);
+    }
+    const c = el('circle', {
+      class: 'bub' + (p.co === 'China' ? ' cn' : '') + (china ? ' hub' : ''),
+      fill: 'url(#' + uid + (p.co === 'China' ? 'b' : 'o') + ')',
       cx: p.x, cy: p.y, role: 'button', tabindex: '0', 'aria-pressed': 'false',
       'data-k': p.n + '|' + p.lv});
     c.appendChild(el('title', {})).textContent =
@@ -554,7 +583,13 @@ function makeMap(svg, labels, ctrls, rows, baseR) {
     /* Radius is set in user units but held constant on screen, so zooming in
        separates neighbours instead of inflating them. */
     const k = view.w / base.w;
-    bubbles.forEach((c, p) => c.setAttribute('r', (Math.sqrt(p.c) * baseR * k).toFixed(2)));
+    bubbles.forEach((c, p) =>
+      c.setAttribute('r', (Math.max(baseR * 2, Math.sqrt(p.c) * baseR) * k).toFixed(2)));
+    rings.forEach((ring, p) => {
+      ring.setAttribute('r', (Math.sqrt(p.c) * baseR * k * 1.42).toFixed(2));
+      ring.setAttribute('stroke-width', (0.9 * k).toFixed(2));
+      ring.setAttribute('stroke-dasharray', (2.4 * k).toFixed(2) + ' ' + (2.1 * k).toFixed(2));
+    });
 
     const box = svg.getBoundingClientRect();
     const px = box.width / view.w;
