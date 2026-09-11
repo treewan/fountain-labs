@@ -202,6 +202,22 @@ DISPUTED = set()
 # Of the two rows published for this company, only one ticker can be right.
 DROP = {("Shijie Technology", "300476.SZ")}
 
+# Checked against the listings and removed: the index carries them as humanoid
+# suppliers and neither stands up.
+#
+# 福瑞股份 300049.SZ is Inner Mongolia Furui Medical Technology, a liver-disease
+# diagnostics and pharmaceutical company. The index files it under Sensors with
+# Tesla as a buyer; its own English name in the source is "Furi Medical".
+#
+# 300904.SZ is 威力传动, Yinchuan Weili Transmission — the source writes 全力传动,
+# one character out. It does make reducers, but its disclosed business is wind
+# power yaw and pitch reducers and EV drive assemblies, and it appears in no
+# humanoid supplier coverage.
+REMOVED = {
+    ("Furi Medical", "300049.SZ"),
+    ("Power Transmission", "300904.SZ"),
+}
+
 
 def ticker(t):
     """002126 CH and 300709 SZ are the same thing as 002126.SZ; normalise."""
@@ -216,11 +232,14 @@ def ticker(t):
 
 
 def main():
-    seen, rows, dropped, dupes = set(), [], 0, 0
+    seen, rows, dropped, dupes, removed = set(), [], 0, 0, 0
     for en, cn, cat, city, yr, stk, cu in INDEX:
         stk = ticker(stk)
         if (en, stk) in DROP:
             dropped += 1
+            continue
+        if (en, stk) in REMOVED:
+            removed += 1
             continue
         key = (en, cn, cat, stk)
         if key in seen:
@@ -298,7 +317,8 @@ def main():
           f"{len(rows) - index_rows - len(survey)} from the component guides, "
           f"{len(survey)} from the September 2026 site survey)")
     print("  countries: " + ", ".join(f"{k} {v}" for k, v in sorted(cos.items(), key=lambda x: -x[1])))
-    print(f"  dropped {dupes} exact duplicate, {dropped} contradictory row")
+    print(f"  dropped {dupes} exact duplicate, {dropped} contradictory row, "
+          f"{removed} row whose business does not match the index")
     print(f"  {len(EXTRA)} added from the analysis, {len(NOTES)} index rows annotated")
     bands = {}
     for r in rows:

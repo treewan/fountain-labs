@@ -60,8 +60,6 @@ PROVINCE = {
     "Shandong": ["Jinan"],
     "Hubei": ["Wuhan"],
     "Hunan": ["Changsha"],
-    "Ningxia": ["Yinchuan"],
-    "Inner Mongolia": ["Hohhot"],
 }
 CITY_TO_PROVINCE = {c: p for p, cities in PROVINCE.items() for c in cities}
 
@@ -72,7 +70,7 @@ AT = {
     "Fujian": (26.0, 118.3), "Shaanxi": (34.3, 108.9), "Anhui": (31.8, 117.2),
     "Sichuan": (30.6, 103.9), "Henan": (34.0, 113.6), "Hebei": (38.5, 115.5),
     "Jiangxi": (27.6, 115.9), "Shandong": (36.4, 117.0), "Hubei": (30.9, 112.3),
-    "Hunan": (27.6, 111.7), "Ningxia": (38.5, 106.2), "Inner Mongolia": (40.8, 111.7),
+    "Hunan": (27.6, 111.7),
     # Countries, for the rows that carry no city.
     "United States": (39.8, -98.6), "Germany": (51.1, 10.4), "Japan": (36.2, 138.3),
     "Switzerland": (46.8, 8.2), "Taiwan": (23.7, 121.0), "South Korea": (36.5, 127.9),
