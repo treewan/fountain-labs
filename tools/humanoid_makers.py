@@ -36,9 +36,14 @@ RESEARCH = re.compile(
     r"universit|institut|\bIIT\b|KAIST|KIST|NASA|DARPA|AIST|DLR|Roscosmos|"
     r"Naval Research|Academy of Sciences|RoMeLa|NimbRo|Waseda|Monash|Delft|"
     r"Karlsruhe|Aerospace Center|Research Center|Laborator|\bLab\b|A\*STAR|"
-    r"Innovation Center|Willow Garage|Imagineering",
+    r"Innovation Center",
     re.I,
 )
+# Matching on the name alone gets two wrong. Walt Disney Imagineering is a
+# corporate division that builds robots for its own parks and buys the parts to
+# do it; Willow Garage was a company, not a lab, whatever its output looked
+# like. Neither belongs on the research side of this filter.
+NOT_RESEARCH = {"Walt Disney Imagineering", "Willow Garage"}
 # Makers that supplier rows in the index name as a buyer, so the two halves of
 # the page can be joined. Every one of these is claimed by a row's own note.
 BUYER = {
@@ -249,7 +254,7 @@ def build():
         }
         if d:
             row["d"] = d if len(d) <= 130 else d[:127].rsplit(" ", 1)[0] + "…"
-        if RESEARCH.search(r["name"]):
+        if RESEARCH.search(r["name"]) and r["name"] not in NOT_RESEARCH:
             row["lab"] = True
         if r["slug"] in BUYER:
             row["buy"] = BUYER[r["slug"]]
