@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FOUNTAIN Ventures — the Physical AI venture platform, Silicon Valley &amp; Shenzhen</title>
+<meta name="description" content="The only Physical AI–focused startup platform in the Bay Area, dual-headquartered in Silicon Valley and Shenzhen. Two venture products on one build platform: a $200K light-touch Accelerator and a co-founder-level Venture Studio.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+@font-face{font-family:'Geist';font-style:normal;font-weight:400;font-display:swap;src:url("/_assets/9b6f5ff45b278c74.woff2") format('woff2')}
+@font-face{font-family:'Geist';font-style:normal;font-weight:500;font-display:swap;src:url("/_assets/9b6f5ff45b278c74.woff2") format('woff2')}
+@font-face{font-family:'Geist';font-style:normal;font-weight:600;font-display:swap;src:url("/_assets/9b6f5ff45b278c74.woff2") format('woff2')}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:400;font-display:swap;src:url("/_assets/23840067d1dda874.woff2") format('woff2')}
+@font-face{font-family:'Bebas Neue';font-style:normal;font-weight:400;font-display:swap;src:url("/_assets/441b026df205d289.woff2") format('woff2')}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Geist,-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans SC',sans-serif;
+  background:#FCFCFB;color:#111;-webkit-font-smoothing:antialiased}
+.mono{font-family:'Geist Mono',monospace;letter-spacing:1.5px;font-size:11px;color:#8A8A85;text-transform:uppercase}
+.wrap{max-width:1200px;margin:0 auto;padding:0 48px}
+a{color:inherit}
+
+header{position:fixed;top:0;left:0;right:0;z-index:40;padding:22px 48px;display:flex;
+  justify-content:space-between;align-items:center;font-size:13.5px;background:#FCFCFB;
+  border-bottom:1px solid #E6E6E2}
+.mark{display:flex;align-items:center;gap:12px;text-decoration:none}
+.dia{width:13px;height:13px;background:#111;transform:rotate(45deg);display:block}
+.name{font-family:'Bebas Neue',Geist,sans-serif;font-size:22px;letter-spacing:.04em;line-height:1}
+.name em{font-style:normal;color:#8A8A85}
+
+.hero{padding-top:142px;padding-bottom:88px;border-bottom:1px solid #E6E6E2}
+.h1{margin:18px 0 0;font-size:52px;line-height:1.05;font-weight:500;letter-spacing:-.035em;
+  max-width:940px;text-wrap:balance}
+.offer{margin-top:26px;padding-top:22px;border-top:1px solid #111;max-width:700px;
+  font-size:16px;line-height:1.6;color:#3A3A38;text-wrap:pretty}
+.stats{margin-top:34px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;
+  padding-top:24px;border-top:1px solid #E6E6E2}
+.stat{font-size:30px;font-weight:500;letter-spacing:-.03em;line-height:1}
+.statcap{margin-top:10px;font-size:13.5px;line-height:1.45;color:#55554F}
+
+section{padding:88px 0;border-bottom:1px solid #E6E6E2}
+.eyebrow{font-family:'Geist Mono',monospace;font-size:14px;letter-spacing:2px;color:#55554F}
+h2{margin:20px 0 0;font-size:36px;line-height:1.12;font-weight:500;letter-spacing:-.03em;
+  max-width:760px;text-wrap:balance}
+.sub{margin:18px 0 0;font-size:16px;line-height:1.65;color:#3A3A38;max-width:720px;text-wrap:pretty}
+
+/* The two products, side by side, so a founder can see which one they are. */
+.two{margin-top:40px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 44px}
+.prod{border-top:1px solid #111;padding-top:22px}
+.prod h3{margin-top:12px;font-size:26px;font-weight:500;letter-spacing:-.025em}
+.prod .lede{margin-top:14px;font-size:15px;line-height:1.6;color:#3A3A38}
+.terms{margin-top:22px;display:grid;gap:0}
+.term{display:grid;grid-template-columns:96px 1fr;gap:16px;padding:11px 0;
+  border-top:1px solid #E6E6E2;font-size:14.5px;line-height:1.45}
+.term b{font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:1.2px;color:#8A8A85;
+  font-weight:400;padding-top:3px}
+.go{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-size:15px;font-weight:500;
+  color:#1E48D8;text-decoration:none;border-bottom:1px solid rgba(30,72,216,.35);
+  transition:border-color .2s}
+.go:hover{border-color:#1E48D8}
+
+/* Three phases on one line: the programme is a route, not a list. */
+.phases{margin-top:40px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.phase{border-top:1px solid #111;padding-top:20px}
+.phase .n{font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:1.4px;color:#8A8A85}
+.phase h4{margin-top:12px;font-size:19px;font-weight:500;letter-spacing:-.02em}
+.phase .where{margin-top:6px;font-size:13.5px;color:#1E48D8}
+.phase p{margin-top:12px;font-size:14.5px;line-height:1.6;color:#3A3A38}
+.studio{margin-top:36px;padding-top:22px;border-top:1px solid #E6E6E2;font-size:15px;
+  line-height:1.65;color:#3A3A38;max-width:720px}
+.studio b{font-weight:500;color:#111}
+
+.folio{margin-top:38px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 28px}
+.co{border-top:1px solid #E6E6E2;padding:20px 0;display:flex;align-items:center;gap:16px}
+.co img{width:52px;height:52px;object-fit:contain;flex-shrink:0}
+.co .who{min-width:0}
+.co h4{font-size:17px;font-weight:500;letter-spacing:-.01em}
+.co .stage{margin-top:5px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:1.1px;
+  color:#55554F}
+
+.cta{padding:88px 0;background:#111;color:#fff;border:0}
+.cta h2{color:#fff}.cta .sub{color:rgba(255,255,255,.66)}
+.pill{display:inline-flex;align-items:center;gap:8px;margin-top:30px;padding:14px 24px;
+  background:#1E48D8;color:#fff;border-radius:999px;text-decoration:none;font-size:15px;font-weight:500}
+.pill.ghost{background:none;border:1px solid rgba(255,255,255,.35);margin-left:12px}
+.pill.ghost:hover{border-color:#fff}
+
+/* Four verticals read as prose, so two columns beat four thin ones. */
+.verts{margin-top:38px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 44px}
+.vert{border-top:1px solid #E6E6E2;padding:22px 0 24px}
+.verts>.vert:nth-child(-n+2){border-top:1px solid #111}
+.vert .n{font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:1.4px;color:#8A8A85}
+.vert h4{margin-top:10px;font-size:19px;font-weight:500;letter-spacing:-.02em}
+.vert p{margin-top:11px;font-size:14.5px;line-height:1.6;color:#3A3A38}
+
+.team{margin-top:36px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 44px}
+.ppl{border-top:1px solid #E6E6E2;padding:20px 0 0}
+.ppl h4{font-size:18px;font-weight:500;letter-spacing:-.02em}
+.ppl .role{margin-top:5px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:1.1px;color:#8A8A85}
+.ppl p{margin-top:12px;font-size:14.5px;line-height:1.6;color:#3A3A38}
+
+.note{margin-top:34px;padding-top:20px;border-top:1px solid #E6E6E2;font-size:15px;
+  line-height:1.65;color:#3A3A38;max-width:760px}
+.note b{font-weight:500;color:#111}
+.lnk{color:#1E48D8;text-decoration:none;border-bottom:1px solid rgba(30,72,216,.35)}
+
+footer{padding:34px 0 46px;font-size:12.5px;color:#8A8A85}
+footer a{color:#55554F;text-decoration:none;border-bottom:1px solid #E6E6E2}
+footer a:hover{border-color:#8A8A85}
+
+@media (max-width:900px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .two{grid-template-columns:1fr;gap:44px}
+  .phases{grid-template-columns:1fr;gap:26px}
+  .folio{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .verts{grid-template-columns:1fr}.verts>.vert:nth-child(2){border-top-color:#E6E6E2}
+  .team{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .wrap{padding:0 20px}header{padding:16px 20px}
+  .hero{padding-top:112px;padding-bottom:60px}.h1{font-size:32px}h2{font-size:26px}
+  section{padding:60px 0}.stat{font-size:26px}.prod h3{font-size:22px}
+  .folio{grid-template-columns:1fr}
+  .pill.ghost{margin-left:0;margin-top:12px}
+  .go{padding:13px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- On the standalone domain the wordmark stays and this back link is the one
+     thing that changes: point it at the main FOUNTAIN site. -->
+<header>
+  <a class="mark" href="/"><span class="dia"></span><span class="name">FOUNTAIN <em>VENTURES</em></span></a>
+  <a href="/" style="font-size:13.5px;text-decoration:none">← FOUNTAIN</a>
+</header>
+
+<div class="wrap hero">
+  <div class="mono">THE PHYSICAL AI VENTURE PLATFORM · SILICON VALLEY &amp; SHENZHEN</div>
+  <h1 class="h1">We take Physical AI companies through 0→1 — seed cheque, prototype,
+    supply chain, Demo Day.</h1>
+  <p class="offer">FOUNTAIN is the only Physical AI–focused startup platform in the Bay Area,
+    dual-headquartered in Silicon Valley and Shenzhen. Two venture products run on one shared
+    build platform: a light-touch <b style="font-weight:500;color:#111">Accelerator</b> and a
+    co-founder-level <b style="font-weight:500;color:#111">Venture Studio</b>.</p>
+
+  <div class="stats">
+    <div><div class="stat">$200K / 8%</div><div class="statcap">fixed accelerator terms</div></div>
+    <div><div class="stat">20 / year</div><div class="statcap">4 batches of 5</div></div>
+    <div><div class="stat">$1M</div><div class="statcap">cumulative studio capital, staged to EVT/DVT/PVT</div></div>
+    <div><div class="stat">500+</div><div class="statcap">factory and supply-chain partners in Shenzhen</div></div>
+  </div>
+</div>
+
+<div class="wrap"><section>
+  <div class="eyebrow">01 · TWO VENTURE PRODUCTS</div>
+  <h2>One shared build platform. Two depths of commitment.</h2>
+  <p class="sub">Both sit at seed stage, on the same 0→1 validation cycle. What changes is how
+    much of the company we take on — a platform on call, or ourselves, full-time.</p>
+
+  <div class="two">
+    <div class="prod">
+      <div class="mono">01 · ACCELERATOR · LIGHT-TOUCH</div>
+      <h3>Platform on call</h3>
+      <p class="lede">You keep the wheel. We write the first cheque, sharpen the product
+        definition, put you on the Shenzhen supply chain, and get you to a functional prototype
+        and a room of Bay Area VCs.</p>
+      <div class="terms">
+        <div class="term"><b>TERMS</b><span>$200K for 8% fixed</span></div>
+        <div class="term"><b>ENGAGEMENT</b><span>3–6 month validation sprint: SF kickoff for PMF,
+          then an immersive Shenzhen build sprint</span></div>
+        <div class="term"><b>VOLUME</b><span>20 companies a year — 4 batches × 5</span></div>
+        <div class="term"><b>OUTCOME</b><span>Functional prototype, plus Demo Day to Bay Area VCs</span></div>
+      </div>
+      <a class="go" href="/apply">Apply to the Accelerator →</a>
+    </div>
+
+    <div class="prod">
+      <div class="mono">02 · VENTURE STUDIO · DEEP-BUILD</div>
+      <h3>Co-founders, full-time</h3>
+      <p class="lede">We embed at co-founder level and build the company with you — funded
+        milestone by milestone, through pilot and mass production, until it stands on its own.</p>
+      <div class="terms">
+        <div class="term"><b>TERMS</b><span>$1M cumulative, staged tranches tied to EVT/DVT/PVT
+          milestones</span></div>
+        <div class="term"><b>ENGAGEMENT</b><span>Co-founder-level, full-time embedded, 12–18
+          months — EVT/DVT → PVT, pilot and mass production</span></div>
+        <div class="term"><b>VOLUME</b><span>Only 2–3 per capital cycle, selected from the funnel</span></div>
+        <div class="term"><b>OUTCOME</b><span>Independent Series A spin-out with a clean cap table</span></div>
+      </div>
+      <a class="go" href="/contact">Talk to the Studio →</a>
+    </div>
+  </div>
+
+  <p class="note"><b>The Studio is not a separate door.</b> Companies enter through the
+    accelerator sprint; the select few graduate into the Studio, where we stop advising and start
+    building alongside you full-time. One funnel, two depths.</p>
+</section></div>
+
+<div class="wrap"><section>
+  <div class="eyebrow">02 · THE VALIDATION CYCLE</div>
+  <h2>Define in San Francisco. Build in Shenzhen. Raise back in SF.</h2>
+  <p class="sub">Physical AI companies fail in the gap between a demo and a product that can be
+    manufactured. The sprint is built to close that gap on the ground, in the place where the
+    parts actually are.</p>
+
+  <div class="phases">
+    <div class="phase">
+      <div class="n">PHASE 1</div>
+      <h4>Kickoff for PMF</h4>
+      <div class="where">San Francisco</div>
+      <p>Product definition sharpened to a locked spec — model fit, market fit and manufacturing
+        fit settled before anyone cuts metal.</p>
+    </div>
+    <div class="phase">
+      <div class="n">PHASE 2</div>
+      <h4>Immersive build sprint</h4>
+      <div class="where">Shenzhen</div>
+      <p>Prototype delivery, supply-chain matching and manufacturing readiness, on the same
+        component base the rest of the industry sources from.</p>
+    </div>
+    <div class="phase">
+      <div class="n">PHASE 3</div>
+      <h4>Demo Day</h4>
+      <div class="where">Back in San Francisco</div>
+      <p>A production-ready product pitched to leading Bay Area VCs and growth-stage funds —
+        then on toward mass production.</p>
+    </div>
+  </div>
+
+  <p class="note"><b>Physical AI House in Shenzhen</b> anchors phase two — sampling, tooling and
+    delivery assurance across 500+ factory and supply-chain partners, with direct access to the
+    component base indexed on our <a class="lnk" href="/supply-chain">robotics supply chain
+    map</a>. Founders work alongside the sourcing team rather than emailing it.</p>
+</section></div>
+
+<div class="wrap"><section>
+  <div class="eyebrow">03 · FOUR VERTICALS</div>
+  <h2>Where we invest, and what we know how to build.</h2>
+  <p class="sub">Four sectors that share one problem — intelligence has to leave the screen and
+    survive a bill of materials.</p>
+
+  <div class="verts">
+    <div class="vert">
+      <div class="n">01</div>
+      <h4>AI Hardware &amp; Wearables — Consumer &amp; Prosumer</h4>
+      <p>AI-native consumer and pro-grade devices spanning hardware, context, models and
+        interaction: smart glasses, rings, earbuds, desktop companions, Agent Computers, cameras,
+        portable terminals — from sensor miniaturisation and on-device models to new interaction
+        paradigms.</p>
+    </div>
+    <div class="vert">
+      <div class="n">02</div>
+      <h4>Robotics &amp; Models</h4>
+      <p>Robot-first teams — service, manipulation and mobile platforms, dexterous hands
+        included — scaling from prototype to small-batch production. Model-first teams (VLA,
+        world models) building their own embodiments to close the data loop and validate
+        intelligence in the physical world.</p>
+    </div>
+    <div class="vert">
+      <div class="n">03</div>
+      <h4>Physical AI Infra</h4>
+      <p>Data engines, simulation and teleoperation, sensing and evaluation tooling. Real-world
+        data is the anchor sector: acquisition and annotation → world-model training → embodied
+        deployment, closing the loop from data to models to behaviour.</p>
+    </div>
+    <div class="vert">
+      <div class="n">04</div>
+      <h4>American Dynamism</h4>
+      <p>AI-native American brands for the reindustrialisation era — AI products serving
+        lifestyle and vertical industries, and AI-powered solutions that raise the localisation of
+        American manufacturing, pairing Bay Area product definition with world-class execution.</p>
+    </div>
+  </div>
+</section></div>
+
+<div class="wrap"><section>
+  <div class="eyebrow">04 · THE ECOSYSTEM</div>
+  <h2>Dealflow × supply chain × Demo Day.</h2>
+  <p class="sub">The platform is three things working together: where the founders come from,
+    where the hardware gets made, and who is in the room at the end.</p>
+
+  <div class="phases">
+    <div class="phase">
+      <div class="n">DEALFLOW</div>
+      <h4>US dealflow network</h4>
+      <div class="where">Bay Area</div>
+      <p>Sourcing from Stanford, Berkeley, CMU, MIT, frontier AI labs and the SF AI and robotics
+        community, anchored by a Bay Area operations hub.</p>
+    </div>
+    <div class="phase">
+      <div class="n">SUPPLY CHAIN</div>
+      <h4>Shenzhen build engine</h4>
+      <div class="where">Shenzhen</div>
+      <p>Physical AI House anchors hardware execution — 500+ factory and supply-chain partners
+        for sampling, tooling and delivery assurance.</p>
+    </div>
+    <div class="phase">
+      <div class="n">DEMO DAY</div>
+      <h4>FOUNTAIN Demo Day</h4>
+      <div class="where">Quarterly · San Francisco</div>
+      <p>Production-ready products pitched to leading Bay Area VCs and growth-stage funds — four
+        times a year, one per batch.</p>
+    </div>
+  </div>
+</section></div>
+
+<div class="wrap"><section>
+  <div class="eyebrow">05 · PORTFOLIO</div>
+  <h2>Six companies, and where each one stands.</h2>
+  <p class="sub">Stage is the build stage, not the funding stage — where the hardware actually
+    is today.</p>
+
+  <div class="folio">
+    <div class="co"><img src="/_assets/09b29c1a5f7ce9ff.jpg" alt="" loading="lazy">
+      <div class="who"><h4>Cortexa</h4><div class="stage">SHIPPING</div></div></div>
+    <div class="co"><img src="/_assets/5779d495c811ec39.svg" alt="" loading="lazy">
+      <div class="who"><h4>Mark</h4><div class="stage">SHIPPING</div></div></div>
+    <div class="co"><img src="/_assets/3d5d27edfa81ce88.svg" alt="" loading="lazy">
+      <div class="who"><h4>Sparkring</h4><div class="stage">IN MASS PRODUCTION</div></div></div>
+    <div class="co"><img src="/_assets/2277f456064f7b39.png" alt="" loading="lazy">
+      <div class="who"><h4>Banrai</h4><div class="stage">EVT</div></div></div>
+    <div class="co"><img src="/_assets/f96bf761a390d61c.png" alt="" loading="lazy">
+      <div class="who"><h4>Furemu</h4><div class="stage">DVT</div></div></div>
+    <div class="co"><img src="/_assets/d93c5e16f18cfe1d.png" alt="" loading="lazy">
+      <div class="who"><h4>Signature</h4><div class="stage">KICKOFF</div></div></div>
+  </div>
+</section></div>
+
+<div class="wrap"><section style="border:0">
+  <div class="eyebrow">06 · WHO YOU BUILD WITH</div>
+  <h2>Operators who have shipped hardware at volume.</h2>
+
+  <div class="team">
+    <div class="ppl">
+      <h4>Tree Wan</h4>
+      <div class="role">FOUNDING PARTNER · SHENZHEN × SAN FRANCISCO</div>
+      <p>Serial entrepreneur across SaaS and robotics. Shipped 1M+ robots and built businesses to
+        $1.5B+ in cumulative revenue. Previously co-founded Speedfox Robotics (acquired 2023) and
+        SEE Mobile (raised $100M+ from Sequoia, Tencent and IDG). 50+ patents.</p>
+    </div>
+    <div class="ppl">
+      <h4>Tiantian Zhang</h4>
+      <div class="role">GENERAL PARTNER · SAN FRANCISCO BAY AREA</div>
+      <p>Hardware founder and active angel investor — a decade shipping consumer hardware 0 to 1
+        at global scale. Previously co-founded Vigo Technologies (Vigo Bluetooth Headset and Vue
+        Smart Glasses). UPenn. Forbes 30 Under 30.</p>
+    </div>
+  </div>
+</section></div>
+
+<div class="cta"><div class="wrap">
+  <div class="mono" style="color:rgba(255,255,255,.5)">SEED · 0→1 · PHYSICAL AI</div>
+  <h2>Bring the product you want to exist. We will build the platform under it.</h2>
+  <p class="sub">Rolling review, four batches a year. We reply within one week with a first-call
+    invite or substantive feedback — not silence.</p>
+  <a class="pill" href="/apply">Apply to the Accelerator →</a>
+  <a class="pill ghost" href="/contact">Talk to the Studio →</a>
+</div></div>
+
+<div class="wrap"><footer>
+  FOUNTAIN · The Physical AI venture platform · Silicon Valley &amp; Shenzhen · 2026 ·
+  <a href="mailto:apply@fountainbuild.com">apply@fountainbuild.com</a>
+</footer></div>
+
+</body></html>

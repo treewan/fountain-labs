@@ -3,18 +3,49 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/eden", "destination": "/eden-factory" },
-    { "source": "/data", "destination": "/data-network" },
-    { "source": "/nora-memo", "destination": "/nora-memo.html" }
+    {
+      "source": "/ventures",
+      "destination": "/ventures.html"
+    },
+    {
+      "source": "/eden",
+      "destination": "/eden-factory"
+    },
+    {
+      "source": "/data",
+      "destination": "/data-network"
+    },
+    {
+      "source": "/nora-memo",
+      "destination": "/nora-memo.html"
+    }
   ],
   "headers": [
-    { "source": "/api/(.*)", "headers": [
-      { "key": "Cache-Control", "value": "no-store" }
-    ] },
-    { "source": "/(.*)", "headers": [
-      { "key": "X-Content-Type-Options", "value": "nosniff" },
-      { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-      { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
-    ] }
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
   ]
 }
